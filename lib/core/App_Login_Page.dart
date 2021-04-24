@@ -11,6 +11,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var _passwordVisible;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,15 +49,18 @@ class _LoginPageState extends State<LoginPage> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         labelText: 'Email',
-                        enabledBorder: OutlineInputBorder(
+                        border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50.0),
-                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50.0),
                         ),
                         labelStyle: TextStyle(
                           color: Colors.white,
                         )),
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    style: TextStyle(color: Colors.white, fontSize: 17.0),
                   ),
                 ),
                 Divider(),
@@ -59,18 +69,21 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       child: TextField(
                         keyboardType: TextInputType.text,
-                        obscureText: true,
+                        obscureText: !_passwordVisible,
                         decoration: InputDecoration(
                             labelText: 'Senha',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                borderSide: BorderSide(color: Colors.white)
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(50.0),
                             ),
                             labelStyle: TextStyle(
                               color: Colors.white,
                             )),
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        style: TextStyle(color: Colors.white, fontSize: 17.0),
                       ),
                     ),
                     Row(
@@ -78,8 +91,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         IconButton(
                             padding: EdgeInsets.all(17.0),
-                            icon: Icon(Icons.remove_red_eye),
-                            onPressed: () {})
+                            icon: Icon(_passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: (){
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            })
                       ],
                     )
                   ],
@@ -89,7 +108,9 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/recover');
+                      },
                       child: Text(
                         'Recuperar senha',
                         style: TextStyle(
@@ -155,11 +176,13 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 5.0, right: 10.0),
-                            child: Image.asset(
-                              AppImages.logo,
-                              height: 30.0,
-                              width: 30.0,
+                            padding: EdgeInsets.only(right: 5.0),
+                            child: Container(
+                              child: Image.asset(
+                                AppImages.iconGoogle,
+                                height: 45.0,
+                                width: 45.0,
+                              ),
                             ),
                           ),
                           Padding(
@@ -173,7 +196,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           )
                         ],
-                      )),
+                      )
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +217,9 @@ class _LoginPageState extends State<LoginPage> {
                       height: 50.0,
                       padding: EdgeInsets.only(top: 30.0),
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
                         color: Colors.transparent,
                         child: Text(
                           ' Cadastre-se',

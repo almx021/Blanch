@@ -59,6 +59,8 @@ flutter:
   assets:
     - images/logo_blanch-removebg-preview.png
     - images/passarinho-removebg-preview.png
+    - images/image-icon-google-removebg-preview.png
+    - images/eye-off.svg
 
 
   # For details regarding adding assets from package dependencies, see

@@ -7,18 +7,30 @@ import 'package:flutter/rendering.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../core/App_Gradients.dart';
 
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: ScopedModelDescendant<UserModel>(
         builder: (context, child, model){
-          return Stack(
+          return Form(
+              key: _formKey,
+              child: Stack(
             children: [
               Container(decoration: BoxDecoration(gradient: AppGradients.linear)),
               SingleChildScrollView(
@@ -42,7 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                     Container(
                       padding: EdgeInsets.only(top: 20.0),
-                      child: TextField(
+                      child: TextFormField(
+                        controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                             labelText: 'Email',
@@ -64,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                     Stack(
                       children: [
                         Container(
-                          child: TextField(
+                          child: TextFormField(
+                            controller: _passwordController,
                             keyboardType: TextInputType.text,
                             obscureText: true,
                             decoration: InputDecoration(
@@ -123,7 +137,14 @@ class _LoginPageState extends State<LoginPage> {
                             side: BorderSide(color: Colors.white)),
                         color: Colors.transparent,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          if(_formKey.currentState.validate()) {
+
+                            }
+                          model.signIn(
+                              email: _emailController.text,
+                              pass: _passwordController.text,
+                              onSuccess: _onSuccess,
+                              onFail: _onFail);
                         },
                         child: Text(
                           'Login',
@@ -227,9 +248,24 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               )
             ],
-          );
+              ));
         },
       )
     );
   }
-}
+
+  void _onSuccess() {
+    Navigator.pushNamed(context, '/home');
+
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text("Email ou senha inválidos!"),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(seconds: 2),
+    ));
+  }
+  }
+
+

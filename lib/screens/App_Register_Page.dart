@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       key: _scaffoldKey,
       body: ScopedModelDescendant<UserModel>(
-        builder: (context, child, model) {
+        builder: (context, child, model){
           return Form(
               key: _formKey,
             child: Stack(
@@ -261,7 +261,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               color: Colors.transparent,
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
-                                  print("AAAAAAAA");
                                   Map<String, dynamic> userData = {
                                     "name": _nameController.text,
                                     "email": _emailController.text

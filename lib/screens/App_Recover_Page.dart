@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'App_Gradients.dart';
-import 'App_Images.dart';
+import '../core/App_Gradients.dart';
+import '../core/App_Images.dart';
 
 class RecoverPage extends StatefulWidget {
   @override

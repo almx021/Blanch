@@ -14,4 +14,4 @@ Graziele Oliveira Lopes Pessoa
 
 # Link do Figma:
 
-https://www.figma.com/file/XePgdiRuKF90oyU2ZJwuOZ/Blanch?node-id=0%3A1
+https://www.figma.com/file/xXvKnKqdbJhS8Apgi9BICI/Blanch?node-id=0%3A1

@@ -15,12 +15,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  bool _passwordLoginVisible;
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  @override
+  void initState() {
+    _passwordLoginVisible = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +84,10 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           child: TextFormField(
+                            obscureText: !_passwordLoginVisible,
                             controller: _passwordController,
                             keyboardType: TextInputType.text,
-                            obscureText: true,
+                            //obscureText: true,
                             decoration: InputDecoration(
                                 labelText: 'Senha',
                                 border: OutlineInputBorder(
@@ -102,8 +109,15 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             IconButton(
                                 padding: EdgeInsets.all(17.0),
-                                icon: Icon(Icons.remove_red_eye),
-                                onPressed: () {})
+                                icon: Icon(_passwordLoginVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    _passwordLoginVisible =
+                                    !_passwordLoginVisible;
+                                  });
+                                })
                           ],
                         )
                       ],
@@ -161,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '________________  ',
+                              '_____________  ',
                               style: TextStyle(color: Colors.black, fontSize: 20.0),
                             ),
                             Text(
@@ -169,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(color: Colors.white, fontSize: 17.0),
                             ),
                             Text(
-                              '  _________________',
+                              '  ______________',
                               style: TextStyle(color: Colors.black, fontSize: 20.0),
                             ),
                           ],
@@ -192,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                               Padding(
                                 padding: EdgeInsets.only(left: 5.0, right: 10.0),
                                 child: Image.asset(
-                                  AppImages.logo,
+                                  AppImages.iconGoogle,
                                   height: 30.0,
                                   width: 30.0,
                                 ),
@@ -203,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                                   'Entrar com o google',
                                   style: TextStyle(
                                       color: Colors.black54,
-                                      fontSize: 15.0,
+                                      fontSize: 14.0,
                                       fontWeight: FontWeight.bold),
                                 ),
                               )
@@ -225,7 +239,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         Container(
-                          height: 50.0,
+                          height: 55.0,
                           padding: EdgeInsets.only(top: 30.0),
                           child: FlatButton(
                             onPressed: () {
@@ -237,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: 20.0,
+                                fontSize: 19.0,
                               ),
                             ),
                           ),

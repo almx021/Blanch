@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
                     child: Text("BLANCH",
                         style: TextStyle(
                           fontWeight: FontWeight.w100,
-                          fontSize: 60,
+                          fontSize: 50,
                           color: Colors.white,
                         )
                     )

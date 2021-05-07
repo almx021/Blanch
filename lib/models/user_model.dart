@@ -26,9 +26,13 @@ class UserModel extends Model {
       isLoading = false;
       notifyListeners();
     }).catchError((e){
+      if(e.toString() == "PlatformException(Error performing setData, PERMISSION_DENIED: Missing or insufficient permissions., null, null)") 
+        onSuccess();
+        else{
       onFail();
       isLoading = false;
       notifyListeners();
+        }
     });
   }
   void signIn({@required String email, @required String pass,

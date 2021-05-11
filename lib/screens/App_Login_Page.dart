@@ -197,7 +197,14 @@ class _LoginPageState extends State<LoginPage> {
                       BoxDecoration(borderRadius: BorderRadius.circular(50.0)),
                       child: RaisedButton(
                           color: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+
+                            model.signInWithGoogle(
+                                onSuccess: _onSuccess,
+                                onFail: _onFail
+                            );
+
+                          },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               side: BorderSide(color: Colors.white)),

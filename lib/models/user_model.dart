@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 
 class UserModel extends Model {
 
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  FirebaseUser firebaseUser;
+  User firebaseUser;
   Map<String, dynamic> userData = Map(); //Dados do usuário
 
   bool isLoading = false;
@@ -19,20 +22,20 @@ class UserModel extends Model {
     _auth.createUserWithEmailAndPassword(
         email: userData["email"],
         password: pass
-    ).then((user) async {
-      firebaseUser = user;
+    ).then((authResult) async {
+      firebaseUser = authResult.user;
       await _saveUserData(userData);
       onSuccess();
       isLoading = false;
       notifyListeners();
     }).catchError((e){
-      if(e.toString() == "PlatformException(Error performing setData, PERMISSION_DENIED: Missing or insufficient permissions., null, null)") 
+      if(e.toString() == "PlatformException(Error performing setData, PERMISSION_DENIED: Missing or insufficient permissions., null, null)")
         onSuccess();
-        else{
-      onFail();
-      isLoading = false;
-      notifyListeners();
-        }
+      else{
+        onFail();
+        isLoading = false;
+        notifyListeners();
+      }
     });
   }
   void signIn({@required String email, @required String pass,
@@ -41,8 +44,8 @@ class UserModel extends Model {
     notifyListeners();
 
     _auth.signInWithEmailAndPassword(email: email, password: pass).then(
-            (user) {
-          firebaseUser = user;
+            (authResult) {
+          firebaseUser = authResult.user;
 
           onSuccess();
           isLoading = false;
@@ -58,6 +61,14 @@ class UserModel extends Model {
 
   }
 
+  void signInWithGoogle()async{
+
+  }
+
+  void getUserGoogle()async{
+    
+  }
+
   void recoverPassword(String email){
     _auth.sendPasswordResetEmail(email: email);
 
@@ -65,7 +76,7 @@ class UserModel extends Model {
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
-    await Firestore.instance.collection("users").document(firebaseUser.uid).setData(userData);
+    await firestore.collection("users").doc(firebaseUser.uid).set(userData);
   }
 
 }

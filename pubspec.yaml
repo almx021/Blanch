@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  gradient_app_bar: ^0.0.1
+  gradient_text: ^1.0.2
   figma_theme:
   flutter:
     sdk: flutter
@@ -71,6 +73,14 @@ flutter:
     - images/passarinho-removebg-preview.png
     - images/image-icon-google-removebg-preview.png
     - images/eye-off.svg
+    - images/vector.png
+    - images/camera 5.png
+    - images/prato.png
+    - images/Tag 1.png
+    - images/Tag 2.png
+    - images/Tag 3.png
+    - images/Tag 5.png
+    - images/Tag 6.png
 
 
   # For details regarding adding assets from package dependencies, see

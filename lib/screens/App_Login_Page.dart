@@ -276,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onSuccess() {
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamed(context, '/newpost');
 
   }
 

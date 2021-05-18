@@ -8,7 +8,7 @@ import 'screens/App_Recover_Page.dart';
 import 'screens/App_Register_Page.dart';
 import 'screens/App_Splash_Page.dart';
 import 'models/user_model.dart';
-
+import 'screens/App_New_Post.dart';
 
 
 
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
             '/register': (context) => RegisterPage(),
             '/recover': (context) => RecoverPage(),
             '/home': (context) => HomePage(),
+            '/newpost': (context) => NewPost(),
           },
 
         )

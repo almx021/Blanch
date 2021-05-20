@@ -14,7 +14,6 @@ class _NewPostState extends State<NewPost> {
     return Scaffold(
       backgroundColor: Color(0xFF241C1C),
       appBar: AppBar(
-        toolbarHeight: 77,
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Row(
@@ -23,8 +22,10 @@ class _NewPostState extends State<NewPost> {
             Padding(
               padding: EdgeInsets.only(top: 30),
                 child: IconButton(
-              onPressed:() {},
-              icon: Image.asset(AppImages.vector),
+              onPressed:() {
+                Navigator.pop(context);
+              },
+              icon: Image.asset(AppImages.leftArrow),
             )
             ),
             Padding(

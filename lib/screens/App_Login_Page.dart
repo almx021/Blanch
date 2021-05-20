@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: RaisedButton(
                           color: Colors.white,
                           onPressed: () {
-
+                            model.signInWithGoogle(onSuccess: _onSuccess, onFail: _onFail);
                             model.signInWithGoogle(
                                 onSuccess: _onSuccess,
                                 onFail: _onFail
@@ -276,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onSuccess() {
-    Navigator.pushNamed(context, '/newpost');
+    Navigator.pushNamed(context, '/home');
 
   }
 

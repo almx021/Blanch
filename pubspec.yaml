@@ -73,7 +73,7 @@ flutter:
     - images/passarinho-removebg-preview.png
     - images/image-icon-google-removebg-preview.png
     - images/eye-off.svg
-    - images/vector.png
+    - images/leftArrow.png
     - images/camera 5.png
     - images/prato.png
     - images/Tag 1.png
@@ -81,6 +81,16 @@ flutter:
     - images/Tag 3.png
     - images/Tag 5.png
     - images/Tag 6.png
+    - images/Novo_Post.png
+    - images/Vector.png
+    - images/Em_alta.png
+    - images/zeroTwo.jpg
+    - images/settings.png
+    - images/chat.png
+    - images/info-circle.png
+    - images/question-octagon.png
+    - images/shield-lock.png
+    - images/Key.png
 
 
   # For details regarding adding assets from package dependencies, see

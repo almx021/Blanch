@@ -84,9 +84,9 @@ class UserModel extends Model {
 
     try{
       final GoogleSignInAccount googleSignInAccount =
-          await googleSignIn.signIn();
+      await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
+      await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication.idToken,
@@ -94,11 +94,12 @@ class UserModel extends Model {
       );
 
       final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
 
       final User user = userCredential.user;
 
       return user;
+
     } catch(error){
       return null;
     }

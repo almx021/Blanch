@@ -11,4 +11,14 @@ class AppGradients {
     3.0
   ], transform: GradientRotation(pi/2)
   ) ;
+
+  static final cleber = LinearGradient(colors: [
+    Color(0xFF241C1C),
+    Color(0xFF808080)
+  ], stops: [
+    0.0,
+    3.0
+  ], transform: GradientRotation(pi/2)
+  ) ;
+
 }

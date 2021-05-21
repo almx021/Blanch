@@ -14,7 +14,7 @@ class AppImages {
   static String get rende_muito_botao => 'images/Tag 5.png';
   static String get rapido_de_fazer_botao => 'images/Tag 6.png';
   static String get newPost => 'images/Novo_Post.png';
-  static String get notification => 'images/Vector.png';
+  static String get notification => 'images/vector.png';
   static String get emAlta => 'images/Em_alta.png';
   static String get perfilImage => 'images/zeroTwo.jpg';
   static String get settingsApp => 'images/settings.png';

@@ -1,90 +1,72 @@
+
+import 'package:appteste/screens/App_Configs_Page.dart';
+import 'package:appteste/main.dart';
 import 'package:appteste/core/App_Colors.dart';
-import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_text/gradient_text.dart';
 
-class HomePage extends StatefulWidget {
+
+
+class AtividadesPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _AtividadesPageState createState() => _AtividadesPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AtividadesPageState extends State<AtividadesPage> {
   @override
   Widget build(BuildContext context) {
+
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.backGroundApp,
-          automaticallyImplyLeading: false,
-          title: GradientText(
-            'BLANCH',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
-            gradient: AppGradients.linear,
-          ),
-          actions: [
-            Container(
-              width: 60,
-              height: 80,
-              child: FlatButton(
-                  child: Image.asset(
-                    AppImages.notification,
-                    width: size.width * .1,
-                  ),
-                  color: AppColors.backGroundApp,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/atividades');
-                  }),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.backGroundApp,
+        title: Row(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(right: 100),
+                child: IconButton(
+                  onPressed:() {
+                    Navigator.pop(context);
+                  },
+                  icon: Image.asset(AppImages.leftArrow),
+                )
             ),
-            Container(
-              width: 60,
-              height: 80,
-              child: FlatButton(
-                  child: Image.asset(
-                    AppImages.chatApp,
-                    width: size.width * .1,
-                  ),
-                  color: AppColors.backGroundApp,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
-                  }),
-            ),
-            Container(
-              width: 60,
-              height: 80,
-              child: FlatButton(
-                  child: Image.asset(
-                    AppImages.settingsApp,
-                    width: size.width * .1,
-                  ),
-                  color: AppColors.backGroundApp,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/configs');
-                  }),
-            ),
+            Text('Atividades',
+              style: TextStyle(color: Colors.white),
+            )
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SingleChildScrollView(
-                child: Stack(
-                  children: [
-                    Container(
-                      color: AppColors.backGroundApp,
-                      width: size.width,
-                      height: size.height,
-                      // child: Image.asset(AppImages.novoPost),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+      ),
+      body: Stack(
+        children: [
+          Container(decoration: BoxDecoration(color: AppColors.backGroundApp),),
 
-        // Barra Inferior:
+          /*   Container(
+              child:  Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: Colors.white38,
+                    size: 30,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Pesquisa',
+                      labelStyle: TextStyle(color: Colors.white38),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                      )
+                    ),
+                  )
+                ],
+              ),
+            ),*/
+
+
+        ],
+      ),
         bottomNavigationBar: Container(
           width: size.width,
           height: size.height * .07,
@@ -144,10 +126,10 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(150)),
                       child: Image.asset(
-                      AppImages.newPost,
-                      width: 80,
-                      height: 80,
-                    ),),
+                        AppImages.newPost,
+                        width: 80,
+                        height: 80,
+                      ),),
                     color: AppColors.backGroundApp,
                     onPressed: () {
                       Navigator.pushNamed(context, '/newpost');
@@ -178,10 +160,9 @@ class _HomePageState extends State<HomePage> {
                 width: 80,
                 height: 80,
                 child: FlatButton(
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        AppImages.perfilImage,
-                      ),
+                    child: Image.asset(
+                      AppImages.perfilImage,
+                      width: size.width * .1,
                     ),
                     color: AppColors.backGroundApp,
                     onPressed: () {}),
@@ -189,6 +170,9 @@ class _HomePageState extends State<HomePage> {
 
             ],
           ),
-        ));
+        )
+
+
+    );
   }
 }

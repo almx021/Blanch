@@ -3,6 +3,8 @@ import 'package:appteste/core/App_Images.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
 
+import '../core/App_Colors.dart';
+
 class NewPost extends StatefulWidget {
   @override
   _NewPostState createState() => _NewPostState();
@@ -12,15 +14,17 @@ class _NewPostState extends State<NewPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF241C1C),
+      backgroundColor: AppColors.backGroundApp,
       appBar: AppBar(
-        centerTitle: true,
+        backgroundColor: AppColors.backGroundApp,
+        centerTitle: false,
         automaticallyImplyLeading: false,
         title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 0),
                 child: IconButton(
               onPressed:() {
                 Navigator.pop(context);
@@ -29,7 +33,7 @@ class _NewPostState extends State<NewPost> {
             )
             ),
             Padding(
-              padding: EdgeInsets.only(left: 75.5),
+              padding: EdgeInsets.only(left: 75.5, bottom: 20),
               child: GradientText( 'BLANCH',
                 style: TextStyle(fontSize: 32,
                     height: 2.5),
@@ -39,7 +43,7 @@ class _NewPostState extends State<NewPost> {
           ]
         ),
 
-        backgroundColor: Color(0xFF241C1C),
+
       ),
       body: SingleChildScrollView(
 

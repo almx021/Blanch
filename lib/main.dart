@@ -1,3 +1,4 @@
+import 'package:appteste/screens/App_Atividades_Page.dart';
 import 'package:appteste/screens/App_Chat_Page.dart';
 import 'package:appteste/screens/App_Configs_Page.dart';
 import 'package:appteste/screens/App_Home_Page.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
             '/configs': (context) => ConfigsPage(),
             '/newpost': (context) => NewPost(),
             '/chat': (context) => ChatPage(),
+            '/atividades': (context) => AtividadesPage(),
           },
 
         )

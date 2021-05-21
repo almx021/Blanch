@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
             '/newpost': (context) => NewPost(),
             '/chat': (context) => ChatPage(),
             '/atividades': (context) => AtividadesPage(),
+
           },
 
         )

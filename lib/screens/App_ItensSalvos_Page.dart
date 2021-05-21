@@ -1,25 +1,20 @@
-
-import 'package:appteste/screens/App_Configs_Page.dart';
-import 'package:appteste/main.dart';
-import 'package:appteste/core/App_Colors.dart';
-import 'package:appteste/core/App_Images.dart';
 import 'package:flutter/material.dart';
+import '../core/App_Colors.dart';
+import '../core/App_Images.dart';
 
+class ItensSalvosPage extends StatefulWidget {
+  const ItensSalvosPage({Key key}) : super(key: key);
 
-
-class AtividadesPage extends StatefulWidget {
   @override
-  _AtividadesPageState createState() => _AtividadesPageState();
+  _ItensSalvosPageState createState() => _ItensSalvosPageState();
 }
 
-class _AtividadesPageState extends State<AtividadesPage> {
+class _ItensSalvosPageState extends State<ItensSalvosPage> {
   @override
   Widget build(BuildContext context) {
 
-
     var size = MediaQuery.of(context).size;
     var bottomNavegationBar = Container(
-
       width: size.width,
       height: size.height * .07,
       color: AppColors.backGroundApp,
@@ -142,7 +137,7 @@ class _AtividadesPageState extends State<AtividadesPage> {
                   icon: Image.asset(AppImages.leftArrow),
                 )
             ),
-            Text('Atividades',
+            Text('Itens Salvos',
               style: TextStyle(color: Colors.white),
             )
           ],
@@ -154,9 +149,8 @@ class _AtividadesPageState extends State<AtividadesPage> {
 
         ],
       ),
-        bottomNavigationBar: bottomNavegationBar,
 
-
+      bottomNavigationBar: bottomNavegationBar,
     );
   }
 }

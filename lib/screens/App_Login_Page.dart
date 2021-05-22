@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            FlatButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.pushNamed(context, '/recover');
                               },
@@ -142,61 +142,82 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         )),
                     Container(
-                      height: 70.0,
-                      width: 150.0,
                       padding: EdgeInsets.only(top: 5.0),
-                      child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.white)),
-                        color: Colors.transparent,
+                      child: TextButton(
                         onPressed: () {
                           if(_formKey.currentState.validate()) {
 
-                            }
+                          }
                           model.signIn(
                               email: _emailController.text,
                               pass: _passwordController.text,
                               onSuccess: _onSuccess,
                               onFail: _onFail);
                         },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 27.0,
-                              fontWeight: FontWeight.w500),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(color: Colors.white)
+                          ),
+                        ),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            gradient: AppGradients.linearinverso,
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          child: Container(
+                            height: 60.0,
+                            width: 160.0,
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 23.0,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )
                         ),
                       ),
                     ),
                     Divider(),
                     Container(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '_____________  ',
-                              style: TextStyle(color: Colors.black, fontSize: 20.0),
-                            ),
-                            Text(
-                              'OU',
-                              style: TextStyle(color: Colors.white, fontSize: 17.0),
-                            ),
-                            Text(
-                              '  ______________',
-                              style: TextStyle(color: Colors.black, fontSize: 20.0),
-                            ),
-                          ],
+                            children: <Widget>[
+                              Expanded(
+                                  child: Divider(
+                                      color: Colors.black,
+                                      endIndent: 20,
+                                      thickness: 1,
+                                  )
+                              ),
+
+                              Text("OU", style: TextStyle(color: Colors.white, fontSize: 17.0)),
+
+                              Expanded(
+                                  child: Divider(
+                                      color: Colors.black,
+                                      indent: 20,
+                                      thickness: 1,
+                                  )
+                              ),
+                            ]
                         )),
                     Divider(),
                     Container(
                       height: 70.0,
-                      width: 240.0,
+                      width: 210.0,
                       padding: EdgeInsets.only(top: 10.0),
                       decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(50.0)),
-                      child: RaisedButton(
-                          color: Colors.white,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                side: BorderSide(color: Colors.white)),
+                          ),
                           onPressed: () {
                             model.signInWithGoogle(onSuccess: _onSuccess, onFail: _onFail);
                             model.signInWithGoogle(
@@ -205,9 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                             );
 
                           },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                              side: BorderSide(color: Colors.white)),
+
                           child: Row(
                             children: [
                               Padding(
@@ -219,7 +238,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(right: 20.0),
+                                padding: EdgeInsets.only(right: 5.0),
                                 child: Text(
                                   'Entrar com o google',
                                   style: TextStyle(
@@ -236,33 +255,31 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(top: 30.0),
-                          child: Text(
-                            'Não tem uma conta?',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 20.0,
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Não tem uma conta? ',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 20.0,
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 4.0,
+                                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                                    offset: Offset(0, 4.0),
+                                  ),
+                                ],
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Cadastre-se',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold
+                                    )
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Container(
-                          height: 55.0,
-                          padding: EdgeInsets.only(top: 30.0),
-                          child: FlatButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/register');
-                            },
-                            color: Colors.transparent,
-                            child: Text(
-                              ' Cadastre-se',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 19.0,
-                              ),
-                            ),
-                          ),
-                        )
                       ],
                     )
                   ],
@@ -281,7 +298,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onFail() {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Email ou senha inválidos!"),
       backgroundColor: Colors.redAccent,
       duration: Duration(seconds: 2),

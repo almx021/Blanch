@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
           title: GradientText(
             'BLANCH',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
-            gradient: AppGradients.linear,
+            gradient: AppGradients.linearinverso,
           ),
           actions: [
             Container(

@@ -91,6 +91,7 @@ flutter:
     - images/question-octagon.png
     - images/shield-lock.png
     - images/Key.png
+    - images/blanchlogo.png
 
 
   # For details regarding adding assets from package dependencies, see

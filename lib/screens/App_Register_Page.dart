@@ -252,8 +252,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             Divider(),
                             Divider(),
                             Container(
-                              height: 70.0,
-                              width: 250.0,
                               padding: EdgeInsets.only(top: 5.0),
                               child: TextButton(
                                 onPressed: () {
@@ -282,6 +280,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
                                   child: Container(
+                                    height: 60.0,
+                                    width: 200.0,
                                     alignment: Alignment.center,
                                     child: Text(
                                       'Criar Conta',

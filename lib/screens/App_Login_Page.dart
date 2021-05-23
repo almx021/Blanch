@@ -28,6 +28,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
     return Scaffold(
         key: _scaffoldKey,
         body: ScopedModelDescendant<UserModel>(
@@ -127,25 +129,31 @@ class _LoginPageState extends State<LoginPage> {
                               )
                             ],
                           ),
-                          Container(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/recover');
-                                },
-                                child: Text(
-                                  'Recuperar senha',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: h*0.02),
+                            child: Container(
+                                height: h * 0.04,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/recover');
+                                      },
+                                      child: Text(
+                                        'Recuperar senha',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
                           Container(
                             padding: EdgeInsets.only(top: 5.0),
                             child: TextButton(
@@ -165,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               child: Ink(
                                   decoration: BoxDecoration(
-                                    gradient: AppGradients.linearinverso,
+                                    gradient: AppGradients.linearteste,
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
                                   child: Container(
@@ -182,29 +190,31 @@ class _LoginPageState extends State<LoginPage> {
                                   )),
                             ),
                           ),
-                          Divider(),
-                          Container(
-                              child: Row(children: <Widget>[
-                            Expanded(
-                                child: Divider(
-                              color: Colors.black,
-                              endIndent: 20,
-                              thickness: 1,
-                            )),
-                            Text("OU",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 17.0)),
-                            Expanded(
-                                child: Divider(
-                              color: Colors.black,
-                              indent: 20,
-                              thickness: 1,
-                            )),
-                          ])),
-                          Divider(),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: h * 0.06, bottom: h * 0.03),
+                            child: Container(
+                                child: Row(children: <Widget>[
+                              Expanded(
+                                  child: Divider(
+                                color: Colors.black,
+                                endIndent: 20,
+                                thickness: 1,
+                              )),
+                              Text("OU",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 17.0)),
+                              Expanded(
+                                  child: Divider(
+                                color: Colors.black,
+                                indent: 20,
+                                thickness: 1,
+                              )),
+                            ])),
+                          ),
                           Container(
                             height: 70.0,
-                            width: 210.0,
+                            width: 221.0,
                             padding: EdgeInsets.only(top: 10.0),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50.0)),
@@ -222,6 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                                       onSuccess: _onSuccess, onFail: _onFail);
                                 },
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(
@@ -249,7 +260,12 @@ class _LoginPageState extends State<LoginPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(top: 30.0),
+                                padding: EdgeInsets.only(top: 90.0),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/register");
+                                },
                                 child: RichText(
                                   text: TextSpan(
                                     text: 'Não tem uma conta? ',

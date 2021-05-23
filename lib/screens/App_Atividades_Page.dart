@@ -1,11 +1,8 @@
-
 import 'package:appteste/screens/App_Configs_Page.dart';
 import 'package:appteste/main.dart';
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:flutter/material.dart';
-
-
 
 class AtividadesPage extends StatefulWidget {
   @override
@@ -15,11 +12,8 @@ class AtividadesPage extends StatefulWidget {
 class _AtividadesPageState extends State<AtividadesPage> {
   @override
   Widget build(BuildContext context) {
-
-
     var size = MediaQuery.of(context).size;
     var bottomNavegationBar = Container(
-
       width: size.width,
       height: size.height * .07,
       color: AppColors.backGroundApp,
@@ -78,7 +72,7 @@ class _AtividadesPageState extends State<AtividadesPage> {
             child: FlatButton(
                 child: Container(
                   decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(150)),
+                      BoxDecoration(borderRadius: BorderRadius.circular(150)),
                   child: Image.asset(
                     AppImages.newPost,
                     width: 80,
@@ -129,34 +123,26 @@ class _AtividadesPageState extends State<AtividadesPage> {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.backGroundApp,
-        title: Row(
-          children: [
-            Padding(
-                padding: EdgeInsets.only(right: 100),
-                child: IconButton(
-                  onPressed:() {
-                    Navigator.pop(context);
-                  },
-                  icon: Image.asset(AppImages.leftArrow),
-                )
-            ),
-            Text('Atividades',
-              style: TextStyle(color: Colors.white),
-            )
-          ],
-        ),
-      ),
+          automaticallyImplyLeading: false,
+          backgroundColor: AppColors.backGroundApp,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset(AppImages.leftArrow),
+          ),
+          title: Text(
+            'Atividades',
+            style: TextStyle(color: Colors.white),
+          )),
       body: Stack(
         children: [
-          Container(decoration: BoxDecoration(color: AppColors.backGroundApp),),
-
+          Container(
+            decoration: BoxDecoration(color: AppColors.backGroundApp),
+          ),
         ],
       ),
-        bottomNavigationBar: bottomNavegationBar,
-
-
+      bottomNavigationBar: bottomNavegationBar,
     );
   }
 }

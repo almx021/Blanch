@@ -122,22 +122,15 @@ class _ConfigsPageState extends State<ConfigsPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.backGroundApp,
-        title: Row(
-          children: [
-            Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: IconButton(
-                  onPressed:() {
-                    Navigator.pop(context);
-                  },
-                  icon: Image.asset(AppImages.leftArrow),
-                )
-            ),
-          Text('Configurações',
+        leading: IconButton(
+          onPressed:() {
+            Navigator.pop(context);
+          },
+          icon: Image.asset(AppImages.leftArrow),
+        ),
+        title: Text('Configurações',
             style: TextStyle(color: Colors.white),
           )
-          ],
-        ),
       ),
       body: Stack(
         children: [

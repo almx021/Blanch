@@ -115,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   IconButton(
+                                      color: Color.fromRGBO(1, 1, 1, 0.35),
                                       padding: EdgeInsets.all(17.0),
                                       icon: Icon(_passwordLoginVisible
                                           ? Icons.visibility

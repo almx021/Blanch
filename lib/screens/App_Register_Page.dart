@@ -184,6 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     IconButton(
+                                        color: Color.fromRGBO(1, 1, 1, 0.35),
                                         padding: EdgeInsets.all(17.0),
                                         icon: Icon(_passwordRegisterVisible1
                                             ? Icons.visibility
@@ -235,6 +236,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     IconButton(
+                                        color: Color.fromRGBO(1, 1, 1, 0.35),
                                         padding: EdgeInsets.all(17.0),
                                         icon: Icon(_passwordRegisterVisible2
                                             ? Icons.visibility

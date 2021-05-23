@@ -80,7 +80,7 @@ class _RecoverPageState extends State<RecoverPage> {
                         Padding(
                           padding: EdgeInsets.only(top: 70.0),
                           child: Text(
-                            'informe o email da sua conta',
+                            'Informe o email da sua conta',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -117,14 +117,8 @@ class _RecoverPageState extends State<RecoverPage> {
                         Divider(),
 
                         Container(
-                          height: 70.0,
-                          width: 150.0,
                           padding: EdgeInsets.only(top: 5.0),
-                          child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                side: BorderSide(color: Colors.white)),
-                            color: Colors.transparent,
+                          child: TextButton(
                             onPressed: () {
                               if(_emailController.text.isEmpty) {
                                 _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -142,13 +136,29 @@ class _RecoverPageState extends State<RecoverPage> {
                                 ));
                               }
                             },
-                            child: Text(
-                              'Enviar',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 27.0,
-                                  fontWeight: FontWeight.w500),
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  side: BorderSide(color: Colors.white)),
                             ),
+                            child: Ink(
+                                decoration: BoxDecoration(
+                                  gradient: AppGradients.linearteste,
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                child: Container(
+                                  height: 60.0,
+                                  width: 160.0,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Enviar',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 23.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                )),
                           ),
                         ),
 

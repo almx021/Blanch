@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                                   color: Colors.white, fontSize: 15.0),
                             ),
                           ),
-                          Divider(),
+                          Divider(color: Colors.transparent),
                           Stack(
                             children: [
                               Container(

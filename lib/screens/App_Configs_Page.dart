@@ -2,6 +2,7 @@ import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/screens/App_Home_Page.dart';
 import 'package:flutter/material.dart';
+import 'package:appteste/core/App_Gradients.dart';
 
 class ConfigsPage extends StatefulWidget {
   @override
@@ -11,7 +12,6 @@ class ConfigsPage extends StatefulWidget {
 class _ConfigsPageState extends State<ConfigsPage> {
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
     var bottomNavegationBar = Container(
       width: size.width,
@@ -20,13 +20,12 @@ class _ConfigsPageState extends State<ConfigsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Column(
             children: [
               Container(
                 width: 80,
                 height: 20,
-                child:  IconButton(
+                child: IconButton(
                   icon: Icon(
                     Icons.home_filled,
                     color: Colors.white,
@@ -37,7 +36,8 @@ class _ConfigsPageState extends State<ConfigsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text('Home',
+                child: Text(
+                  'Home',
                   style: TextStyle(fontSize: 15, color: Colors.white),
                 ),
               )
@@ -59,7 +59,8 @@ class _ConfigsPageState extends State<ConfigsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 17),
-                child: Text('Pesquisa',
+                child: Text(
+                  'Pesquisa',
                   style: TextStyle(fontSize: 13, color: Colors.white38),
                 ),
               )
@@ -70,12 +71,14 @@ class _ConfigsPageState extends State<ConfigsPage> {
             height: 80,
             child: FlatButton(
                 child: Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(150)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(150)),
                   child: Image.asset(
                     AppImages.newPost,
                     width: 80,
                     height: 80,
-                  ),),
+                  ),
+                ),
                 color: AppColors.backGroundApp,
                 onPressed: () {
                   Navigator.pushNamed(context, '/newpost');
@@ -96,7 +99,8 @@ class _ConfigsPageState extends State<ConfigsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 0),
-                child: Text('Em alta',
+                child: Text(
+                  'Em alta',
                   style: TextStyle(fontSize: 12, color: Colors.white38),
                 ),
               )
@@ -113,201 +117,214 @@ class _ConfigsPageState extends State<ConfigsPage> {
                 color: AppColors.backGroundApp,
                 onPressed: () {}),
           ),
-
         ],
       ),
-    )  ;
+    );
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.backGroundApp,
-        leading: IconButton(
-          onPressed:() {
-            Navigator.pop(context);
-          },
-          icon: Image.asset(AppImages.leftArrow),
-        ),
-        title: Text('Configurações',
+          automaticallyImplyLeading: false,
+          backgroundColor: AppColors.backGroundApp,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset(AppImages.leftArrow),
+          ),
+          title: Text(
+            'Configurações',
             style: TextStyle(color: Colors.white),
-          )
-      ),
+          )),
       body: Stack(
         children: [
-          Container(decoration: BoxDecoration(color: AppColors.backGroundApp),),
-
-              Column(
-                children: [
-                  Padding(padding: EdgeInsets.only(top: 64)),
-                  Container(
-                    width: size.width,
-                    height: 80,
-                    child: FlatButton(
-                        child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: 15),
-                            child: Row(
-                                children: [
-
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 20),
-                                    child: Image.asset(AppImages.notification),
-                                  ),
-                                  Text(
-                                    'Notificação',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-                                ]
+          Container(
+            decoration: BoxDecoration(color: AppColors.backGroundApp),
+          ),
+          Column(
+            children: [
+              Padding(padding: EdgeInsets.only(top: 64)),
+              Container(
+                width: size.width,
+                height: 80,
+                child: FlatButton(
+                    child: Container(
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: Row(children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Image.asset(AppImages.notification),
+                          ),
+                          Text(
+                            'Notificação',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
                             ),
                           ),
+                        ]),
+                      ),
+                    ),
+                    color: AppColors.backGroundApp,
+                    onPressed: () {}),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 15),
+                child: Container(
+                  width: size.width,
+                  height: 80,
+                  child: FlatButton(
+                      child: Row(children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 20),
+                          child: Image.asset(AppImages.privacy),
                         ),
-                        color: AppColors.backGroundApp,
-                        onPressed: () {}),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                    child: Container(
-                      width: size.width,
-                      height: 80,
-                      child: FlatButton(
-                          child: Row(
-                              children: [
-
-                                Padding(
-                                  padding: EdgeInsets.only(right: 20),
-                                  child: Image.asset(AppImages.privacy),
-                                ),
-                                Text(
-                                  'Privacidade',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-
-                              ]
-                          ),
-                          color: AppColors.backGroundApp,
-                          onPressed: () {}),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                    child: Container(
-                      width: size.width,
-                      height: 80,
-                      child: FlatButton(
-                          child: Row(
-                              children: [
-
-                                Padding(
-                                  padding: EdgeInsets.only(right: 20),
-                                  child: Image.asset(AppImages.security),
-                                ),
-
-                                Text(
-                                  'Segurança',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-
-                              ]
-                          ),
-                          color: AppColors.backGroundApp,
-                          onPressed: () {}),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                    child: Container(
-                      width: size.width,
-                      height: 80,
-                      child: FlatButton(
-                          child: Row(
-                              children: [
-
-                                Padding(
-                                  padding: EdgeInsets.only(right: 20),
-                                  child: Image.asset(AppImages.help),
-                                ),
-                                Text(
-                                  'Ajuda',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-
-                              ]
-                          ),
-                          color: AppColors.backGroundApp,
-                          onPressed: () {}),
-                    ),
-                  ),
-                  Container(
-                    width: size.width,
-                    height: 80,
-                    child: FlatButton(
-                        child: Row(
-                            children: [
-
-                              Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: Image.asset(AppImages.sobre),
-                              ),
-
-                              Text(
-                                'Sobre',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-
-                            ]
-                        ),
-                        color: AppColors.backGroundApp,
-                        onPressed: () {}),
-                  ),
-
-                  Padding(padding: EdgeInsets.only(top: 64)),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '');
-                        },
-                        child: Text(
-                          'Sair da Conta',
+                        Text(
+                          'Privacidade',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blueAccent,
-                            fontSize: 17.0,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
                           ),
+                        ),
+                      ]),
+                      color: AppColors.backGroundApp,
+                      onPressed: () {}),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 15),
+                child: Container(
+                  width: size.width,
+                  height: 80,
+                  child: FlatButton(
+                      child: Row(children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 20),
+                          child: Image.asset(AppImages.security),
+                        ),
+                        Text(
+                          'Segurança',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]),
+                      color: AppColors.backGroundApp,
+                      onPressed: () {}),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 15),
+                child: Container(
+                  width: size.width,
+                  height: 80,
+                  child: FlatButton(
+                      child: Row(children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 20),
+                          child: Image.asset(AppImages.help),
+                        ),
+                        Text(
+                          'Ajuda',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]),
+                      color: AppColors.backGroundApp,
+                      onPressed: () {}),
+                ),
+              ),
+              Container(
+                width: size.width,
+                height: 80,
+                child: FlatButton(
+                    child: Row(children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 20),
+                        child: Image.asset(AppImages.sobre),
+                      ),
+                      Text(
+                        'Sobre',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
                         ),
                       ),
-                    ],
-                  )
-                ],
+                    ]),
+                    color: AppColors.backGroundApp,
+                    onPressed: () {}),
               ),
-
+              Padding(padding: EdgeInsets.only(top: 64)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0))),
+                              backgroundColor: Color.fromRGBO(39, 39, 39, 1),
+                              title: Text('Desconectar', style: TextStyle(color: Colors.white)),
+                              content: Text(
+                                  'Tem certeza que deseja se desconectar?',
+                                  style: TextStyle(color: Colors.grey)),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, 'Cancelar');
+                                    },
+                                    child: ShaderMask(
+                                      shaderCallback: (Rect rect) {
+                                        return (AppGradients.linearteste)
+                                            .createShader(rect);
+                                      },
+                                      child: Text('Cancelar', style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),),
+                                    ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, 'Sim');
+                                    },
+                                    child: ShaderMask(
+                                      shaderCallback: (Rect rect) {
+                                        return (AppGradients.linearteste)
+                                            .createShader(rect);
+                                      },
+                                      child: Text('Sim', style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),),
+                                    ),
+                                )
+                              ],
+                            );
+                          });
+                    },
+                    child: Text(
+                      'Sair da Conta',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.blueAccent,
+                        fontSize: 17.0,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ],
       ),
-
-        bottomNavigationBar: bottomNavegationBar,
+      bottomNavigationBar: bottomNavegationBar,
     );
   }
 }

@@ -20,8 +20,7 @@ class AppImages {
   static String get settingsApp => 'images/settings.png';
   static String get chatApp => 'images/chat.png';
 
-  static String get privacy => 'images/Key.png';
   static String get sobre => 'images/info-circle.png';
   static String get help => 'images/question-octagon.png';
-  static String get security => 'images/shield-lock.png';
+  static String get account => 'images/conta.png';
 }

@@ -134,9 +134,9 @@ class _ConfigsPageState extends State<ConfigsPage> {
       ),
       body: Stack(
         children: [
-          Container(decoration: BoxDecoration(color: AppColors.backGroundApp),),
-
-              Column(
+          Container(decoration: BoxDecoration(color: AppColors.backGroundApp)),
+          SingleChildScrollView(
+              child: Column(
                 children: [
                   Padding(padding: EdgeInsets.only(top: 64)),
                   Container(
@@ -167,7 +167,9 @@ class _ConfigsPageState extends State<ConfigsPage> {
                           ),
                         ),
                         color: AppColors.backGroundApp,
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/notificacoes');
+                        }),
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 15),
@@ -180,50 +182,23 @@ class _ConfigsPageState extends State<ConfigsPage> {
 
                                 Padding(
                                   padding: EdgeInsets.only(right: 20),
-                                  child: Image.asset(AppImages.privacy),
+                                  child: Image.asset(AppImages.account),
                                 ),
+
                                 Text(
-                                  'Privacidade',
+                                  'Conta',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white,
                                   ),
                                 ),
-
                               ]
                           ),
                           color: AppColors.backGroundApp,
-                          onPressed: () {}),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                    child: Container(
-                      width: size.width,
-                      height: 80,
-                      child: FlatButton(
-                          child: Row(
-                              children: [
-
-                                Padding(
-                                  padding: EdgeInsets.only(right: 20),
-                                  child: Image.asset(AppImages.security),
-                                ),
-
-                                Text(
-                                  'Segurança',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-
-                              ]
-                          ),
-                          color: AppColors.backGroundApp,
-                          onPressed: () {}),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/conta');
+                          }),
                     ),
                   ),
                   Padding(
@@ -251,7 +226,9 @@ class _ConfigsPageState extends State<ConfigsPage> {
                               ]
                           ),
                           color: AppColors.backGroundApp,
-                          onPressed: () {}),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/ajuda');
+                          }),
                     ),
                   ),
                   Container(
@@ -278,7 +255,9 @@ class _ConfigsPageState extends State<ConfigsPage> {
                             ]
                         ),
                         color: AppColors.backGroundApp,
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/sobre');
+                        }),
                   ),
 
                   Padding(padding: EdgeInsets.only(top: 64)),
@@ -295,7 +274,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blueAccent,
-                            fontSize: 17.0,
+                            fontSize: 15.0,
                           ),
                         ),
                       ),
@@ -303,7 +282,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
                   )
                 ],
               ),
-
+              ),
         ],
       ),
 

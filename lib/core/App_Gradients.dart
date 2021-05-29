@@ -23,6 +23,10 @@ class AppGradients {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter
   );
+
+  static final grey = LinearGradient(
+    colors:[Color.fromRGBO(39, 39, 39, 1), Color.fromRGBO(39, 39, 39, 1)]
+  );
 }
 
 

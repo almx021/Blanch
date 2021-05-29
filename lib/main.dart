@@ -4,6 +4,7 @@ import 'package:appteste/screens/App_Configs_Page.dart';
 import 'package:appteste/screens/App_Home_Page.dart';
 import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:appteste/screens/App_New_Post.dart';
+import 'package:appteste/screens/App_Mensagens_Page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
             '/newpost': (context) => NewPost(),
             '/chat': (context) => ChatPage(),
             '/atividades': (context) => AtividadesPage(),
-
+            '/mensagens': (context) => MensagemPage()
           },
 
         )

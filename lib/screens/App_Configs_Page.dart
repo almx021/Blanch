@@ -11,7 +11,6 @@ class ConfigsPage extends StatefulWidget {
 class _ConfigsPageState extends State<ConfigsPage> {
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
     var bottomNavegationBar = Container(
       width: size.width,
@@ -20,13 +19,12 @@ class _ConfigsPageState extends State<ConfigsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Column(
             children: [
               Container(
                 width: 80,
                 height: 20,
-                child:  IconButton(
+                child: IconButton(
                   icon: Icon(
                     Icons.home_filled,
                     color: Colors.white,
@@ -37,7 +35,8 @@ class _ConfigsPageState extends State<ConfigsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Text('Home',
+                child: Text(
+                  'Home',
                   style: TextStyle(fontSize: 15, color: Colors.white),
                 ),
               )
@@ -59,7 +58,8 @@ class _ConfigsPageState extends State<ConfigsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 17),
-                child: Text('Pesquisa',
+                child: Text(
+                  'Pesquisa',
                   style: TextStyle(fontSize: 13, color: Colors.white38),
                 ),
               )
@@ -70,12 +70,14 @@ class _ConfigsPageState extends State<ConfigsPage> {
             height: 80,
             child: FlatButton(
                 child: Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(150)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(150)),
                   child: Image.asset(
                     AppImages.newPost,
                     width: 80,
                     height: 80,
-                  ),),
+                  ),
+                ),
                 color: AppColors.backGroundApp,
                 onPressed: () {
                   Navigator.pushNamed(context, '/newpost');
@@ -96,7 +98,8 @@ class _ConfigsPageState extends State<ConfigsPage> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 0),
-                child: Text('Em alta',
+                child: Text(
+                  'Em alta',
                   style: TextStyle(fontSize: 12, color: Colors.white38),
                 ),
               )
@@ -113,29 +116,30 @@ class _ConfigsPageState extends State<ConfigsPage> {
                 color: AppColors.backGroundApp,
                 onPressed: () {}),
           ),
-
         ],
       ),
-    )  ;
+    );
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.backGroundApp,
-        leading: IconButton(
-          onPressed:() {
-            Navigator.pop(context);
-          },
-          icon: Image.asset(AppImages.leftArrow),
-        ),
-        title: Text('Configurações',
+          automaticallyImplyLeading: false,
+          backgroundColor: AppColors.backGroundApp,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset(AppImages.leftArrow),
+          ),
+          title: Text(
+            'Configurações',
             style: TextStyle(color: Colors.white),
-          )
-      ),
+          )),
       body: Stack(
         children: [
           Container(decoration: BoxDecoration(color: AppColors.backGroundApp)),
           SingleChildScrollView(
+            child: Align(
+              alignment: Alignment.centerLeft,
               child: Column(
                 children: [
                   Padding(padding: EdgeInsets.only(top: 64)),
@@ -146,24 +150,20 @@ class _ConfigsPageState extends State<ConfigsPage> {
                         child: Container(
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 15),
-                            child: Row(
-                                children: [
-
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 20),
-                                    child: Image.asset(AppImages.notification),
-                                  ),
-                                  Text(
-                                    'Notificação',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-                                ]
-                            ),
+                            child: Row(children: [
+                              Padding(
+                                padding: EdgeInsets.only(right: 20),
+                                child: Image.asset(AppImages.notification),
+                              ),
+                              Text(
+                                'Notificação',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ]),
                           ),
                         ),
                         color: AppColors.backGroundApp,
@@ -177,24 +177,22 @@ class _ConfigsPageState extends State<ConfigsPage> {
                       width: size.width,
                       height: 80,
                       child: FlatButton(
-                          child: Row(
-                              children: [
-
-                                Padding(
-                                  padding: EdgeInsets.only(right: 20),
-                                  child: Image.asset(AppImages.account),
-                                ),
-
-                                Text(
-                                  'Conta',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ]
-                          ),
+                          child: Row(children: [
+                            Align(
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 15, top: 9.0),
+                                child: Image.asset(AppImages.account),
+                              ),
+                            ),
+                            Text(
+                              'Conta',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ]),
                           color: AppColors.backGroundApp,
                           onPressed: () {
                             Navigator.pushNamed(context, '/conta');
@@ -207,24 +205,20 @@ class _ConfigsPageState extends State<ConfigsPage> {
                       width: size.width,
                       height: 80,
                       child: FlatButton(
-                          child: Row(
-                              children: [
-
-                                Padding(
-                                  padding: EdgeInsets.only(right: 20),
-                                  child: Image.asset(AppImages.help),
-                                ),
-                                Text(
-                                  'Ajuda',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-
-                              ]
-                          ),
+                          child: Row(children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 20),
+                              child: Image.asset(AppImages.help),
+                            ),
+                            Text(
+                              'Ajuda',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ]),
                           color: AppColors.backGroundApp,
                           onPressed: () {
                             Navigator.pushNamed(context, '/ajuda');
@@ -235,33 +229,26 @@ class _ConfigsPageState extends State<ConfigsPage> {
                     width: size.width,
                     height: 80,
                     child: FlatButton(
-                        child: Row(
-                            children: [
-
-                              Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: Image.asset(AppImages.sobre),
-                              ),
-
-                              Text(
-                                'Sobre',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-
-                            ]
-                        ),
+                        child: Row(children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Image.asset(AppImages.sobre),
+                          ),
+                          Text(
+                            'Sobre',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]),
                         color: AppColors.backGroundApp,
                         onPressed: () {
                           Navigator.pushNamed(context, '/sobre');
                         }),
                   ),
-
                   Padding(padding: EdgeInsets.only(top: 64)),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -282,11 +269,11 @@ class _ConfigsPageState extends State<ConfigsPage> {
                   )
                 ],
               ),
-              ),
+            ),
+          ),
         ],
       ),
-
-        bottomNavigationBar: bottomNavegationBar,
+      bottomNavigationBar: bottomNavegationBar,
     );
   }
 }

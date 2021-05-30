@@ -97,21 +97,25 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   Container(
+                    padding: EdgeInsets.only(top: 5),
                     width: 80,
-                    height: 20,
-                    child:  IconButton(
-                      icon: Icon(
-                        Icons.home_filled,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                      onPressed: () {},
-                    ),
+                    height: 35,
+                    child:   FlatButton(
+                        child: Container(
+                          child: Icon(
+                            Icons.home_filled,
+                            color: Colors.white,
+                            size: 30,
+                          ),),
+                        color: AppColors.backGroundApp,
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/home');
+                        }),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 15),
+                    padding: EdgeInsets.only(top: 2),
                     child: Text('Home',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      style: TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   )
                 ],
@@ -133,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(top: 17),
                     child: Text('Pesquisa',
-                      style: TextStyle(fontSize: 13, color: Colors.white38),
+                      style: TextStyle(fontSize: 12, color: Colors.white38),
                     ),
                   )
                 ],
@@ -162,13 +166,17 @@ class _HomePageState extends State<HomePage> {
                     child: FlatButton(
                         child: Image.asset(
                           AppImages.emAlta,
-                          width: size.width * .1,
+                          width: 80,
+                          height: 80,
+                          //width: size.width * .1,
                         ),
                         color: AppColors.backGroundApp,
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/emAlta');
+                        }),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 0),
+                    padding: EdgeInsets.only(top: 2),
                     child: Text('Em alta',
                       style: TextStyle(fontSize: 12, color: Colors.white38),
                     ),
@@ -185,7 +193,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     color: AppColors.backGroundApp,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/perfil');
+                    }),
               ),
 
             ],

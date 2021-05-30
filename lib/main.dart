@@ -1,11 +1,12 @@
 import 'package:appteste/screens/App_Atividades_Page.dart';
 import 'package:appteste/screens/App_Chat_Page.dart';
 import 'package:appteste/screens/App_Configs_Page.dart';
+import 'package:appteste/screens/App_EmAlta_Page.dart';
 import 'package:appteste/screens/App_Home_Page.dart';
 import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:appteste/screens/App_New_Password_Page.dart';
-//import 'package:appteste/screens/teste.dart';
 import 'package:appteste/screens/App_New_Post.dart';
+import 'package:appteste/screens/App_Perfil_Page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,9 @@ class MyApp extends StatelessWidget {
             '/conta': (context) => AccountPage(),
             '/notificacoes': (context) => NotificationsPage(),
             '/ajuda': (context) => HelpPage(),
-            '/mensagens': (context) => MensagemPage()
+            '/mensagens': (context) => MensagemPage(),
+            '/emAlta': (context) => EmAltaPage(),
+            '/perfil': (context) => PerfilPage()
           },
         ));
   }

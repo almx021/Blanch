@@ -11,7 +11,6 @@ class RecoverPage extends StatefulWidget {
 }
 
 class _RecoverPageState extends State<RecoverPage> {
-
   final _emailController = TextEditingController();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -19,12 +18,13 @@ class _RecoverPageState extends State<RecoverPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      body: ScopedModelDescendant<UserModel>(
-        builder: (context, child, model){
+        key: _scaffoldKey,
+        body:
+            ScopedModelDescendant<UserModel>(builder: (context, child, model) {
           return Stack(
             children: [
-              Container(decoration: BoxDecoration(gradient: AppGradients.linear)),
+              Container(
+                  decoration: BoxDecoration(gradient: AppGradients.linear)),
               SingleChildScrollView(
                 padding: EdgeInsets.fromLTRB(15.0, 60.0, 15.0, 0.0),
                 child: Column(
@@ -60,9 +60,7 @@ class _RecoverPageState extends State<RecoverPage> {
                               ),
                             )
                           ],
-                        )
-                    ),
-
+                        )),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -88,9 +86,7 @@ class _RecoverPageState extends State<RecoverPage> {
                             ),
                           ),
                         ),
-
                         Divider(),
-
                         Container(
                           padding: EdgeInsets.only(top: 10.0),
                           child: TextField(
@@ -109,31 +105,24 @@ class _RecoverPageState extends State<RecoverPage> {
                                   color: Colors.white,
                                 )),
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 17.0),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 17.0),
                           ),
                         ),
-
-                        Divider(),
-                        Divider(),
-
+                        Divider(color: Colors.transparent),
                         Container(
                           padding: EdgeInsets.only(top: 5.0),
                           child: TextButton(
                             onPressed: () {
-                              if(_emailController.text.isEmpty) {
+                              if (_emailController.text.isEmpty) {
                                 _scaffoldKey.currentState.showSnackBar(SnackBar(
                                   content: Text("Insira seu email"),
                                   backgroundColor: Colors.redAccent,
                                   duration: Duration(seconds: 2),
                                 ));
-                              }
-                              else{
+                              } else {
                                 model.recoverPassword(_emailController.text);
-                                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text("Confira seu email"),
-                                  backgroundColor: Colors.green,
-                                  duration: Duration(seconds: 2),
-                                ));
+                                Navigator.pushNamed(context, '/insertCode');
                               }
                             },
                             style: TextButton.styleFrom(
@@ -161,8 +150,6 @@ class _RecoverPageState extends State<RecoverPage> {
                                 )),
                           ),
                         ),
-
-
                       ],
                     ),
                   ],
@@ -170,8 +157,6 @@ class _RecoverPageState extends State<RecoverPage> {
               )
             ],
           );
-        }
-      )
-    );
+        }));
   }
 }

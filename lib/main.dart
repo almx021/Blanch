@@ -3,6 +3,7 @@ import 'package:appteste/screens/App_Chat_Page.dart';
 import 'package:appteste/screens/App_Configs_Page.dart';
 import 'package:appteste/screens/App_EmAlta_Page.dart';
 import 'package:appteste/screens/App_Home_Page.dart';
+import 'package:appteste/screens/App_ItensSalvos_Page.dart';
 import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:appteste/screens/App_New_Password_Page.dart';
 import 'package:appteste/screens/App_New_Post.dart';
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
             '/ajuda': (context) => HelpPage(),
             '/mensagens': (context) => MensagemPage(),
             '/emAlta': (context) => EmAltaPage(),
-            '/perfil': (context) => PerfilPage()
+            '/perfil': (context) => PerfilPage(),
+            '/itensSalvos': (context) => ItensSalvosPage(),
           },
         ));
   }

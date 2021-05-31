@@ -48,7 +48,7 @@ class _PerfilPageState extends State<PerfilPage> {
                         ),
                         color: AppColors.backGroundApp,
                         onPressed: () {
-
+                          Navigator.pushNamed(context, '/itensSalvos');
                         }),
                   ),
                 ]

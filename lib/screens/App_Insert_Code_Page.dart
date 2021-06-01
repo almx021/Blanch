@@ -103,7 +103,7 @@ class _InsertCodePageState extends State<InsertCodePage> {
                         Container(
                           padding: EdgeInsets.only(top: 10.0),
                           child: TextField(
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.text,
                             controller: _codeController,
                             decoration: InputDecoration(
                                 labelText: 'Código de Confirmação',

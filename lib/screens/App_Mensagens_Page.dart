@@ -39,6 +39,7 @@ class _MensagemPageState extends State<MensagemPage> {
           Container(
             width: w*0.15,
             child: IconButton(
+              onPressed: (){},
               icon: CircleAvatar(
                 backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/5.jpg"),
                 maxRadius: 20,
@@ -99,6 +100,7 @@ class _MensagemPageState extends State<MensagemPage> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: IconButton(
+                        onPressed: (){},
                         padding: EdgeInsets.all(w*0.013),
                         icon: Image.asset(AppImages.camera5, color: Colors.white,)
                       )

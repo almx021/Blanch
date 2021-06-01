@@ -126,21 +126,15 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.backGroundApp,
-        title: Row(
-          children: [
-            Padding(
-                padding: EdgeInsets.only(right: 100),
-                child: IconButton(
-                  onPressed:() {
-                    Navigator.pop(context);
-                  },
-                  icon: Image.asset(AppImages.leftArrow),
-                )
-            ),
-            Text('Itens Salvos',
-              style: TextStyle(color: Colors.white),
-            )
-          ],
+        centerTitle: true,
+        leading: IconButton(
+            icon: Image.asset(AppImages.leftArrow),
+            onPressed: (){
+              Navigator.pop(context);
+            }),
+        title: Text('Itens Salvos',
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
         ),
       ),
       body: Stack(

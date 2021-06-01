@@ -237,20 +237,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                                                 fontWeight: FontWeight.w800),
                                           ),
                                         )),
-                                    onPressed: () {
-                                      // if (_formKey.currentState.validate()) {
-                                      //   Map<String, dynamic> userData = {
-                                      //     "name": _nameController.text,
-                                      //     "email": _emailController.text
-                                      //   };
-
-                                      //   model.signUP(
-                                      //       userData: userData,
-                                      //       pass: _passwordController.text,
-                                      //       onSuccess: _onSuccess,
-                                      //       onFail: _onFail);
-                                      // }
-                                    }))
+                                    onPressed: () {}
+                                ))
                           ],
                         ),
                       ],
@@ -263,22 +251,4 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
     );
   }
 
-  // void _onSuccess() {
-  //   _scaffoldKey.currentState.showSnackBar(SnackBar(
-  //     content: Text("Usuário criado com sucesso!"),
-  //     backgroundColor: Colors.green,
-  //     duration: Duration(seconds: 2),
-  //   ));
-  //   Future.delayed(Duration(seconds: 2)).then((_) {
-  //     Navigator.of(context).pop();
-  //   });
-  // }
-
-  // void _onFail() {
-  //   _scaffoldKey.currentState.showSnackBar(SnackBar(
-  //     content: Text("Falha ao criar usuário!"),
-  //     backgroundColor: Colors.redAccent,
-  //     duration: Duration(seconds: 2),
-  //   ));
-  // }
 }

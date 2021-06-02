@@ -11,16 +11,15 @@ class InsertCodePage extends StatefulWidget {
 }
 
 class _InsertCodePageState extends State<InsertCodePage> {
-  final _codeController = TextEditingController();
+  final _codeController = TextEditingController(text: "");
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scaffoldKey.currentState.showSnackBar(
+      _scaffoldMessengerKey.currentState.showSnackBar(
         SnackBar(
             content: Text("Confira seu email"),
             backgroundColor: Colors.greenAccent,
@@ -31,9 +30,9 @@ class _InsertCodePageState extends State<InsertCodePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        body:
+    return ScaffoldMessenger(
+        key: _scaffoldMessengerKey,
+        child: Scaffold(body:
             ScopedModelDescendant<UserModel>(builder: (context, child, model) {
           return Stack(
             children: [
@@ -138,19 +137,13 @@ class _InsertCodePageState extends State<InsertCodePage> {
                               ),
                               onPressed: () {
                                 if (_codeController.text.isEmpty) {
-                                  _scaffoldKey.currentState
+                                  _scaffoldMessengerKey.currentState
                                       .showSnackBar(SnackBar(
                                     content: Text("Insira o código"),
                                     backgroundColor: Colors.redAccent,
                                     duration: Duration(seconds: 2),
                                   ));
                                 } else {
-                                  _scaffoldKey.currentState
-                                      .showSnackBar(SnackBar(
-                                    content: Text("Insira a nova senha"),
-                                    backgroundColor: Colors.green,
-                                    duration: Duration(seconds: 2),
-                                  ));
                                   Navigator.pushNamed(context, '/newPassword');
                                 }
                               },
@@ -191,6 +184,6 @@ class _InsertCodePageState extends State<InsertCodePage> {
               )
             ],
           );
-        }));
+        })));
   }
 }

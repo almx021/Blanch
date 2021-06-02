@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   void initState() {
@@ -30,9 +30,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    return Scaffold(
-        key: _scaffoldKey,
-        body: ScopedModelDescendant<UserModel>(
+    return ScaffoldMessenger(
+        key: _scaffoldMessengerKey,
+        child: Scaffold(body: ScopedModelDescendant<UserModel>(
           builder: (context, child, model) {
             return Form(
                 key: _formKey,
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(bottom: h*0.02),
+                            padding: EdgeInsets.only(bottom: h * 0.02),
                             child: Container(
                                 height: h * 0.04,
                                 child: Row(
@@ -298,7 +298,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ));
           },
-        ));
+        )));
   }
 
   void _onSuccess() {

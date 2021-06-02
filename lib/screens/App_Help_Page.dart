@@ -70,7 +70,10 @@ class _HelpPageState extends State<HelpPage> {
           Container(
             width: 80,
             height: 80,
-            child: FlatButton(
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
                 child: Container(
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(150)),
@@ -80,7 +83,6 @@ class _HelpPageState extends State<HelpPage> {
                     height: 80,
                   ),
                 ),
-                color: AppColors.backGroundApp,
                 onPressed: () {
                   Navigator.pushNamed(context, '/newpost');
                 }),
@@ -90,12 +92,14 @@ class _HelpPageState extends State<HelpPage> {
               Container(
                 width: 60,
                 height: 35,
-                child: FlatButton(
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.backGroundApp,
+                    ),
                     child: Image.asset(
                       AppImages.emAlta,
                       width: size.width * .1,
                     ),
-                    color: AppColors.backGroundApp,
                     onPressed: () {}),
               ),
               Padding(
@@ -110,12 +114,14 @@ class _HelpPageState extends State<HelpPage> {
           Container(
             width: 80,
             height: 80,
-            child: FlatButton(
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
                 child: Image.asset(
                   AppImages.perfilImage,
                   width: size.width * .1,
                 ),
-                color: AppColors.backGroundApp,
                 onPressed: () {}),
           ),
         ],

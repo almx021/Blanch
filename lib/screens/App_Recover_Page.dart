@@ -13,13 +13,13 @@ class RecoverPage extends StatefulWidget {
 class _RecoverPageState extends State<RecoverPage> {
   final _emailController = TextEditingController();
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        body:
+    return ScaffoldMessenger(
+        key: _scaffoldMessengerKey,
+        child: Scaffold(body:
             ScopedModelDescendant<UserModel>(builder: (context, child, model) {
           return Stack(
             children: [
@@ -29,14 +29,16 @@ class _RecoverPageState extends State<RecoverPage> {
                 padding: EdgeInsets.fromLTRB(15.0, 60.0, 15.0, 0.0),
                 child: Column(
                   children: [
-                    FlatButton(
-                        color: Colors.transparent,
+                    TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(color: Colors.transparent)),
+                        ),
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.transparent)),
                         child: Row(
                           children: [
                             Padding(
@@ -115,7 +117,8 @@ class _RecoverPageState extends State<RecoverPage> {
                           child: TextButton(
                             onPressed: () {
                               if (_emailController.text.isEmpty) {
-                                _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                _scaffoldMessengerKey.currentState
+                                    .showSnackBar(SnackBar(
                                   content: Text("Insira seu email"),
                                   backgroundColor: Colors.redAccent,
                                   duration: Duration(seconds: 2),
@@ -157,6 +160,6 @@ class _RecoverPageState extends State<RecoverPage> {
               )
             ],
           );
-        }));
+        })));
   }
 }

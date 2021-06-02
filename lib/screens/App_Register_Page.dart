@@ -127,7 +127,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                         color: Colors.white, fontSize: 15.0),
                                   ),
                                 ),
-                                Divider(),
+                                Divider(
+                                  color: Colors.transparent,
+                                ),
                                 Container(
                                   padding: EdgeInsets.only(),
                                   child: TextFormField(
@@ -157,7 +159,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                         color: Colors.white, fontSize: 15.0),
                                   ),
                                 ),
-                                Divider(),
+                                Divider(
+                                  color: Colors.transparent,
+                                ),
                                 Stack(
                                   children: [
                                     Container(
@@ -210,7 +214,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                     )
                                   ],
                                 ),
-                                Divider(),
+                                Divider(
+                                  color: Colors.transparent,
+                                ),
                                 Stack(
                                   children: [
                                     Container(
@@ -264,8 +270,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                     )
                                   ],
                                 ),
-                                Divider(),
-                                Divider(),
+                                Divider(
+                                  color: Colors.transparent,
+                                ),
+                                Divider(
+                                  color: Colors.transparent,
+                                ),
                                 Container(
                                   padding: EdgeInsets.only(top: 5.0),
                                   child: TextButton(

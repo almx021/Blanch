@@ -306,7 +306,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onFail() {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    _scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text("Email ou senha inválidos!"),
       backgroundColor: Colors.redAccent,
       duration: Duration(seconds: 2),

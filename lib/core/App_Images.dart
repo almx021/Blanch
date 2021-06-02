@@ -23,6 +23,7 @@ class AppImages {
   static String get sobre => 'images/info-circle.png';
   static String get help => 'images/question-octagon.png';
   static String get account => 'images/conta.png';
+  static String get accounthd => 'images/accounthd.png';
 
   static String get editPerfil => 'images/edit 1.png';
   static String get Publi => 'images/Rectangle 42.png';

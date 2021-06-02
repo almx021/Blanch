@@ -1,6 +1,7 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/screens/App_Home_Page.dart';
+import 'package:appteste/core/App_Gradients.dart';
 import 'package:flutter/material.dart';
 
 class ConfigsPage extends StatefulWidget {
@@ -68,7 +69,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
           Container(
             width: 80,
             height: 80,
-            child: FlatButton(
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
                 child: Container(
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(150)),
@@ -78,7 +82,6 @@ class _ConfigsPageState extends State<ConfigsPage> {
                     height: 80,
                   ),
                 ),
-                color: AppColors.backGroundApp,
                 onPressed: () {
                   Navigator.pushNamed(context, '/newpost');
                 }),
@@ -88,12 +91,14 @@ class _ConfigsPageState extends State<ConfigsPage> {
               Container(
                 width: 60,
                 height: 35,
-                child: FlatButton(
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.backGroundApp,
+                    ),
                     child: Image.asset(
                       AppImages.emAlta,
                       width: size.width * .1,
                     ),
-                    color: AppColors.backGroundApp,
                     onPressed: () {}),
               ),
               Padding(
@@ -108,12 +113,14 @@ class _ConfigsPageState extends State<ConfigsPage> {
           Container(
             width: 80,
             height: 80,
-            child: FlatButton(
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
                 child: Image.asset(
                   AppImages.perfilImage,
                   width: size.width * .1,
                 ),
-                color: AppColors.backGroundApp,
                 onPressed: () {}),
           ),
         ],
@@ -146,7 +153,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                   Container(
                     width: size.width,
                     height: 80,
-                    child: FlatButton(
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: AppColors.backGroundApp,
+                        ),
                         child: Container(
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 15),
@@ -166,7 +176,6 @@ class _ConfigsPageState extends State<ConfigsPage> {
                             ]),
                           ),
                         ),
-                        color: AppColors.backGroundApp,
                         onPressed: () {
                           Navigator.pushNamed(context, '/notificacoes');
                         }),
@@ -176,12 +185,15 @@ class _ConfigsPageState extends State<ConfigsPage> {
                     child: Container(
                       width: size.width,
                       height: 80,
-                      child: FlatButton(
+                      child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: AppColors.backGroundApp,
+                          ),
                           child: Row(children: [
                             Align(
                               child: Padding(
-                                padding: EdgeInsets.only(right: 15, top: 9.0),
-                                child: Image.asset(AppImages.account),
+                                padding: EdgeInsets.only(right: 20),
+                                child: Image.asset(AppImages.accounthd),
                               ),
                             ),
                             Text(
@@ -193,7 +205,6 @@ class _ConfigsPageState extends State<ConfigsPage> {
                               ),
                             ),
                           ]),
-                          color: AppColors.backGroundApp,
                           onPressed: () {
                             Navigator.pushNamed(context, '/conta');
                           }),
@@ -204,7 +215,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                     child: Container(
                       width: size.width,
                       height: 80,
-                      child: FlatButton(
+                      child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: AppColors.backGroundApp,
+                          ),
                           child: Row(children: [
                             Padding(
                               padding: EdgeInsets.only(right: 20),
@@ -219,7 +233,6 @@ class _ConfigsPageState extends State<ConfigsPage> {
                               ),
                             ),
                           ]),
-                          color: AppColors.backGroundApp,
                           onPressed: () {
                             Navigator.pushNamed(context, '/ajuda');
                           }),
@@ -228,7 +241,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                   Container(
                     width: size.width,
                     height: 80,
-                    child: FlatButton(
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: AppColors.backGroundApp,
+                        ),
                         child: Row(children: [
                           Padding(
                             padding: EdgeInsets.only(right: 20),
@@ -243,7 +259,6 @@ class _ConfigsPageState extends State<ConfigsPage> {
                             ),
                           ),
                         ]),
-                        color: AppColors.backGroundApp,
                         onPressed: () {
                           Navigator.pushNamed(context, '/sobre');
                         }),
@@ -252,16 +267,69 @@ class _ConfigsPageState extends State<ConfigsPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '');
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0))),
+                                  backgroundColor:
+                                      Color.fromRGBO(39, 39, 39, 1),
+                                  title: Text('Desconectar',
+                                      style: TextStyle(color: Colors.white)),
+                                  content: Text(
+                                      'Tem certeza que deseja se desconectar?',
+                                      style: TextStyle(color: Colors.grey)),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, 'Cancelar');
+                                      },
+                                      child: ShaderMask(
+                                        shaderCallback: (Rect rect) {
+                                          return (AppGradients.linearteste)
+                                              .createShader(rect);
+                                        },
+                                        child: Text(
+                                          'Cancelar',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, 'Sim');
+                                      },
+                                      child: ShaderMask(
+                                        shaderCallback: (Rect rect) {
+                                          return (AppGradients.linearteste)
+                                              .createShader(rect);
+                                        },
+                                        child: Text(
+                                          'Sim',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              });
                         },
                         child: Text(
                           'Sair da Conta',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             color: Colors.blueAccent,
-                            fontSize: 15.0,
+                            fontSize: 17.0,
                           ),
                         ),
                       ),

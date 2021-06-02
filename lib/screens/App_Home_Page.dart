@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -28,12 +27,14 @@ class _HomePageState extends State<HomePage> {
             Container(
               width: 60,
               height: 80,
-              child: FlatButton(
+              child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.backGroundApp,
+                  ),
                   child: Image.asset(
                     AppImages.notification,
                     width: size.width * .1,
                   ),
-                  color: AppColors.backGroundApp,
                   onPressed: () {
                     Navigator.pushNamed(context, '/atividades');
                   }),
@@ -41,12 +42,14 @@ class _HomePageState extends State<HomePage> {
             Container(
               width: 60,
               height: 80,
-              child: FlatButton(
+              child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.backGroundApp,
+                  ),
                   child: Image.asset(
                     AppImages.chatApp,
                     width: size.width * .1,
                   ),
-                  color: AppColors.backGroundApp,
                   onPressed: () {
                     Navigator.pushNamed(context, '/chat');
                   }),
@@ -54,12 +57,14 @@ class _HomePageState extends State<HomePage> {
             Container(
               width: 60,
               height: 80,
-              child: FlatButton(
+              child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.backGroundApp,
+                  ),
                   child: Image.asset(
                     AppImages.settingsApp,
                     width: size.width * .1,
                   ),
-                  color: AppColors.backGroundApp,
                   onPressed: () {
                     Navigator.pushNamed(context, '/configs');
                   }),
@@ -93,28 +98,31 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               Column(
                 children: [
                   Container(
                     padding: EdgeInsets.only(top: 5),
                     width: 80,
                     height: 35,
-                    child:   FlatButton(
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: AppColors.backGroundApp,
+                        ),
                         child: Container(
                           child: Icon(
                             Icons.home_filled,
                             color: Colors.white,
                             size: 30,
-                          ),),
-                        color: AppColors.backGroundApp,
+                          ),
+                        ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
                         }),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 2),
-                    child: Text('Home',
+                    child: Text(
+                      'Home',
                       style: TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   )
@@ -136,7 +144,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 17),
-                    child: Text('Pesquisa',
+                    child: Text(
+                      'Pesquisa',
                       style: TextStyle(fontSize: 12, color: Colors.white38),
                     ),
                   )
@@ -145,15 +154,19 @@ class _HomePageState extends State<HomePage> {
               Container(
                 width: 80,
                 height: 80,
-                child: FlatButton(
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.backGroundApp,
+                    ),
                     child: Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(150)),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(150)),
                       child: Image.asset(
-                      AppImages.newPost,
-                      width: 80,
-                      height: 80,
-                    ),),
-                    color: AppColors.backGroundApp,
+                        AppImages.newPost,
+                        width: 80,
+                        height: 80,
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.pushNamed(context, '/newpost');
                     }),
@@ -163,21 +176,24 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     width: 60,
                     height: 35,
-                    child: FlatButton(
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: AppColors.backGroundApp,
+                        ),
                         child: Image.asset(
                           AppImages.emAlta,
                           width: 80,
                           height: 80,
                           //width: size.width * .1,
                         ),
-                        color: AppColors.backGroundApp,
                         onPressed: () {
                           Navigator.pushNamed(context, '/emAlta');
                         }),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 2),
-                    child: Text('Em alta',
+                    child: Text(
+                      'Em alta',
                       style: TextStyle(fontSize: 12, color: Colors.white38),
                     ),
                   )
@@ -186,18 +202,19 @@ class _HomePageState extends State<HomePage> {
               Container(
                 width: 80,
                 height: 80,
-                child: FlatButton(
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.backGroundApp,
+                    ),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
                         AppImages.perfilImage,
                       ),
                     ),
-                    color: AppColors.backGroundApp,
                     onPressed: () {
                       Navigator.pushNamed(context, '/perfil');
                     }),
               ),
-
             ],
           ),
         ));

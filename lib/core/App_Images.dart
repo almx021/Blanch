@@ -26,4 +26,8 @@ class AppImages {
 
   static String get editPerfil => 'images/edit 1.png';
   static String get Publi => 'images/Rectangle 42.png';
+  static String get PubliPeixe => 'images/Peixe.png';
+  static String get PubliRosquinha => 'images/Rosquinha.png';
+  static String get PubliPastel => 'images/pastel.png';
+
 }

@@ -103,6 +103,7 @@ flutter:
     - images/pastel.png
     - images/Peixe.png
     - images/Rosquinha.png
+    - images/accounthd.png
 
 
   # For details regarding adding assets from package dependencies, see

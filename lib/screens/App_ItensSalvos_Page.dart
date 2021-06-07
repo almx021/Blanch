@@ -173,25 +173,27 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
               Divider(),
               Row(
                 children: [
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    padding: EdgeInsets.all(0.0),
-                    color: Colors.white,
-                    //AppColors.backGroundApp,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        AppImages.PubliPastel,
-                        fit: BoxFit.cover,
-                        width: 190,
-                        height: 165,
+                  Padding(padding: EdgeInsets.only(left: 25),
+                   child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      padding: EdgeInsets.all(0.0),
+                      color: Colors.white,
+                      //AppColors.backGroundApp,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.asset(
+                          AppImages.PubliPastel,
+                          fit: BoxFit.cover,
+                          width: 170,
+                          height: 125,
+                        ),
                       ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 0),
+                    padding: EdgeInsets.only(left: 20, right: 0),
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
@@ -203,8 +205,8 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                         child: Image.asset(
                           AppImages.PubliPastel,
                           fit: BoxFit.cover,
-                          width: 190,
-                          height: 165,
+                          width: 170,
+                          height: 125,
                         ),
                       ),
                       onPressed: () {},
@@ -213,28 +215,10 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10),
+                padding: EdgeInsets.only(top: 15),
                 child: Row(
                   children: [
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      padding: EdgeInsets.all(0.0),
-                      color: Colors.white,
-                      //AppColors.backGroundApp,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          AppImages.PubliPastel,
-                          fit: BoxFit.cover,
-                          width: 190,
-                          height: 165,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, right: 0),
+                    Padding(padding: EdgeInsets.only(left: 25),
                       child: RaisedButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
@@ -246,8 +230,28 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                           child: Image.asset(
                             AppImages.PubliPastel,
                             fit: BoxFit.cover,
-                            width: 190,
-                            height: 165,
+                            width: 170,
+                            height: 125,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        padding: EdgeInsets.all(0.0),
+                        color: Colors.white,
+                        //AppColors.backGroundApp,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(
+                            AppImages.PubliPastel,
+                            fit: BoxFit.cover,
+                            width: 170,
+                            height: 125,
                           ),
                         ),
                         onPressed: () {},
@@ -257,28 +261,10 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 9),
+                padding: EdgeInsets.only(top: 15),
                 child: Row(
                   children: [
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      padding: EdgeInsets.all(0.0),
-                      color: Colors.white,
-                      //AppColors.backGroundApp,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          AppImages.PubliPastel,
-                          fit: BoxFit.cover,
-                          width: 190,
-                          height: 165,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, right: 0),
+                    Padding(padding: EdgeInsets.only(left: 25),
                       child: RaisedButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
@@ -290,8 +276,28 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                           child: Image.asset(
                             AppImages.PubliPastel,
                             fit: BoxFit.cover,
-                            width: 190,
-                            height: 165,
+                            width: 170,
+                            height: 125,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        padding: EdgeInsets.all(0.0),
+                        color: Colors.white,
+                        //AppColors.backGroundApp,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(
+                            AppImages.PubliPastel,
+                            fit: BoxFit.cover,
+                            width: 170,
+                            height: 125,
                           ),
                         ),
                         onPressed: () {},

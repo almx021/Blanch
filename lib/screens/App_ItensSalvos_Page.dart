@@ -24,22 +24,29 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
           Column(
             children: [
               Container(
+                padding: EdgeInsets.only(top: 5),
                 width: 80,
-                height: 20,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.home_filled,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {},
-                ),
+                height: 35,
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.backGroundApp,
+                    ),
+                    child: Container(
+                      child: Icon(
+                        Icons.home_filled,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home');
+                    }),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 15),
+                padding: EdgeInsets.only(top: 2),
                 child: Text(
                   'Home',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
+                  style: TextStyle(fontSize: 12, color: Colors.white),
                 ),
               )
             ],
@@ -62,7 +69,7 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                 padding: EdgeInsets.only(top: 17),
                 child: Text(
                   'Pesquisa',
-                  style: TextStyle(fontSize: 13, color: Colors.white38),
+                  style: TextStyle(fontSize: 12, color: Colors.white38),
                 ),
               )
             ],
@@ -70,7 +77,10 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
           Container(
             width: 80,
             height: 80,
-            child: FlatButton(
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
                 child: Container(
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(150)),
@@ -80,7 +90,6 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                     height: 80,
                   ),
                 ),
-                color: AppColors.backGroundApp,
                 onPressed: () {
                   Navigator.pushNamed(context, '/newpost');
                 }),
@@ -90,16 +99,22 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
               Container(
                 width: 60,
                 height: 35,
-                child: FlatButton(
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.backGroundApp,
+                    ),
                     child: Image.asset(
                       AppImages.emAlta,
-                      width: size.width * .1,
+                      width: 80,
+                      height: 80,
+                      //width: size.width * .1,
                     ),
-                    color: AppColors.backGroundApp,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/emAlta');
+                    }),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 0),
+                padding: EdgeInsets.only(top: 2),
                 child: Text(
                   'Em alta',
                   style: TextStyle(fontSize: 12, color: Colors.white38),
@@ -110,13 +125,18 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
           Container(
             width: 80,
             height: 80,
-            child: FlatButton(
-                child: Image.asset(
-                  AppImages.perfilImage,
-                  width: size.width * .1,
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
                 ),
-                color: AppColors.backGroundApp,
-                onPressed: () {}),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    AppImages.perfilImage,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/perfil');
+                }),
           ),
         ],
       ),
@@ -153,72 +173,132 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
               Divider(),
               Row(
                 children: [
-                  Padding(padding: EdgeInsets.all(25)),
-                  Container(
-                    width: 165,
-                    height: 125,
-                    child: FlatButton(
-                      color: AppColors.backGroundApp,
-                      child: Image.asset(
-                        AppImages.Publi,
-                        height: 125,
-                        width: 500,
-                        fit: BoxFit.cover,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 10),
-                    width: 165,
-                    height: 125,
-                    child: FlatButton(
-                      color: AppColors.backGroundApp,
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    padding: EdgeInsets.all(0.0),
+                    color: Colors.white,
+                    //AppColors.backGroundApp,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
                       child: Image.asset(
                         AppImages.PubliPastel,
-                        height: 125,
-                        width: 500,
                         fit: BoxFit.cover,
+                        width: 190,
+                        height: 165,
                       ),
-                      onPressed: () {},
                     ),
-                  )
-                ],
-              ),
-              Divider(),
-              Row(
-                children: [
-                  Padding(padding: EdgeInsets.all(25)),
-                  Container(
-                    width: 165,
-                    height: 125,
-                    child: FlatButton(
-                      color: AppColors.backGroundApp,
-                      child: Image.asset(
-                        AppImages.PubliRosquinha,
-                        height: 125,
-                        width: 500,
-                        fit: BoxFit.cover,
+                    onPressed: () {},
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      padding: EdgeInsets.all(0.0),
+                      color: Colors.white,
+                      //AppColors.backGroundApp,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.asset(
+                          AppImages.PubliPastel,
+                          fit: BoxFit.cover,
+                          width: 190,
+                          height: 165,
+                        ),
                       ),
                       onPressed: () {},
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(left: 10),
-                    width: 165,
-                    height: 125,
-                    child: FlatButton(
-                      color: AppColors.backGroundApp,
-                      child: Image.asset(
-                        AppImages.PubliPeixe,
-                        height: 125,
-                        width: 500,
-                        fit: BoxFit.cover,
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Row(
+                  children: [
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      padding: EdgeInsets.all(0.0),
+                      color: Colors.white,
+                      //AppColors.backGroundApp,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.asset(
+                          AppImages.PubliPastel,
+                          fit: BoxFit.cover,
+                          width: 190,
+                          height: 165,
+                        ),
                       ),
                       onPressed: () {},
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        padding: EdgeInsets.all(0.0),
+                        color: Colors.white,
+                        //AppColors.backGroundApp,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(
+                            AppImages.PubliPastel,
+                            fit: BoxFit.cover,
+                            width: 190,
+                            height: 165,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 9),
+                child: Row(
+                  children: [
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      padding: EdgeInsets.all(0.0),
+                      color: Colors.white,
+                      //AppColors.backGroundApp,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.asset(
+                          AppImages.PubliPastel,
+                          fit: BoxFit.cover,
+                          width: 190,
+                          height: 165,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        padding: EdgeInsets.all(0.0),
+                        color: Colors.white,
+                        //AppColors.backGroundApp,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(
+                            AppImages.PubliPastel,
+                            fit: BoxFit.cover,
+                            width: 190,
+                            height: 165,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           )

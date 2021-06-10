@@ -151,7 +151,7 @@ class _InsertCodePageState extends State<InsertCodePage> {
                                 height: 70,
                                 width: 150,
                                 decoration: BoxDecoration(
-                                  gradient: AppGradients.linearteste,
+                                  gradient: AppGradients.orangelinear,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(

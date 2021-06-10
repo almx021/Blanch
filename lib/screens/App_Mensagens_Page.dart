@@ -75,7 +75,7 @@ class _MensagemPageState extends State<MensagemPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       gradient: (messages[index].messageType == "receiver"
-                          ? AppGradients.linearteste
+                          ? AppGradients.orangelinear
                           : AppGradients.grey),
                     ),
                     padding: EdgeInsets.all(16),
@@ -107,7 +107,7 @@ class _MensagemPageState extends State<MensagemPage> {
                         height: 35,
                         width: 35,
                         decoration: BoxDecoration(
-                          gradient: AppGradients.linearteste,
+                          gradient: AppGradients.orangelinear,
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: IconButton(

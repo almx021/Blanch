@@ -199,7 +199,7 @@ class _AtividadesPageState extends State<AtividadesPage> {
                                   padding: EdgeInsets.only(right: 200),
                                   child: GradientText(
                                     "@JuliaGoncalves",
-                                    gradient: AppGradients.linearinverso,
+                                    gradient: AppGradients.orangelinear,
                                   ),
                                 ),
                                 Padding(
@@ -249,7 +249,7 @@ class _AtividadesPageState extends State<AtividadesPage> {
                                   padding: EdgeInsets.only(right: 182),
                                   child: GradientText(
                                     "@JuliaGoncalves",
-                                    gradient: AppGradients.linearinverso,
+                                    gradient: AppGradients.orangelinear,
                                   ),
                                 ),
                                 Padding(

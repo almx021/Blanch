@@ -290,7 +290,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
                                       },
                                       child: ShaderMask(
                                         shaderCallback: (Rect rect) {
-                                          return (AppGradients.linearteste)
+                                          return (AppGradients.orangelinear)
                                               .createShader(rect);
                                         },
                                         child: Text(
@@ -308,7 +308,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
                                       },
                                       child: ShaderMask(
                                         shaderCallback: (Rect rect) {
-                                          return (AppGradients.linearteste)
+                                          return (AppGradients.orangelinear)
                                               .createShader(rect);
                                         },
                                         child: Text(

@@ -227,7 +227,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                                         child: Ink(
                                             decoration: BoxDecoration(
                                               gradient:
-                                                  AppGradients.linearteste,
+                                                  AppGradients.orangelinear,
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
                                             ),

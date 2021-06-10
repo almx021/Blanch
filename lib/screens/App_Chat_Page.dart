@@ -28,6 +28,12 @@ class _ChatPageState extends State<ChatPage> {
         body: Stack(
           children: [
             Container(decoration: BoxDecoration(color: AppColors.backGroundApp),),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/mensagens');
+              },
+              child: Text('Chat Dentro'),
+            ),
 
     /*   Container(
               child:  Row(

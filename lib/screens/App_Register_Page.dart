@@ -303,7 +303,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                     child: Ink(
                                       decoration: BoxDecoration(
-                                        gradient: AppGradients.linearteste,
+                                        gradient: AppGradients.orangelinear,
                                         borderRadius:
                                             BorderRadius.circular(30.0),
                                       ),

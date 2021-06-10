@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               child: Ink(
                                   decoration: BoxDecoration(
-                                    gradient: AppGradients.linearteste,
+                                    gradient: AppGradients.orangelinear,
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
                                   child: Container(

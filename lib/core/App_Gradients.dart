@@ -18,7 +18,7 @@ class AppGradients {
       stops: [0.0, 3.0],
       transform: GradientRotation(pi / 2));
 
-  static final linearteste = LinearGradient(
+  static final orangelinear = LinearGradient(
     colors: [Color.fromRGBO(253, 170, 102, 1), Color.fromRGBO(250, 104, 99, 1)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter

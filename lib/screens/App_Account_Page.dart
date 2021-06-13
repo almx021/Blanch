@@ -1,8 +1,17 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/core/App_Gradients.dart';
 import 'package:flutter/material.dart';
 import '../core/App_Colors.dart';
 
+class AdaptiveTextSize {
+  const AdaptiveTextSize();
+
+  getadaptiveTextSize(BuildContext context, dynamic value) {
+    // 720 is medium screen height
+    return (value / 720) * MediaQuery.of(context).size.height;
+  }
+}
 class AccountPage extends StatefulWidget {
   const AccountPage({Key key}) : super(key: key);
 
@@ -14,119 +23,6 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var bottomNavegationBar = Container(
-      width: size.width,
-      height: size.height * .07,
-      color: AppColors.backGroundApp,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              Container(
-                width: 80,
-                height: 20,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.home_filled,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 15),
-                child: Text(
-                  'Home',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                ),
-              )
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                width: 60,
-                height: 20,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.white38,
-                    size: 30,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 17),
-                child: Text(
-                  'Pesquisa',
-                  style: TextStyle(fontSize: 13, color: Colors.white38),
-                ),
-              )
-            ],
-          ),
-          Container(
-            width: 80,
-            height: 80,
-            child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.backGroundApp,
-                ),
-                child: Container(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(150)),
-                  child: Image.asset(
-                    AppImages.newPost,
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/newpost');
-                }),
-          ),
-          Column(
-            children: [
-              Container(
-                width: 60,
-                height: 35,
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: AppColors.backGroundApp,
-                    ),
-                    child: Image.asset(
-                      AppImages.emAlta,
-                      width: size.width * .1,
-                    ),
-                    onPressed: () {}),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 0),
-                child: Text(
-                  'Em alta',
-                  style: TextStyle(fontSize: 12, color: Colors.white38),
-                ),
-              )
-            ],
-          ),
-          Container(
-            width: 80,
-            height: 80,
-            child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.backGroundApp,
-                ),
-                child: Image.asset(
-                  AppImages.perfilImage,
-                  width: size.width * .1,
-                ),
-                onPressed: () {}),
-          ),
-        ],
-      ),
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -163,7 +59,9 @@ class _AccountPageState extends State<AccountPage> {
                             fontWeight: FontWeight.w500)),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/AlterarDados');
+                },
               ),
             ),
             Container(
@@ -180,13 +78,92 @@ class _AccountPageState extends State<AccountPage> {
                             fontWeight: FontWeight.w500)),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(20.0))),
+                          backgroundColor:
+                          Color.fromRGBO(39, 39, 39, 1),
+                          title: Text('Excluir conta',
+                              style: TextStyle(color: Colors.white)),
+                          content: TextField(
+                            style: TextStyle(
+                                fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 14),
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                            decoration: InputDecoration(
+                                prefixIcon: Padding(
+                                    padding: EdgeInsets.only(left: 9.0, right: 9.0),
+                                    child: Icon(
+                                      Icons.lock,
+                                      color: Colors.grey,
+                                    )),
+                                prefixIconConstraints: BoxConstraints(
+                                  minHeight: 13,
+                                  minWidth: 13,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                isCollapsed: true,
+                                contentPadding: EdgeInsets.all(12),
+                                fillColor: Color(0xff444444),
+                                filled: true,
+                                hintStyle: TextStyle(
+                                    fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 14),
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500),
+                                hintText: 'Informe sua senha'),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Cancelar');
+                              },
+                              child: ShaderMask(
+                                shaderCallback: (Rect rect) {
+                                  return (AppGradients.orangelinear)
+                                      .createShader(rect);
+                                },
+                                child: Text(
+                                  'Cancelar',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .button
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Excluir');
+                              },
+                              child: Text(
+                                  'Excluir',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.red.shade900,
+                                  ),
+                                ),
+
+                            )
+                          ],
+                        );
+                      });
+                },
               ),
             ),
           ],
         ),
       ]),
-      bottomNavigationBar: bottomNavegationBar,
     );
   }
 }

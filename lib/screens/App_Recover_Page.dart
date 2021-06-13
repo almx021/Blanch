@@ -1,3 +1,4 @@
+import 'package:appteste/core/App_Logos.dart';
 import 'package:appteste/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -17,6 +18,8 @@ class _RecoverPageState extends State<RecoverPage> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return ScaffoldMessenger(
         key: _scaffoldMessengerKey,
         child: Scaffold(body:
@@ -26,71 +29,39 @@ class _RecoverPageState extends State<RecoverPage> {
               Container(
                   decoration: BoxDecoration(gradient: AppGradients.linear)),
               SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(15.0, 60.0, 15.0, 0.0),
-                child: Column(
+                child: Stack(
                   children: [
-                    TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                              side: BorderSide(color: Colors.transparent)),
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 5.0),
-                              child: Container(
-                                child: Image.asset(
-                                  AppImages.logo,
-                                  height: 65.0,
-                                  width: 65.0,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 20.0),
-                              child: Text(
-                                'BLANCH',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.w100),
-                              ),
-                            )
-                          ],
-                        )),
+                    Logos.buildMiniLogo(context, width, height, AppImages.logo),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: 125.0, bottom: 30.0),
+                          padding: EdgeInsets.only(top: 0.26 * height),
                           child: Text(
                             'RECUPERAR SENHA',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 25.0,
+                              fontSize: 22.0,
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 70.0),
+                          padding: EdgeInsets.only(top: 0.1 * height),
                           child: Text(
                             'Informe o email da sua conta',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
+                              fontSize: 16.0,
                             ),
                           ),
                         ),
-                        Divider(),
                         Container(
-                          padding: EdgeInsets.only(top: 10.0),
+                          padding: EdgeInsets.only(
+                              top: 0.017 * height,
+                              left: width < 360 ? 0.09 * width : 0.1 * width,
+                              right: width < 360 ? 0.09 * width : 0.1 * width),
                           child: TextField(
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,
@@ -108,7 +79,7 @@ class _RecoverPageState extends State<RecoverPage> {
                                 )),
                             textAlign: TextAlign.center,
                             style:
-                                TextStyle(color: Colors.white, fontSize: 17.0),
+                                TextStyle(color: Colors.white, fontSize: 15.0),
                           ),
                         ),
                         Divider(color: Colors.transparent),
@@ -140,14 +111,14 @@ class _RecoverPageState extends State<RecoverPage> {
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(
-                                  height: 60.0,
-                                  width: 160.0,
+                                  height: 50.0,
+                                  width: 130.0,
                                   alignment: Alignment.center,
                                   child: Text(
                                     'Enviar',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 23.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.w500),
                                   ),
                                 )),

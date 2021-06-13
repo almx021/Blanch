@@ -11,7 +11,6 @@ class Logos {
                 minWidth: 0.175 * screenWidth, minHeight: 0.175 * screenHeight),
             child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                       side: BorderSide(color: Colors.transparent)),

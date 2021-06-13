@@ -19,6 +19,10 @@ class AppImages {
   static String get perfilImage => 'images/zeroTwo.jpg';
   static String get settingsApp => 'images/settings.png';
   static String get chatApp => 'images/chat.png';
+  static String get homepage => 'images/homepage.png';
+  static String get homeSelected => 'images/home_selected.png';
+  static String get searchIcon => 'images/search.png';
+  static String get textLogo => 'images/blanchtextlogo.png';
 
   static String get sobre => 'images/info-circle.png';
   static String get help => 'images/question-octagon.png';

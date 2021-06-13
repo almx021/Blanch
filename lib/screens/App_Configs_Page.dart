@@ -13,119 +13,6 @@ class _ConfigsPageState extends State<ConfigsPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var bottomNavegationBar = Container(
-      width: size.width,
-      height: size.height * .07,
-      color: AppColors.backGroundApp,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              Container(
-                width: 80,
-                height: 20,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.home_filled,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 15),
-                child: Text(
-                  'Home',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                ),
-              )
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                width: 60,
-                height: 20,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.white38,
-                    size: 30,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 17),
-                child: Text(
-                  'Pesquisa',
-                  style: TextStyle(fontSize: 13, color: Colors.white38),
-                ),
-              )
-            ],
-          ),
-          Container(
-            width: 80,
-            height: 80,
-            child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.backGroundApp,
-                ),
-                child: Container(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(150)),
-                  child: Image.asset(
-                    AppImages.newPost,
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/newpost');
-                }),
-          ),
-          Column(
-            children: [
-              Container(
-                width: 60,
-                height: 35,
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: AppColors.backGroundApp,
-                    ),
-                    child: Image.asset(
-                      AppImages.emAlta,
-                      width: size.width * .1,
-                    ),
-                    onPressed: () {}),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 0),
-                child: Text(
-                  'Em alta',
-                  style: TextStyle(fontSize: 12, color: Colors.white38),
-                ),
-              )
-            ],
-          ),
-          Container(
-            width: 80,
-            height: 80,
-            child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.backGroundApp,
-                ),
-                child: Image.asset(
-                  AppImages.perfilImage,
-                  width: size.width * .1,
-                ),
-                onPressed: () {}),
-          ),
-        ],
-      ),
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -135,7 +22,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset(AppImages.leftArrow),
+            icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: Text(
             'Configurações',
@@ -163,7 +50,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                             child: Row(children: [
                               Padding(
                                 padding: EdgeInsets.only(right: 20),
-                                child: Image.asset(AppImages.notification),
+                                child: Image.asset(
+                                  AppImages.notification,
+                                  width: 20,
+                                ),
                               ),
                               Text(
                                 'Notificação',
@@ -193,7 +83,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                             Align(
                               child: Padding(
                                 padding: EdgeInsets.only(right: 20),
-                                child: Image.asset(AppImages.accounthd),
+                                child: Image.asset(
+                                  AppImages.accounthd,
+                                  width: 20,
+                                ),
                               ),
                             ),
                             Text(
@@ -222,7 +115,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                           child: Row(children: [
                             Padding(
                               padding: EdgeInsets.only(right: 20),
-                              child: Image.asset(AppImages.help),
+                              child: Image.asset(
+                                AppImages.help,
+                                width: 20,
+                              ),
                             ),
                             Text(
                               'Ajuda',
@@ -248,7 +144,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                         child: Row(children: [
                           Padding(
                             padding: EdgeInsets.only(right: 20),
-                            child: Image.asset(AppImages.sobre),
+                            child: Image.asset(
+                              AppImages.sobre,
+                              width: 20,
+                            ),
                           ),
                           Text(
                             'Sobre',
@@ -341,7 +240,6 @@ class _ConfigsPageState extends State<ConfigsPage> {
           ),
         ],
       ),
-      bottomNavigationBar: bottomNavegationBar,
     );
   }
 }

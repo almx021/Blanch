@@ -18,14 +18,13 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: AppColors.backGroundApp,
           automaticallyImplyLeading: false,
-          title: GradientText(
-            'BLANCH',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
-            gradient: AppGradients.linearinverso,
+          title: Image.asset(
+            AppImages.textLogo,
+            width: 120,
           ),
           actions: [
             Container(
-              width: 60,
+              width: 55,
               height: 80,
               child: TextButton(
                   style: TextButton.styleFrom(
@@ -33,14 +32,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Image.asset(
                     AppImages.notification,
-                    width: size.width * .1,
+                    width: size.width * 0.06,
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/atividades');
                   }),
             ),
             Container(
-              width: 60,
+              width: 55,
               height: 80,
               child: TextButton(
                   style: TextButton.styleFrom(
@@ -48,14 +47,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Image.asset(
                     AppImages.chatApp,
-                    width: size.width * .1,
+                    width: size.width * .06,
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/chat');
                   }),
             ),
             Container(
-              width: 60,
+              width: 55,
               height: 80,
               child: TextButton(
                   style: TextButton.styleFrom(
@@ -63,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Image.asset(
                     AppImages.settingsApp,
-                    width: size.width * .1,
+                    width: size.width * .06,
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, '/configs');
@@ -101,26 +100,24 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 5),
-                    width: 80,
-                    height: 35,
+                    width: 60,
+                    height: 40,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
                         ),
-                        child: Container(
-                          child: Icon(
-                            Icons.home_filled,
-                            color: Colors.white,
-                            size: 30,
-                          ),
+                        child: Image.asset(
+                          AppImages.homeSelected,
+                          width: 80,
+                          height: 80,
+                          //width: size.width * .1,
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
                         }),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 2),
+                    padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Home',
                       style: TextStyle(fontSize: 12, color: Colors.white),
@@ -132,18 +129,19 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     width: 60,
-                    height: 20,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white38,
-                        size: 30,
+                    height: 40,
+                    child: TextButton(
+                      child: Image.asset(
+                        AppImages.searchIcon,
+                        width: 80,
+                        height: 80,
+                        //width: size.width * .1,
                       ),
                       onPressed: () {},
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 17),
+                    padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Pesquisa',
                       style: TextStyle(fontSize: 12, color: Colors.white38),
@@ -163,8 +161,8 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(150)),
                       child: Image.asset(
                         AppImages.newPost,
-                        width: 80,
-                        height: 80,
+                        width: 40,
+                        height: 40,
                       ),
                     ),
                     onPressed: () {
@@ -175,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     width: 60,
-                    height: 35,
+                    height: 40,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
@@ -191,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                         }),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 2),
+                    padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Em alta',
                       style: TextStyle(fontSize: 12, color: Colors.white38),

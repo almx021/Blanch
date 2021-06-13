@@ -21,7 +21,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset(AppImages.leftArrow),
+            icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: GradientText(
             '            BLANCH            ',
@@ -59,26 +59,24 @@ class _EmAltaPageState extends State<EmAltaPage> {
               Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 5),
-                    width: 80,
-                    height: 35,
+                    width: 60,
+                    height: 40,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
                         ),
-                        child: Container(
-                          child: Icon(
-                            Icons.home_filled,
-                            color: Colors.white38,
-                            size: 30,
-                          ),
+                        child: Image.asset(
+                          AppImages.homepage,
+                          width: 80,
+                          height: 80,
+                          //width: size.width * .1,
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
                         }),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 2),
+                    padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Home',
                       style: TextStyle(fontSize: 12, color: Colors.white38),
@@ -90,18 +88,19 @@ class _EmAltaPageState extends State<EmAltaPage> {
                 children: [
                   Container(
                     width: 60,
-                    height: 20,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white38,
-                        size: 30,
+                    height: 40,
+                    child: TextButton(
+                      child: Image.asset(
+                        AppImages.searchIcon,
+                        width: 80,
+                        height: 80,
+                        //width: size.width * .1,
                       ),
                       onPressed: () {},
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 17),
+                    padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Pesquisa',
                       style: TextStyle(fontSize: 12, color: Colors.white38),
@@ -121,8 +120,8 @@ class _EmAltaPageState extends State<EmAltaPage> {
                           borderRadius: BorderRadius.circular(150)),
                       child: Image.asset(
                         AppImages.newPost,
-                        width: 80,
-                        height: 80,
+                        width: 40,
+                        height: 40,
                       ),
                     ),
                     onPressed: () {
@@ -133,7 +132,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
                 children: [
                   Container(
                     width: 60,
-                    height: 35,
+                    height: 40,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
@@ -150,7 +149,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
                         }),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 2),
+                    padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Em alta',
                       style: TextStyle(

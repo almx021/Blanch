@@ -29,7 +29,7 @@ class _NewPostState extends State<NewPost> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Image.asset(AppImages.leftArrow),
+                    icon: Image.asset(AppImages.leftArrow, width: 25),
                   )),
               Padding(
                 padding: EdgeInsets.only(left: 75.5, bottom: 20),
@@ -161,8 +161,8 @@ class _NewPostState extends State<NewPost> {
                   ),
                   Image.asset(
                     AppImages.relogio,
-                    height: 30.0,
-                    width: 30.0,
+                    height: 25.0,
+                    width: 25.0,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
@@ -212,8 +212,8 @@ class _NewPostState extends State<NewPost> {
                   ),
                   Image.asset(
                     AppImages.prato,
-                    height: 30.0,
-                    width: 30.0,
+                    height: 25.0,
+                    width: 25.0,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),

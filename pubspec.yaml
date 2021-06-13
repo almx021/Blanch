@@ -104,6 +104,11 @@ flutter:
     - images/Peixe.png
     - images/accounthd.png
     - images/Rosquinha.png
+    - images/homepage.png
+    - images/home_selected.png
+    - images/search.png
+    - images/relogio.png
+    - images/blanchtextlogo.png
 
 
 

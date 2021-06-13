@@ -15,6 +15,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: AppColors.backGroundApp,
           automaticallyImplyLeading: false,
           leading: IconButton(
@@ -24,7 +25,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
             icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: GradientText(
-            '            BLANCH            ',
+            'BLANCH',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
             gradient: AppGradients.linearinverso,
           ),
@@ -56,19 +57,20 @@ class _EmAltaPageState extends State<EmAltaPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Padding( padding: EdgeInsets.only(right: size.width * 0.034/2) ),
               Column(
                 children: [
                   Container(
-                    width: 60,
-                    height: 40,
+                    width: size.width * 0.146,
+                    height: size.height * 0.047,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
                         ),
                         child: Image.asset(
                           AppImages.homepage,
-                          width: 80,
-                          height: 80,
+                          width: size.width * 0.19,
+                          height: size.height * 0.095,
                           //width: size.width * .1,
                         ),
                         onPressed: () {
@@ -84,16 +86,17 @@ class _EmAltaPageState extends State<EmAltaPage> {
                   )
                 ],
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Column(
                 children: [
                   Container(
-                    width: 60,
-                    height: 40,
+                    width: size.width * 0.146,
+                    height: size.height * 0.047,
                     child: TextButton(
                       child: Image.asset(
                         AppImages.searchIcon,
-                        width: 80,
-                        height: 80,
+                        width: size.width * 0.19,
+                        height: size.height * 0.095,
                         //width: size.width * .1,
                       ),
                       onPressed: () {},
@@ -108,9 +111,10 @@ class _EmAltaPageState extends State<EmAltaPage> {
                   )
                 ],
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Container(
-                width: 80,
-                height: 80,
+                width: size.width * 0.19,
+                height: size.height * 0.095,
                 child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor: AppColors.backGroundApp,
@@ -120,29 +124,30 @@ class _EmAltaPageState extends State<EmAltaPage> {
                           borderRadius: BorderRadius.circular(150)),
                       child: Image.asset(
                         AppImages.newPost,
-                        width: 40,
-                        height: 40,
+                        width: size.width * 0.097,
+                        height: size.height * 0.047,
                       ),
                     ),
                     onPressed: () {
                       Navigator.pushNamed(context, '/newpost');
                     }),
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Column(
                 children: [
                   Container(
-                    width: 60,
-                    height: 40,
+                    width: size.width * 0.146,
+                    height: size.height * 0.047,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
                         ),
                         child: Image.asset(
                           AppImages.emAlta,
-                          width: 80,
-                          height: 80,
+                          width: size.width * 0.19,
+                          height: size.height * 0.095,
+                          color:  Colors.white,
                           //width: size.width * .1,
-                          color: Colors.white,
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/emAlta');
@@ -152,17 +157,15 @@ class _EmAltaPageState extends State<EmAltaPage> {
                     padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Em alta',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   )
                 ],
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Container(
-                width: 80,
-                height: 80,
+                width: size.width * 0.19,
+                height: size.height * 0.095,
                 child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor: AppColors.backGroundApp,

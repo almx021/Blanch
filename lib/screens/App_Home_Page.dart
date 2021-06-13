@@ -87,6 +87,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
+
         ),
 
         // Barra Inferior:
@@ -97,19 +98,20 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Padding( padding: EdgeInsets.only(right: size.width * 0.034/2) ),
               Column(
                 children: [
                   Container(
-                    width: 60,
-                    height: 40,
+                    width: size.width * 0.146,
+                    height: size.height * 0.047,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
                         ),
                         child: Image.asset(
                           AppImages.homeSelected,
-                          width: 80,
-                          height: 80,
+                          width: size.width * 0.19,
+                          height: size.height * 0.095,
                           //width: size.width * .1,
                         ),
                         onPressed: () {
@@ -125,16 +127,17 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Column(
                 children: [
                   Container(
-                    width: 60,
-                    height: 40,
+                    width: size.width * 0.146,
+                    height: size.height * 0.047,
                     child: TextButton(
                       child: Image.asset(
                         AppImages.searchIcon,
-                        width: 80,
-                        height: 80,
+                        width: size.width * 0.19,
+                        height: size.height * 0.095,
                         //width: size.width * .1,
                       ),
                       onPressed: () {},
@@ -149,9 +152,10 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Container(
-                width: 80,
-                height: 80,
+                width: size.width * 0.19,
+                height: size.height * 0.095,
                 child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor: AppColors.backGroundApp,
@@ -161,27 +165,28 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(150)),
                       child: Image.asset(
                         AppImages.newPost,
-                        width: 40,
-                        height: 40,
+                        width: size.width * 0.097,
+                        height: size.height * 0.047,
                       ),
                     ),
                     onPressed: () {
                       Navigator.pushNamed(context, '/newpost');
                     }),
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Column(
                 children: [
                   Container(
-                    width: 60,
-                    height: 40,
+                    width: size.width * 0.146,
+                    height: size.height * 0.047,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
                         ),
                         child: Image.asset(
                           AppImages.emAlta,
-                          width: 80,
-                          height: 80,
+                          width: size.width * 0.19,
+                          height: size.height * 0.095,
                           //width: size.width * .1,
                         ),
                         onPressed: () {
@@ -197,9 +202,10 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
+              Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
               Container(
-                width: 80,
-                height: 80,
+                width: size.width * 0.19,
+                height: size.height * 0.095,
                 child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor: AppColors.backGroundApp,

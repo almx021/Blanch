@@ -32,8 +32,6 @@ class _LoginPageState extends State<LoginPage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
-    print("LARGURA = $width E ALTURA = $height");
-
     return ScaffoldMessenger(
         key: _scaffoldMessengerKey,
         child: Scaffold(body: ScopedModelDescendant<UserModel>(
@@ -58,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Text("BLANCH",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w300,
+                                  fontWeight: FontWeight.w100,
                                   fontSize: 0.00015 * width * height,
                                   color: Colors.white,
                                   shadows: <Shadow>[
@@ -230,11 +228,16 @@ class _LoginPageState extends State<LoginPage> {
                             ])),
                           ),
                           Container(
-                            height: height <= 600
-                                ? (0.1 * height)
-                                : (0.07 * height),
-                            width:
-                                width <= 320 ? (0.62 * width) : (0.5 * width),
+                            height: width <= 360
+                                ? (0.16 * width)
+                                : width <= 450
+                                    ? (0.14 * width)
+                                    : (0.12 * width),
+                            width: width <= 360
+                                ? (0.62 * width)
+                                : width <= 450
+                                    ? (0.55 * width)
+                                    : (0.6 * width),
                             //         decoration: BoxDecoration(
                             //            borderRadius: BorderRadius.circular(50.0)),
                             child: ElevatedButton(
@@ -256,15 +259,19 @@ class _LoginPageState extends State<LoginPage> {
                                           EdgeInsets.only(right: 0.008 * width),
                                       child: Image.asset(
                                         AppImages.iconGoogle,
-                                        height: 0.1 * width,
-                                        width: 0.1 * width,
+                                        height: width <= 375
+                                            ? 0.1 * width
+                                            : 0.09 * width,
+                                        width: width <= 375
+                                            ? 0.1 * width
+                                            : 0.09 * width,
                                       ),
                                     ),
                                     Text(
                                       'Entrar com o google',
                                       style: TextStyle(
                                           color: Colors.black54,
-                                          fontSize: 13.0,
+                                          fontSize: width <= 375 ? 13.0 : 14.0,
                                           fontWeight: FontWeight.bold),
                                     )
                                   ],

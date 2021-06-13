@@ -317,7 +317,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 BorderRadius.circular(30.0),
                                           ),
                                           child: Container(
-                                            color: Colors.blue,
                                             height: (height / width) < 2
                                                 ? (0.09 * height)
                                                 : (0.08 * height),

@@ -82,7 +82,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top: 19.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -90,12 +89,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/5.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -125,7 +124,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -133,12 +131,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/80.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -168,7 +166,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -176,12 +173,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/women/23.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -211,7 +208,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -219,12 +215,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/14.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -254,7 +250,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -262,12 +257,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/67.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0,),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -297,7 +292,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -305,12 +299,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/women/41.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -340,7 +334,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -348,12 +341,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/69.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -383,7 +376,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -391,12 +383,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/women/43.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -426,7 +418,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -434,12 +425,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/87.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -469,7 +460,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -477,12 +467,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/47.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -512,7 +502,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -520,12 +509,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/men/83.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -555,7 +544,6 @@ class _ChatPageState extends State<ChatPage> {
                 Padding(padding: EdgeInsets.only(top:6.0)),
                 Container(
                   width: size.width,
-                  height: 60,
                   child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AppColors.backGroundApp,
@@ -563,12 +551,12 @@ class _ChatPageState extends State<ChatPage> {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30.0,
+                            radius: 28.0,
                             backgroundImage: NetworkImage(
                                 "https://randomuser.me/api/portraits/women/49.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0, top: 3.0),
+                            padding: EdgeInsets.only(left: 9.0),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(

@@ -81,7 +81,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
                     padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Home',
-                      style: TextStyle(fontSize: 12, color: Colors.white38),
+                      style: TextStyle(fontSize: 10, color: Colors.white38),
                     ),
                   )
                 ],
@@ -106,7 +106,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
                     padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Pesquisa',
-                      style: TextStyle(fontSize: 12, color: Colors.white38),
+                      style: TextStyle(fontSize: 10, color: Colors.white38),
                     ),
                   )
                 ],
@@ -157,7 +157,7 @@ class _EmAltaPageState extends State<EmAltaPage> {
                     padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Em alta',
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: TextStyle(fontSize: 10, color: Colors.white),
                     ),
                   )
                 ],

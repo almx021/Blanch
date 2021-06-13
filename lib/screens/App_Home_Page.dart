@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading: false,
           title: Image.asset(
             AppImages.textLogo,
-            width: 120,
+            width: size.width * 0.30,
           ),
           actions: [
             Container(
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Home',
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: TextStyle(fontSize: 10, color: Colors.white),
                     ),
                   )
                 ],
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Pesquisa',
-                      style: TextStyle(fontSize: 12, color: Colors.white38),
+                      style: TextStyle(fontSize: 10, color: Colors.white38),
                     ),
                   )
                 ],
@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.only(top: 0),
                     child: Text(
                       'Em alta',
-                      style: TextStyle(fontSize: 12, color: Colors.white38),
+                      style: TextStyle(fontSize: 10, color: Colors.white38),
                     ),
                   )
                 ],

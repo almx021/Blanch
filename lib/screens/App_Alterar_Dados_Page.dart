@@ -115,7 +115,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
         backgroundColor: AppColors.backGroundApp,
         centerTitle: true,
         leading: IconButton(
-            icon: Image.asset(AppImages.leftArrow),
+            icon: Image.asset(AppImages.leftArrow, width: 25),
             onPressed: () {
               Navigator.pop(context);
             }),

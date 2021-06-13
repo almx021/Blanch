@@ -7,8 +7,8 @@ class Logos {
         padding:
             EdgeInsets.only(top: 0.08 * screenWidth, left: 0.03 * screenWidth),
         child: Container(
-            width: 0.3 * screenWidth,
-            height: 0.3 * screenWidth,
+            width: 0.4 * screenWidth,
+            height: 0.4 * screenWidth,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -23,13 +23,15 @@ class Logos {
                     },
                     child: Image.asset(
                       logo,
-                      width: 0.15 * screenWidth,
-                      height: 0.15 * screenWidth,
+                      width: 0.165 * screenWidth,
+                      height: 0.165 * screenWidth,
                     )),
                 Text("BLANCH",
                     style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        fontSize: 0.0001 * screenWidth * screenHeight,
+                        fontSize: (screenWidth * screenHeight) < 190000.0
+                            ? 19.0
+                            : 21.0,
                         color: Colors.white,
                         shadows: <Shadow>[
                           Shadow(

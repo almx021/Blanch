@@ -35,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
     return ScaffoldMessenger(
         key: _scaffoldMessengerKey,
         child: Scaffold(
@@ -316,8 +317,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 BorderRadius.circular(30.0),
                                           ),
                                           child: Container(
-                                            height: 0.09 * height,
-                                            width: 0.61 * width,
+                                            color: Colors.blue,
+                                            height: (height / width) < 2
+                                                ? (0.09 * height)
+                                                : (0.08 * height),
+                                            width: (height / width) < 2
+                                                ? (0.6 * width)
+                                                : (0.5 * width),
                                             alignment: Alignment.center,
                                             child: Text(
                                               'Criar Conta',

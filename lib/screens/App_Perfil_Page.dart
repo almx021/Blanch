@@ -14,6 +14,8 @@ class PerfilPage extends StatefulWidget {
 class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
+    var heightScreen = MediaQuery.of(context).size.height;
+    var widthScreen = MediaQuery.of(context).size.width;
     var size = MediaQuery.of(context).size;
 
     return Scaffold(body: ScopedModelDescendant<UserModel>(
@@ -28,7 +30,7 @@ class _PerfilPageState extends State<PerfilPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Image.asset(AppImages.leftArrow),
+                  icon: Image.asset(AppImages.leftArrow, width: 25),
                 ),
                 title: Text(
                   '${model.userData["name"]}',
@@ -57,11 +59,13 @@ class _PerfilPageState extends State<PerfilPage> {
                   padding: EdgeInsets.only(top: 25),
                 ),
                 Container(
-                    width: size.width,
-                    height: size.height / 8,
-                    child: Row(children: [
+                    width: widthScreen,
+                    height: heightScreen / 8,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 155),
+                        padding: EdgeInsets.only(right: widthScreen * 0.5 - 50),
                       ),
                       CircleAvatar(
                         radius: 50,
@@ -69,20 +73,22 @@ class _PerfilPageState extends State<PerfilPage> {
                           AppImages.perfilImage,
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(left: 99, top: 50),
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                                backgroundColor: AppColors.backGroundApp,
-                                minimumSize: Size.fromWidth(0)),
-                            child: Image.asset(
-                              AppImages.editPerfil,
-                            ),
-                            onPressed: () {}),
-                      )
+                      Padding(
+                        padding :EdgeInsets.only(left: widthScreen * 0.24,),
+                      ),
+                          TextButton(
+                              style: TextButton.styleFrom(
+                                  backgroundColor: AppColors.backGroundApp,
+                                  minimumSize: Size.fromWidth(0)),
+                              child: Image.asset(
+                                AppImages.editPerfil,
+                                width: widthScreen * 0.073,
+                              ),
+                              onPressed: () {})
                     ])),
                 Padding(padding: EdgeInsets.only(top: 12)),
                 Text(
+
                   '@${model.userData["@"]}',
                   style: TextStyle(color: Colors.white),
                 ),
@@ -94,8 +100,8 @@ class _PerfilPageState extends State<PerfilPage> {
                 Padding(padding: EdgeInsets.only(top: 6)),
                 IntrinsicHeight(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(padding: EdgeInsets.only(left: 50)),
                       Column(children: [
                         Text(
                           '0', //'${model.userData["postagens"]}',
@@ -117,7 +123,7 @@ class _PerfilPageState extends State<PerfilPage> {
                       ),
                       Column(children: [
                         Text(
-                          '0', //'${model.userData["postagens"]}',
+                          '0', //'${model.userData["seguidores"]}',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -136,7 +142,7 @@ class _PerfilPageState extends State<PerfilPage> {
                       ),
                       Column(children: [
                         Text(
-                          '0', //'${model.userData["postagens"]}',
+                          '0', //'${model.userData["seguindo"]}',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -169,29 +175,28 @@ class _PerfilPageState extends State<PerfilPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Padding( padding: EdgeInsets.only(right: size.width * 0.034/2) ),
                   Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 5),
-                        width: 80,
-                        height: 35,
+                        width: size.width * 0.146,
+                        height: size.height * 0.047,
                         child: TextButton(
                             style: TextButton.styleFrom(
                               backgroundColor: AppColors.backGroundApp,
                             ),
-                            child: Container(
-                              child: Icon(
-                                Icons.home_filled,
-                                color: Colors.white38,
-                                size: 30,
-                              ),
+                            child: Image.asset(
+                              AppImages.homepage,
+                              width: size.width * 0.19,
+                              height: size.height * 0.095,
+                              //width: size.width * .1,
                             ),
                             onPressed: () {
                               Navigator.pushNamed(context, '/home');
                             }),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 2),
+                        padding: EdgeInsets.only(top: 0),
                         child: Text(
                           'Home',
                           style: TextStyle(fontSize: 12, color: Colors.white38),
@@ -199,22 +204,24 @@ class _PerfilPageState extends State<PerfilPage> {
                       )
                     ],
                   ),
+                  Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
                   Column(
                     children: [
                       Container(
-                        width: 60,
-                        height: 20,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.white38,
-                            size: 30,
+                        width: size.width * 0.146,
+                        height: size.height * 0.047,
+                        child: TextButton(
+                          child: Image.asset(
+                            AppImages.searchIcon,
+                            width: size.width * 0.19,
+                            height: size.height * 0.095,
+                            //width: size.width * .1,
                           ),
                           onPressed: () {},
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 17),
+                        padding: EdgeInsets.only(top: 0),
                         child: Text(
                           'Pesquisa',
                           style: TextStyle(fontSize: 12, color: Colors.white38),
@@ -222,9 +229,10 @@ class _PerfilPageState extends State<PerfilPage> {
                       )
                     ],
                   ),
+                  Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
                   Container(
-                    width: 80,
-                    height: 80,
+                    width: size.width * 0.19,
+                    height: size.height * 0.095,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
@@ -234,49 +242,47 @@ class _PerfilPageState extends State<PerfilPage> {
                               borderRadius: BorderRadius.circular(150)),
                           child: Image.asset(
                             AppImages.newPost,
-                            width: 80,
-                            height: 80,
+                            width: size.width * 0.097,
+                            height: size.height * 0.047,
                           ),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/newpost');
                         }),
                   ),
+                  Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
                   Column(
                     children: [
                       Container(
-                        width: 60,
-                        height: 35,
+                        width: size.width * 0.146,
+                        height: size.height * 0.047,
                         child: TextButton(
                             style: TextButton.styleFrom(
                               backgroundColor: AppColors.backGroundApp,
                             ),
                             child: Image.asset(
                               AppImages.emAlta,
-                              width: 80,
-                              height: 80,
+                              width: size.width * 0.19,
+                              height: size.height * 0.095,
                               //width: size.width * .1,
-                              color: Colors.white38,
                             ),
                             onPressed: () {
                               Navigator.pushNamed(context, '/emAlta');
                             }),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 2),
+                        padding: EdgeInsets.only(top: 0),
                         child: Text(
                           'Em alta',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white38,
-                          ),
+                          style: TextStyle(fontSize: 12, color: Colors.white38),
                         ),
-                      ),
+                      )
                     ],
                   ),
+                  Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
                   Container(
-                    width: 80,
-                    height: 80,
+                    width: size.width * 0.19,
+                    height: size.height * 0.095,
                     child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: AppColors.backGroundApp,
@@ -286,7 +292,9 @@ class _PerfilPageState extends State<PerfilPage> {
                             AppImages.perfilImage,
                           ),
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/perfil');
+                        }),
                   ),
                 ],
               ),

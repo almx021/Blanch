@@ -26,7 +26,7 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: AppColors.backGroundApp,
         centerTitle: true,
         leading: IconButton(
-            icon: Image.asset(AppImages.leftArrow),
+            icon: Image.asset(AppImages.leftArrow, width: 25),
             onPressed: () {
               Navigator.pop(context);
             }),

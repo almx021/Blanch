@@ -21,7 +21,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset(AppImages.leftArrow),
+            icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: Text(
             'Configurações',
@@ -49,7 +49,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                             child: Row(children: [
                               Padding(
                                 padding: EdgeInsets.only(right: 20),
-                                child: Image.asset(AppImages.notification),
+                                child: Image.asset(
+                                  AppImages.notification,
+                                  width: 20,
+                                ),
                               ),
                               Text(
                                 'Notificação',
@@ -79,7 +82,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                             Align(
                               child: Padding(
                                 padding: EdgeInsets.only(right: 20),
-                                child: Image.asset(AppImages.accounthd),
+                                child: Image.asset(
+                                  AppImages.accounthd,
+                                  width: 20,
+                                ),
                               ),
                             ),
                             Text(
@@ -108,7 +114,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                           child: Row(children: [
                             Padding(
                               padding: EdgeInsets.only(right: 20),
-                              child: Image.asset(AppImages.help),
+                              child: Image.asset(
+                                AppImages.help,
+                                width: 20,
+                              ),
                             ),
                             Text(
                               'Ajuda',
@@ -134,7 +143,10 @@ class _ConfigsPageState extends State<ConfigsPage> {
                         child: Row(children: [
                           Padding(
                             padding: EdgeInsets.only(right: 20),
-                            child: Image.asset(AppImages.sobre),
+                            child: Image.asset(
+                              AppImages.sobre,
+                              width: 20,
+                            ),
                           ),
                           Text(
                             'Sobre',

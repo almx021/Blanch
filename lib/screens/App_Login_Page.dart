@@ -23,13 +23,17 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    super.initState();
     _passwordLoginVisible = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
+    print("LARGURA = $width E ALTURA = $height");
+
     return ScaffoldMessenger(
         key: _scaffoldMessengerKey,
         child: Scaffold(body: ScopedModelDescendant<UserModel>(
@@ -42,57 +46,38 @@ class _LoginPageState extends State<LoginPage> {
                         decoration:
                             BoxDecoration(gradient: AppGradients.linear)),
                     SingleChildScrollView(
-                      padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+                      padding: EdgeInsets.fromLTRB(
+                          0.1 * width, 0.12 * height, 0.1 * width, 0.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: 50.0,
-                          ),
                           Image.asset(
                             AppImages.logo,
-                            width: 150,
-                            height: 150,
+                            width: 0.3 * width,
+                            height: 0.135 * height,
                           ),
                           Text("BLANCH",
                               style: TextStyle(
-                                fontWeight: FontWeight.w100,
-                                fontSize: 60,
-                                color: Colors.white,
-                              )),
-                          Container(
-                            padding: EdgeInsets.only(top: 20.0),
-                            child: TextFormField(
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(50.0),
-                                  ),
-                                  labelStyle: TextStyle(
-                                    color: Colors.white,
-                                  )),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 15.0),
-                            ),
-                          ),
-                          Divider(color: Colors.transparent),
-                          Stack(
-                            children: [
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 0.00015 * width * height,
+                                  color: Colors.white,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                        color: Colors.blueGrey[900],
+                                        offset: Offset(0.3, 0.5),
+                                        blurRadius: 1.5)
+                                  ])),
+                          Padding(
+                            padding: EdgeInsets.only(top: 0.03 * height),
+                            child: Column(children: <Widget>[
                               Container(
+                                width: 0.8 * width,
+                                height: 0.09 * height,
                                 child: TextFormField(
-                                  obscureText: !_passwordLoginVisible,
-                                  controller: _passwordController,
-                                  keyboardType: TextInputType.text,
-                                  //obscureText: true,
+                                  controller: _emailController,
+                                  keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
-                                      labelText: 'Senha',
+                                      labelText: 'Email',
                                       border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(50.0),
@@ -111,50 +96,81 @@ class _LoginPageState extends State<LoginPage> {
                                       color: Colors.white, fontSize: 15.0),
                                 ),
                               ),
-                              Row(
+                              Divider(color: Colors.transparent),
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: 0.8 * width,
+                                    height: 0.09 * height,
+                                    child: TextFormField(
+                                      obscureText: !_passwordLoginVisible,
+                                      controller: _passwordController,
+                                      keyboardType: TextInputType.text,
+                                      //obscureText: true,
+                                      decoration: InputDecoration(
+                                          labelText: 'Senha',
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.white),
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                          ),
+                                          labelStyle: TextStyle(
+                                            color: Colors.white,
+                                          )),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 15.0),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                          color: Color.fromRGBO(1, 1, 1, 0.35),
+                                          padding: EdgeInsets.only(
+                                              top: 0.007 * height,
+                                              right: 0.045 * width),
+                                          icon: Icon(_passwordLoginVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off),
+                                          onPressed: () {
+                                            setState(() {
+                                              _passwordLoginVisible =
+                                                  !_passwordLoginVisible;
+                                            });
+                                          })
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ]),
+                          ),
+                          Container(
+                              height: 0.06 * height,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  IconButton(
-                                      color: Color.fromRGBO(1, 1, 1, 0.35),
-                                      padding: EdgeInsets.all(17.0),
-                                      icon: Icon(_passwordLoginVisible
-                                          ? Icons.visibility
-                                          : Icons.visibility_off),
-                                      onPressed: () {
-                                        setState(() {
-                                          _passwordLoginVisible =
-                                              !_passwordLoginVisible;
-                                        });
-                                      })
-                                ],
-                              )
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: h * 0.02),
-                            child: Container(
-                                height: h * 0.04,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/recover');
-                                      },
-                                      child: Text(
-                                        'Recuperar senha',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontSize: 15.0,
-                                        ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, '/recover');
+                                    },
+                                    child: Text(
+                                      'Recuperar senha',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 14.0,
                                       ),
                                     ),
-                                  ],
-                                )),
-                          ),
+                                  ),
+                                ],
+                              )),
                           Container(
                             padding: EdgeInsets.only(top: 5.0),
                             child: TextButton(
@@ -178,14 +194,14 @@ class _LoginPageState extends State<LoginPage> {
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
                                   child: Container(
-                                    height: 60.0,
-                                    width: 160.0,
+                                    height: 0.08 * height,
+                                    width: 0.40 * width,
                                     alignment: Alignment.center,
                                     child: Text(
                                       'Login',
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 23.0,
+                                          fontSize: 21.0,
                                           fontWeight: FontWeight.w500),
                                     ),
                                   )),
@@ -193,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: h * 0.06, bottom: h * 0.03),
+                                top: height * 0.03, bottom: height * 0.03),
                             child: Container(
                                 child: Row(children: <Widget>[
                               Expanded(
@@ -214,11 +230,13 @@ class _LoginPageState extends State<LoginPage> {
                             ])),
                           ),
                           Container(
-                            height: 70.0,
-                            width: 221.0,
-                            padding: EdgeInsets.only(top: 10.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0)),
+                            height: height <= 600
+                                ? (0.1 * height)
+                                : (0.07 * height),
+                            width:
+                                width <= 320 ? (0.62 * width) : (0.5 * width),
+                            //         decoration: BoxDecoration(
+                            //            borderRadius: BorderRadius.circular(50.0)),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.white,
@@ -229,30 +247,25 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () {
                                   model.signInWithGoogle(
                                       onSuccess: _onSuccess, onFail: _onFail);
-                                  model.signInWithGoogle(
-                                      onSuccess: _onSuccess, onFail: _onFail);
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 5.0, right: 10.0),
+                                      padding:
+                                          EdgeInsets.only(right: 0.008 * width),
                                       child: Image.asset(
                                         AppImages.iconGoogle,
-                                        height: 30.0,
-                                        width: 30.0,
+                                        height: 0.1 * width,
+                                        width: 0.1 * width,
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 5.0),
-                                      child: Text(
-                                        'Entrar com o google',
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                    Text(
+                                      'Entrar com o google',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.bold),
                                     )
                                   ],
                                 )),
@@ -261,7 +274,7 @@ class _LoginPageState extends State<LoginPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(top: h * 0.09),
+                                padding: EdgeInsets.only(top: height * 0.09),
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -272,7 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                                     text: 'Não tem uma conta? ',
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
-                                      fontSize: 20.0,
+                                      fontSize: 15.0,
                                       shadows: [
                                         Shadow(
                                           blurRadius: 4.0,

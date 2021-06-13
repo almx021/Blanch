@@ -32,7 +32,7 @@ class _AccountPageState extends State<AccountPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset(AppImages.leftArrow),
+            icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: Text(
             'Conta',

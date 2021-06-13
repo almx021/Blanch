@@ -28,7 +28,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset(AppImages.leftArrow),
+            icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: Text(
             'Notificações',

@@ -34,5 +34,6 @@ class AppImages {
   static String get PubliPeixe => 'images/Peixe.png';
   static String get PubliRosquinha => 'images/Rosquinha.png';
   static String get PubliPastel => 'images/pastel.png';
+  static String get Iconecamera => 'images/IconeCamera.png';
 
 }

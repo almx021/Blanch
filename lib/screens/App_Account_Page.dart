@@ -177,15 +177,13 @@ class _AccountPageState extends State<AccountPage> {
                                           children: [
                                             Text("Sentiremos sua falta",
                                           style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: AdaptiveTextSize()
-                                              .getadaptiveTextSize(context, 15),
+                                          color: Colors.grey,
                                         )),
                                            Text(" ☹",
                                                 style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: Colors.grey,
                                                   fontSize: AdaptiveTextSize()
-                                                      .getadaptiveTextSize(context, 25),
+                                                      .getadaptiveTextSize(context, 20),
                                                 )),
                                         ]
                                       ),

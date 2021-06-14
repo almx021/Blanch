@@ -68,8 +68,10 @@ class UserModel extends Model {
   void signInWithGoogle({@required VoidCallback onSuccess, @required VoidCallback onFail})async{
     try{
       final User user = await getUserGoogle();
-      onSuccess();
-    }
+
+       onSuccess();
+
+     }
     catch(error){
       onFail();
     }

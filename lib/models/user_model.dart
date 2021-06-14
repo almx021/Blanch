@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class UserModel extends Model {
 
+
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -64,28 +65,46 @@ class UserModel extends Model {
 
   }
 
-
-
-  Future<bool> signInWithGoogle({@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
-
-    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-
-    if(googleSignInAccount != null){
-      GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-      AuthCredential credential = GoogleAuthProvider.credential(idToken: googleSignInAuthentication.idToken,
-      accessToken: googleSignInAuthentication.accessToken);
-
-      UserCredential result = await _auth.signInWithCredential(credential);
-
-      User user = await _auth.currentUser;
-
+  void signInWithGoogle({@required VoidCallback onSuccess, @required VoidCallback onFail})async{
+    try{
+      final User user = await getUserGoogle();
       onSuccess();
-      return Future.value(true);
+    }
+    catch(error){
+      onFail();
     }
   }
 
-  Future<User> getUserGoogle()async{
+  @override
+  void initState(){
+    _auth.authStateChanges().listen((user) {
+      currentUser = user;
+    });
+  }
 
+  Future<User> getUserGoogle()async{
+    if(currentUser != null) return currentUser;
+
+    try{
+      final GoogleSignInAccount googleSignInAccount =
+      await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+      );
+
+      final UserCredential userCredential =
+      await _auth.signInWithCredential(credential);
+
+      final User user = userCredential.user;
+
+      return user;
+    } catch(error){
+      return null;
+    }
   }
 
   void recoverPassword(String email){

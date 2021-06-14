@@ -306,7 +306,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           padding: EdgeInsets.zero,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(30.0),
+                                                  BorderRadius.circular(50.0),
                                               side: BorderSide(
                                                   color: Colors.white)),
                                         ),
@@ -314,7 +314,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           decoration: BoxDecoration(
                                             gradient: AppGradients.orangelinear,
                                             borderRadius:
-                                                BorderRadius.circular(30.0),
+                                                BorderRadius.circular(50.0),
                                           ),
                                           child: Container(
                                             height: (height / width) < 2

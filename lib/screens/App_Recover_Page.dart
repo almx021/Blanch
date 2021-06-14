@@ -42,7 +42,7 @@ class _RecoverPageState extends State<RecoverPage> {
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 22.0,
+                              fontSize: 21.0,
                             ),
                           ),
                         ),
@@ -102,13 +102,13 @@ class _RecoverPageState extends State<RecoverPage> {
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(50.0),
                                   side: BorderSide(color: Colors.white)),
                             ),
                             child: Ink(
                                 decoration: BoxDecoration(
                                   gradient: AppGradients.orangelinear,
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(50.0),
                                 ),
                                 child: Container(
                                   height: 50.0,

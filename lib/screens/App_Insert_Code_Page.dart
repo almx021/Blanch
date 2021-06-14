@@ -114,7 +114,7 @@ class _InsertCodePageState extends State<InsertCodePage> {
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(50.0),
                                   side: BorderSide(color: Colors.white)),
                             ),
                             onPressed: () {
@@ -132,7 +132,7 @@ class _InsertCodePageState extends State<InsertCodePage> {
                             child: Ink(
                                 decoration: BoxDecoration(
                                   gradient: AppGradients.orangelinear,
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(50.0),
                                 ),
                                 child: Container(
                                   height: 50.0,

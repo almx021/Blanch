@@ -106,73 +106,76 @@ class _MensagemPageState extends State<MensagemPage> {
               );
             },
           ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.backGroundApp,
+              ),
+              child: Container(
+                margin: EdgeInsets.all(w * 0.02),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  color: Color.fromRGBO(29, 29, 29, 1),
+                ),
+                padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                height: 60,
+                width: double.infinity,
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                            gradient: AppGradients.orangelinear,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: IconButton(
+                            padding: EdgeInsets.all(w * 0.013),
+                            icon: Image.asset(
+                              AppImages.camera5,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {},
+                          )),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            hintText: "Mensagem...",
+                            hintStyle:
+                            TextStyle(color: Color.fromRGBO(79, 79, 79, 1)),
+                            border: InputBorder.none),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                    ),
+                  ],
+                ),
 
+              ),
+            ),
+          )
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: AppColors.backGroundApp,
-        ),
-        child: Container(
-          margin: EdgeInsets.all(w * 0.02),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            color: Color.fromRGBO(29, 29, 29, 1),
-          ),
-          padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-          height: 60,
-          width: double.infinity,
-          child: Row(
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                    height: 35,
-                    width: 35,
-                    decoration: BoxDecoration(
-                      gradient: AppGradients.orangelinear,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: IconButton(
-                      padding: EdgeInsets.all(w * 0.013),
-                      icon: Image.asset(
-                        AppImages.camera5,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    )),
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                child: TextField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      hintText: "Mensagem...",
-                      hintStyle:
-                      TextStyle(color: Color.fromRGBO(79, 79, 79, 1)),
-                      border: InputBorder.none),
-                ),
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              FloatingActionButton(
-                onPressed: () {},
-                child: Icon(
-                  Icons.send,
-                  color: Colors.white,
-                  size: 25,
-                ),
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-              ),
-            ],
-          ),
 
-        ),
-      )
     );
   }
 }

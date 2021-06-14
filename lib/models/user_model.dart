@@ -62,14 +62,44 @@ class UserModel extends Model {
 
   }
 
-  void signInWithGoogle({@required VoidCallback onSuccess, @required VoidCallback onFail})async{
-    try{
-      final User user = await getUserGoogle();
-      onSuccess();
+  static Future<User> signInWithGoogle({ @required VoidCallback onSuccess,@required VoidCallback onFail}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user;
+
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount googleSignInAccount =
+    await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+        await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+        onSuccess();
+      } on FirebaseAuthException catch (e) {
+        onFail();
+        if (e.code == 'account-exists-with-different-credential') {
+          // handle the error here
+        }
+        else if (e.code == 'invalid-credential') {
+          // handle the error here
+        }
+      } catch (e) {
+        // handle the error here
+      }
     }
-    catch(error){
-      onFail();
-    }
+
+    return user;
   }
 
   @override

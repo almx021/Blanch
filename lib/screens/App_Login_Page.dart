@@ -248,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
                                       side: BorderSide(color: Colors.white)),
                                 ),
                                 onPressed: () {
-                                  model.signInWithGoogle(
+                                  UserModel.signInWithGoogle(
                                       onSuccess: _onSuccess, onFail: _onFail);
                                 },
                                 child: Row(

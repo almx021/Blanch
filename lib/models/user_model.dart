@@ -46,11 +46,9 @@ class UserModel extends Model {
     @required VoidCallback onSuccess, @required VoidCallback onFail}) async {
     isLoading = true;
     notifyListeners();
-
     _auth.signInWithEmailAndPassword(email: email, password: pass).then(
             (authResult) {
           firebaseUser = authResult.user;
-
           onSuccess();
           isLoading = false;
           notifyListeners();
@@ -68,19 +66,22 @@ class UserModel extends Model {
   void signInWithGoogle({@required VoidCallback onSuccess, @required VoidCallback onFail})async{
     try{
       final User user = await getUserGoogle();
-      onSuccess();
+
+      userData = {
+        "uid": user.uid,
+        "name" : user.displayName
+      };
+
+      if(user!=null) {
+        onSuccess();
+      }
+
     }
     catch(error){
       onFail();
     }
   }
 
-  @override
-  void initState(){
-    _auth.authStateChanges().listen((user) {
-      currentUser = user;
-    });
-  }
 
   Future<User> getUserGoogle()async{
     if(currentUser != null) return currentUser;

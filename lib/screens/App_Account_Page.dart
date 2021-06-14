@@ -12,6 +12,7 @@ class AdaptiveTextSize {
     return (value / 720) * MediaQuery.of(context).size.height;
   }
 }
+
 class AccountPage extends StatefulWidget {
   const AccountPage({Key key}) : super(key: key);
 
@@ -84,44 +85,57 @@ class _AccountPageState extends State<AccountPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(20.0))),
-                          backgroundColor:
-                          Color.fromRGBO(39, 39, 39, 1),
-                          title: Text('Excluir conta',
-                              style: TextStyle(color: Colors.white)),
-                          content: TextField(
-                            style: TextStyle(
-                                fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 14),
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                            decoration: InputDecoration(
-                                prefixIcon: Padding(
-                                    padding: EdgeInsets.only(left: 9.0, right: 9.0),
-                                    child: Icon(
-                                      Icons.lock,
-                                      color: Colors.grey,
-                                    )),
-                                prefixIconConstraints: BoxConstraints(
-                                  minHeight: 13,
-                                  minWidth: 13,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    width: 0,
-                                    style: BorderStyle.none,
-                                  ),
-                                ),
-                                isCollapsed: true,
-                                contentPadding: EdgeInsets.all(12),
-                                fillColor: Color(0xff444444),
-                                filled: true,
-                                hintStyle: TextStyle(
-                                    fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 14),
-                                    color: Colors.grey,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
+                          backgroundColor: Color.fromRGBO(39, 39, 39, 1),
+                          title:
+                              Text('Tem certeza que deseja excluir sua conta?',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: AdaptiveTextSize()
+                                        .getadaptiveTextSize(context, 15),
+                                  )),
+                          content: Padding(
+                            padding: EdgeInsets.only(top: size.height * 0.02),
+                            child: Container(
+                              height: size.height * 0.05,
+                              child: TextField(
+                                obscureText: true,
+                                style: TextStyle(
+                                    fontSize: AdaptiveTextSize()
+                                        .getadaptiveTextSize(context, 14),
+                                    color: Colors.white,
                                     fontWeight: FontWeight.w500),
-                                hintText: 'Informe sua senha'),
+                                decoration: InputDecoration(
+                                    prefixIcon: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 9.0, right: 9.0),
+                                        child: Icon(
+                                          Icons.lock,
+                                          color: Colors.grey,
+                                        )),
+                                    prefixIconConstraints: BoxConstraints(
+                                      minHeight: size.height * 0.02,
+                                      minWidth: size.height * 0.02,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        width: 0,
+                                        style: BorderStyle.none,
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.all(8),
+                                    fillColor: Color(0xff444444),
+                                    filled: true,
+                                    hintStyle: TextStyle(
+                                        fontSize: AdaptiveTextSize()
+                                            .getadaptiveTextSize(context, 13),
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500),
+                                    hintText: 'Informe sua senha'),
+                              ),
+                            ),
                           ),
                           actions: [
                             TextButton(
@@ -144,16 +158,73 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.pop(context, 'Excluir');
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(20.0))),
+                                        backgroundColor: Color.fromRGBO(39, 39, 39, 1),
+                                        title:
+                                        Text('Sua conta foi excluída',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: AdaptiveTextSize()
+                                                  .getadaptiveTextSize(context, 17),
+                                            )),
+                                        content: Row(
+                                          children: [
+                                            Text("Sentiremos sua falta",
+                                          style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: AdaptiveTextSize()
+                                              .getadaptiveTextSize(context, 15),
+                                        )),
+                                           Text(" ☹",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: AdaptiveTextSize()
+                                                      .getadaptiveTextSize(context, 25),
+                                                )),
+                                        ]
+                                      ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context, 'Cancelar');
+                                            },
+                                            child: ShaderMask(
+                                              shaderCallback: (Rect rect) {
+                                                return (AppGradients.orangelinear)
+                                                    .createShader(rect);
+                                              },
+                                              child: Text(
+                                                'Voltar ao inicio',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .button
+                                                    .copyWith(color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    });
                               },
-                              child: Text(
+                              child: ShaderMask(
+                                shaderCallback: (Rect rect) {
+                                  return (AppGradients.orangelinear)
+                                      .createShader(rect);
+                                },
+                                child: Text(
                                   'Excluir',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.red.shade900,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .button
+                                      .copyWith(color: Colors.white),
                                 ),
-
+                              ),
                             )
                           ],
                         );

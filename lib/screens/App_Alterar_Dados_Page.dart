@@ -132,7 +132,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(padding: EdgeInsets.only(top: 35)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.07)),
                 Align(
                     alignment: FractionalOffset(0.1, 0.6),
                     child: Text("Alterar E-mail",
@@ -141,7 +141,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                                 .getadaptiveTextSize(context, 18),
                             color: Colors.white,
                             fontWeight: FontWeight.w500))),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
                 Align(
                     alignment: FractionalOffset(0.2, 0.6),
                     child: Text("Digite o novo e-mail",
@@ -150,7 +150,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                                 .getadaptiveTextSize(context, 14),
                             color: Colors.white,
                             fontWeight: FontWeight.w500))),
-                Padding(padding: EdgeInsets.only(top: 10)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
                 Align(
                   alignment: FractionalOffset(0.3, 0.6),
                   child: Container(
@@ -187,7 +187,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
                 Align(
                     alignment: FractionalOffset(0.2, 0.6),
                     child: Text("Digite sua senha",
@@ -196,12 +196,13 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                                 .getadaptiveTextSize(context, 14),
                             color: Colors.white,
                             fontWeight: FontWeight.w500))),
-                Padding(padding: EdgeInsets.only(top: 10)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
                 Align(
                   alignment: FractionalOffset(0.3, 0.6),
                   child: Container(
                     width: size.width * 0.7,
                     child: TextField(
+                      obscureText: true,
                       style: TextStyle(
                           fontSize: AdaptiveTextSize()
                               .getadaptiveTextSize(context, 14),
@@ -233,29 +234,32 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 25)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.035)),
                 Align(
                   alignment: Alignment.center,
-                  child: UnicornOutlineButton(
-                    strokeWidth: 1,
-                    radius: 24,
-                    gradient: AppGradients.orangelinear,
-                    child: ShaderMask(
-                      shaderCallback: (Rect rect) {
-                        return (AppGradients.orangelinear).createShader(rect);
-                      },
-                      child: Text(
-                        'Alterar',
-                        style: Theme.of(context)
-                            .textTheme
-                            .button
-                            .copyWith(color: Colors.white),
+                  child: Container(
+                    width: size.width * 0.3,
+                    child: UnicornOutlineButton(
+                      strokeWidth: 1,
+                      radius: 24,
+                      gradient: AppGradients.orangelinear,
+                      child: ShaderMask(
+                        shaderCallback: (Rect rect) {
+                          return (AppGradients.orangelinear).createShader(rect);
+                        },
+                        child: Text(
+                          'Alterar',
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 35)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.06)),
                 Align(
                     alignment: FractionalOffset(0.1, 0.6),
                     child: Text("Alterar Senha",
@@ -264,7 +268,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                                 .getadaptiveTextSize(context, 18),
                             color: Colors.white,
                             fontWeight: FontWeight.w500))),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
                 Align(
                     alignment: FractionalOffset(0.2, 0.6),
                     child: Text("Digite sua senha atual",
@@ -273,12 +277,13 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                                 .getadaptiveTextSize(context, 14),
                             color: Colors.white,
                             fontWeight: FontWeight.w500))),
-                Padding(padding: EdgeInsets.only(top: 10)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
                 Align(
                   alignment: FractionalOffset(0.3, 0.6),
                   child: Container(
                     width: size.width * 0.7,
                     child: TextField(
+                      obscureText: true,
                       style: TextStyle(
                           fontSize: AdaptiveTextSize()
                               .getadaptiveTextSize(context, 14),
@@ -310,7 +315,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
                 Align(
                     alignment: FractionalOffset(0.2, 0.6),
                     child: Text("Digite sua nova senha",
@@ -319,12 +324,13 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                                 .getadaptiveTextSize(context, 14),
                             color: Colors.white,
                             fontWeight: FontWeight.w500))),
-                Padding(padding: EdgeInsets.only(top: 10)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
                 Align(
                   alignment: FractionalOffset(0.3, 0.6),
                   child: Container(
                     width: size.width * 0.7,
                     child: TextField(
+                      obscureText: true,
                       style: TextStyle(
                           fontSize: AdaptiveTextSize()
                               .getadaptiveTextSize(context, 14),
@@ -356,7 +362,7 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
                 Align(
                     alignment: FractionalOffset(0.2, 0.6),
                     child: Text("Confirme sua nova senha",
@@ -365,12 +371,13 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                                 .getadaptiveTextSize(context, 14),
                             color: Colors.white,
                             fontWeight: FontWeight.w500))),
-                Padding(padding: EdgeInsets.only(top: 10)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
                 Align(
                   alignment: FractionalOffset(0.3, 0.6),
                   child: Container(
                     width: size.width * 0.7,
                     child: TextField(
+                      obscureText: true,
                       style: TextStyle(
                           fontSize: AdaptiveTextSize()
                               .getadaptiveTextSize(context, 14),
@@ -402,29 +409,32 @@ class _AlterarDadosPageState extends State<AlterarDadosPage> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 25)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.035)),
                 Align(
                   alignment: Alignment.center,
-                  child: UnicornOutlineButton(
-                    strokeWidth: 1,
-                    radius: 24,
-                    gradient: AppGradients.orangelinear,
-                    child: ShaderMask(
-                      shaderCallback: (Rect rect) {
-                        return (AppGradients.orangelinear).createShader(rect);
-                      },
-                      child: Text(
-                        'Alterar',
-                        style: Theme.of(context)
-                            .textTheme
-                            .button
-                            .copyWith(color: Colors.white),
+                  child: Container(
+                    width: size.width * 0.3,
+                    child: UnicornOutlineButton(
+                      strokeWidth: 1,
+                      radius: 24,
+                      gradient: AppGradients.orangelinear,
+                      child: ShaderMask(
+                        shaderCallback: (Rect rect) {
+                          return (AppGradients.orangelinear).createShader(rect);
+                        },
+                        child: Text(
+                          'Alterar',
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(bottom: 35)),
+                Padding(padding: EdgeInsets.only(bottom: size.height * 0.06)),
               ],
             ),
           ),

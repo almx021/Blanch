@@ -42,7 +42,7 @@ class _ChatPageState extends State<ChatPage> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Padding(padding: EdgeInsets.only(top: 22.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
                 Container(
                   width: size.width * 0.9,
                   child: TextField(
@@ -79,7 +79,7 @@ class _ChatPageState extends State<ChatPage> {
                         hintText: 'Pesquisar'),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(top: 19.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -94,7 +94,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/5.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -105,7 +105,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 3 min",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -121,7 +121,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -136,7 +136,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/80.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -147,7 +147,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Fala cara, aquela recei... · 22 min",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -163,7 +163,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -178,7 +178,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/women/23.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -189,7 +189,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Cara, sobre aquela coxin... · 5 h",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -205,7 +205,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -220,7 +220,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/14.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -231,7 +231,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("5 novas mensagens · 3 d",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -247,7 +247,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -262,7 +262,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/67.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0,),
+                            padding: EdgeInsets.only(left: size.width * 0.03,),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -273,7 +273,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Certo, boa noite Carlos · 4 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -289,7 +289,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -304,7 +304,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/women/41.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -315,7 +315,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 50 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -331,7 +331,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -346,7 +346,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/69.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -357,7 +357,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 50 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -373,7 +373,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -388,7 +388,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/women/43.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -399,7 +399,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 50 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -415,7 +415,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -430,7 +430,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/87.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -441,7 +441,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 50 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -457,7 +457,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -472,7 +472,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/47.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -483,7 +483,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 50 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -499,7 +499,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -514,7 +514,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/men/83.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -525,7 +525,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 50 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),
@@ -541,7 +541,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushNamed(context, '/mensagens');
                       }),
                 ),
-                Padding(padding: EdgeInsets.only(top:6.0)),
+                Padding(padding: EdgeInsets.only(top: size.height * 0.008)),
                 Container(
                   width: size.width,
                   child: TextButton(
@@ -556,7 +556,7 @@ class _ChatPageState extends State<ChatPage> {
                                 "https://randomuser.me/api/portraits/women/49.jpg"),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 9.0),
+                            padding: EdgeInsets.only(left: size.width * 0.03),
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Column(
@@ -567,7 +567,7 @@ class _ChatPageState extends State<ChatPage> {
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500)),
-                                  Padding(padding: EdgeInsets.only(top: 3.0)),
+                                  Padding(padding: EdgeInsets.only(top: size.height * 0.005)),
                                   Text("Olá, tudo bem? · 50 sem",
                                       style: TextStyle(
                                           fontSize: AdaptiveTextSize().getadaptiveTextSize(context, 13),

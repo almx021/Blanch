@@ -87,9 +87,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-
         ),
-
         // Barra Inferior:
         bottomNavigationBar: Container(
           width: size.width,

@@ -23,6 +23,7 @@ class _PerfilPageState extends State<PerfilPage> {
         return Scaffold(
             backgroundColor: AppColors.backGroundApp,
             appBar: AppBar(
+              elevation: 0.0,
                 centerTitle: true,
                 backgroundColor: AppColors.backGroundApp,
                 automaticallyImplyLeading: false,
@@ -84,7 +85,8 @@ class _PerfilPageState extends State<PerfilPage> {
                                 AppImages.editPerfil,
                                 width: widthScreen * 0.073,
                               ),
-                              onPressed: () {})
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/editarPerfil');})
                     ])),
                 Padding(padding: EdgeInsets.only(top: 12)),
                 Text(

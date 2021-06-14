@@ -3,8 +3,11 @@ import 'package:appteste/screens/App_Configs_Page.dart';
 import 'package:appteste/main.dart';
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
+
+import 'App_Account_Page.dart';
 
 class AtividadesPage extends StatefulWidget {
   @override
@@ -15,6 +18,8 @@ class _AtividadesPageState extends State<AtividadesPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,111 +37,126 @@ class _AtividadesPageState extends State<AtividadesPage> {
           )),
       body: Stack(
         children: [
+          Divider(),
           Container(
             decoration: BoxDecoration(color: AppColors.backGroundApp),
           ),
           Column(
             children: [
               Container(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      // ignore: deprecated_member_use
-                      Container(
-                        width: 50,
-                        child: FlatButton(
+                  width: size.width,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                    child: Row(
+                      children: [
+                        TextButton(
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.all(0.0),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                side: BorderSide(
-                                  color: AppColors.backGroundApp,
-                                )),
-                            color: AppColors.backGroundApp,
-                            onPressed: () {},
-                            child: CircleAvatar(
-                                radius: 25,
-                                backgroundImage: NetworkImage(
-                                  AppImages.perfilImage,
-                                ))),
-                      ),
-
-                      // ignore: deprecated_member_use
-                      RaisedButton(
-                          padding: EdgeInsets.all(0.0),
-                          color: AppColors.backGroundApp,
+                            minimumSize: Size(25.0, 25.0),
+                          ),
                           onPressed: () {},
-                          child: Row(
-                            children: [
-                              Column(children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 200),
-                                  child: GradientText(
-                                    "@JuliaGoncalves",
-                                    gradient: AppGradients.orangelinear,
-                                  ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(right: 130),
-                                    child: Text(
-                                      " Júlia Gonçalves seguiu você",
-                                      style: TextStyle(color: Colors.white),
-                                    ))
-                              ])
-                            ],
-                          )),
-                    ],
+                          child: CircleAvatar(
+                              radius: 25.0,
+                              backgroundImage: NetworkImage(
+                                AppImages.perfilImage,
+                              )),
+                        ),
+                        Container(
+                            width: size.width - 70,
+                            padding: EdgeInsets.only(left: 0),
+                            child: TextButton(
+                              style: TextButton.styleFrom(),
+                              onPressed: () {},
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      GradientText("@JuliaGoncalves",
+                                          gradient: AppGradients.orangelinear,
+                                          style: TextStyle(
+                                              fontSize: AdaptiveTextSize()
+                                                  .getadaptiveTextSize(
+                                                      context, 12),
+                                              fontWeight: FontWeight.w500)),
+                                      Padding(
+                                          padding: EdgeInsets.only(top: 3.0)),
+                                      Text("Júlia Gonçalves seguiu voçê",
+                                          style: TextStyle(
+                                              fontSize: AdaptiveTextSize()
+                                                  .getadaptiveTextSize(
+                                                      context, 14),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500)),
+                                    ],
+                                  )),
+                            )),
+                      ],
+                    ),
                   )),
-              Padding(padding: EdgeInsets.only(top: 15)),
               Container(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      // ignore: deprecated_member_use
-                      Container(
-                        width: 50,
-                        child: FlatButton(
+                  width: size.width,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                    child: Row(
+                      children: [
+                        TextButton(
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.all(0.0),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                side: BorderSide(
-                                  color: AppColors.backGroundApp,
-                                )),
-                            color: AppColors.backGroundApp,
-                            onPressed: () {},
-                            child: CircleAvatar(
-                                radius: 25,
-                                backgroundImage: NetworkImage(
-                                  AppImages.perfilImage,
-                                ))),
-                      ),
-
-                      // ignore: deprecated_member_use
-                      RaisedButton(
-                          padding: EdgeInsets.all(0.0),
-                          color: AppColors.backGroundApp,
+                            minimumSize: Size(25.0, 25.0),
+                          ),
                           onPressed: () {},
-                          child: Row(
-                            children: [
-                              Column(children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 182),
-                                  child: GradientText(
-                                    "@JuliaGoncalves",
-                                    gradient: AppGradients.orangelinear,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 62),
-                                  child: Text(
-                                    " Júlia Gonçalves curtiu sua publição ",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ]),
-                              Image.asset(AppImages.Publi)
-                            ],
-                          )),
-                    ],
+                          child: CircleAvatar(
+                              radius: 25.0,
+                              backgroundImage: NetworkImage(
+                                AppImages.perfilImage,
+                              )),
+                        ),
+                        Container(
+                            width: size.width - 70,
+                            padding: EdgeInsets.only(left: 0),
+                            child: TextButton(
+                              style: TextButton.styleFrom(),
+                              onPressed: () {},
+                              child: Row(
+                                children: [
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          GradientText("@JuliaGoncalves",
+                                              gradient: AppGradients.orangelinear,
+                                              style: TextStyle(
+                                                  fontSize: AdaptiveTextSize()
+                                                      .getadaptiveTextSize(
+                                                      context, 12),
+                                                  fontWeight: FontWeight.w500)),
+                                          Padding(
+                                              padding: EdgeInsets.only(top: 3.0)),
+                                          Text(
+                                              "Júlia Gonçalves curtiu sua \npublicação",
+                                              style: TextStyle(
+                                                  fontSize: AdaptiveTextSize()
+                                                      .getadaptiveTextSize(
+                                                      context, 14),
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500)),
+                                        ],
+                                      )),
+                                  Spacer(flex: 2,),
+                                  Align(alignment: Alignment.centerRight,
+                                  child: Image.asset(AppImages.PubliPastel,
+                                  width: 70,
+                                  height: 70,),)
+                                ],
+                              ),
+                            )),
+
+                      ],
+                    ),
                   )),
             ],
           )

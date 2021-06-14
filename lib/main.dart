@@ -2,6 +2,7 @@ import 'package:appteste/screens/App_Alterar_Dados_Page.dart';
 import 'package:appteste/screens/App_Atividades_Page.dart';
 import 'package:appteste/screens/App_Chat_Page.dart';
 import 'package:appteste/screens/App_Configs_Page.dart';
+import 'package:appteste/screens/App_EditarPerfil_Page.dart';
 import 'package:appteste/screens/App_EmAlta_Page.dart';
 import 'package:appteste/screens/App_Home_Page.dart';
 import 'package:appteste/screens/App_ItensSalvos_Page.dart';
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
             '/emAlta': (context) => EmAltaPage(),
             '/perfil': (context) => PerfilPage(),
             '/itensSalvos': (context) => ItensSalvosPage(),
-            '/AlterarDados': (context) => AlterarDadosPage()
+            '/AlterarDados': (context) => AlterarDadosPage(),
+            '/editarPerfil': (context) => EditarPerfilPage(),
           },
         ));
   }

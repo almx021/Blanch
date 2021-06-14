@@ -10,6 +10,8 @@ class UserModel extends Model {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
+  GoogleSignInAccount _user;
+  GoogleSignInAccount get user => _user;
   User firebaseUser;
   User currentUser;
   Map<String, dynamic> userData = Map(); //Dados do usuário
@@ -62,77 +64,28 @@ class UserModel extends Model {
 
   }
 
-  static Future<User> signInWithGoogle({ @required VoidCallback onSuccess,@required VoidCallback onFail}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User user;
 
-    final GoogleSignIn googleSignIn = GoogleSignIn();
 
-    final GoogleSignInAccount googleSignInAccount =
-    await googleSignIn.signIn();
+  Future<bool> signInWithGoogle({@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
 
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
+    if(googleSignInAccount != null){
+      GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(idToken: googleSignInAuthentication.idToken,
+      accessToken: googleSignInAuthentication.accessToken);
 
-      try {
-        final UserCredential userCredential =
-        await auth.signInWithCredential(credential);
+      UserCredential result = await _auth.signInWithCredential(credential);
 
-        user = userCredential.user;
-        onSuccess();
-      } on FirebaseAuthException catch (e) {
-        onFail();
-        if (e.code == 'account-exists-with-different-credential') {
-          // handle the error here
-        }
-        else if (e.code == 'invalid-credential') {
-          // handle the error here
-        }
-      } catch (e) {
-        // handle the error here
-      }
+      User user = await _auth.currentUser;
+
+      onSuccess();
+      return Future.value(true);
     }
-
-    return user;
-  }
-
-  @override
-  void initState(){
-    _auth.authStateChanges().listen((user) {
-      currentUser = user;
-    });
   }
 
   Future<User> getUserGoogle()async{
-    if(currentUser != null) return currentUser;
 
-    try{
-      final GoogleSignInAccount googleSignInAccount =
-      await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken,
-      );
-
-      final UserCredential userCredential =
-      await _auth.signInWithCredential(credential);
-
-      final User user = userCredential.user;
-
-      return user;
-
-    } catch(error){
-      return null;
-    }
   }
 
   void recoverPassword(String email){

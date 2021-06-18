@@ -304,6 +304,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                           onPressed: () async {
                                             if (_formKey.currentState
                                                 .validate()) {
+
+                                              Map<String, dynamic> userData = {
+                                                "name": _nameController.text,
+                                                "email": _emailController.text
+                                              };
+
                                               User user = await FireAuth
                                                   .registerUsingEmailPassword(
                                                 name: _nameController.text,
@@ -311,6 +317,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 password:
                                                 _passwordController.text,
                                               );
+
 
                                               if (user != null) {
                                                 Navigator.of(context)

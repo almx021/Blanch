@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class FireAuth {
-
   static Future<User> registerUsingEmailPassword({
     String name,
     String email,
@@ -21,6 +21,7 @@ class FireAuth {
       await user.updateDisplayName(name);
       await user.reload();
       user = auth.currentUser;
+      await _saveUserData(name, email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -67,14 +68,23 @@ class FireAuth {
     return refreshedUser;
   }
 
-
   static Future<User> passwordRecover(String email) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
       await auth.sendPasswordResetEmail(email: email);
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
+  }
 
+  static Future<Null> _saveUserData(String name, String email) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user = auth.currentUser;
+    Map<String, dynamic> userData = {
+      "name": name,
+      "email": email,
+    };
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    await firestore.collection("users").doc(user.uid).set(userData);
   }
 }

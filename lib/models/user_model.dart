@@ -83,6 +83,7 @@ class FireAuth {
     Map<String, dynamic> userData = {
       "name": name,
       "email": email,
+
     };
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).set(userData);

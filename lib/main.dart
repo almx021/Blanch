@@ -10,6 +10,7 @@ import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:appteste/screens/App_New_Password_Page.dart';
 import 'package:appteste/screens/App_New_Post.dart';
 import 'package:appteste/screens/App_Perfil_Page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<UserModel>(
-        model: UserModel(),
-        child: MaterialApp(
+    return MaterialApp(
           theme: ThemeData(
             hintColor: Colors.white,
             primaryColor: Colors.white,
@@ -44,11 +43,12 @@ class MyApp extends StatelessWidget {
           title: 'Named Routes Demo',
           initialRoute: '/',
           routes: {
-            '/': (context) => LoginPage(),
+            '/': (context) => AuthenticationWrapper(),
             '/register': (context) => RegisterPage(),
             '/recover': (context) => RecoverPage(),
             '/insertCode': (context) => InsertCodePage(),
             '/newPassword': (context) => NewPasswordPage(),
+            '/login': (context) => LoginPage(),
             '/home': (context) => HomePage(),
             '/configs': (context) => ConfigsPage(),
             '/newpost': (context) => NewPost(),
@@ -60,11 +60,28 @@ class MyApp extends StatelessWidget {
             '/ajuda': (context) => HelpPage(),
             '/mensagens': (context) => MensagemPage(),
             '/emAlta': (context) => EmAltaPage(),
+/*
             '/perfil': (context) => PerfilPage(),
+*/
             '/itensSalvos': (context) => ItensSalvosPage(),
             '/AlterarDados': (context) => AlterarDadosPage(),
             '/editarPerfil': (context) => EditarPerfilPage(),
           },
-        ));
+        );
+  }
+}
+
+class AuthenticationWrapper extends StatelessWidget {
+  const AuthenticationWrapper({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    User user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      return HomePage();
+    } else {
+      return LoginPage();
+    }
   }
 }

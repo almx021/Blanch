@@ -1,113 +1,80 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class UserModel extends Model {
+class FireAuth {
 
-
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-
-  GoogleSignInAccount _user;
-  GoogleSignInAccount get user => _user;
-  User firebaseUser;
-  User currentUser;
-  Map<String, dynamic> userData = Map(); //Dados do usuário
-
-  bool isLoading = false;
-
-  void signUP({@required Map<String, dynamic> userData,@required String pass,
-    @required VoidCallback onSuccess,@required VoidCallback onFail}) {
-    isLoading = true;
-    notifyListeners();
-    _auth.createUserWithEmailAndPassword(
-        email: userData["email"],
-        password: pass
-    ).then((authResult) async {
-      firebaseUser = authResult.user;
-      await _saveUserData(userData);
-      onSuccess();
-      isLoading = false;
-      notifyListeners();
-    }).catchError((e){
-      if(e.toString() == "PlatformException(Error performing setData, PERMISSION_DENIED: Missing or insufficient permissions., null, null)")
-        onSuccess();
-      else{
-        onFail();
-        isLoading = false;
-        notifyListeners();
-      }
-    });
-  }
-  void signIn({@required String email, @required String pass,
-    @required VoidCallback onSuccess, @required VoidCallback onFail}) async {
-    isLoading = true;
-    notifyListeners();
-    _auth.signInWithEmailAndPassword(email: email, password: pass).then(
-            (authResult) {
-          firebaseUser = authResult.user;
-          onSuccess();
-          isLoading = false;
-          notifyListeners();
-        }).catchError((e) {
-      onFail();
-      isLoading = false;
-      notifyListeners();
-    });
-  }
-
-  void signOut(){
-
-  }
-
-  void signInWithGoogle({@required VoidCallback onSuccess, @required VoidCallback onFail})async{
-    try{
-      final User user = await getUserGoogle();
-      onSuccess();
-    }
-    catch(error){
-      onFail();
-    }
-  }
-
-
-  Future<User> getUserGoogle()async{
-    if(currentUser != null) return currentUser;
-
-    try{
-      final GoogleSignInAccount googleSignInAccount =
-      await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken,
+  static Future<User> registerUsingEmailPassword({
+    String name,
+    String email,
+    String password,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user;
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
       );
-
-      final UserCredential userCredential =
-      await _auth.signInWithCredential(credential);
-
-      final User user = userCredential.user;
-
-      return user;
-    } catch(error){
-      return null;
+      user = userCredential.user;
+      await user.updateDisplayName(name);
+      await user.reload();
+      user = auth.currentUser;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
     }
+    return user;
   }
 
-  void recoverPassword(String email){
-    _auth.sendPasswordResetEmail(email: email);
+  static Future<User> signInUsingEmailPassword({
+    String email,
+    String password,
+    BuildContext context,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user;
 
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided.');
+      }
+    }
+
+    return user;
   }
 
-  Future<Null> _saveUserData(Map<String, dynamic> userData) async {
-    this.userData = userData;
-    await firestore.collection("users").doc(firebaseUser.uid).set(userData);
+  static Future<User> refreshUser(User user) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    await user.reload();
+    User refreshedUser = auth.currentUser;
+
+    return refreshedUser;
   }
 
+
+  static Future<User> passwordRecover(String email) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+    } catch(e) {
+      print(e);
+    }
+
+  }
 }
-

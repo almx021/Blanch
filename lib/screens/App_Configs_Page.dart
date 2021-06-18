@@ -1,14 +1,31 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Gradients.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'App_Login_Page.dart';
+
 class ConfigsPage extends StatefulWidget {
+  final User user;
+
+  const ConfigsPage({this.user});
+
   @override
   _ConfigsPageState createState() => _ConfigsPageState();
 }
 
 class _ConfigsPageState extends State<ConfigsPage> {
+
+  bool _isSigningOut = false;
+  User _currentUser;
+
+  @override
+  void initState() {
+    _currentUser = widget.user;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -201,8 +218,20 @@ class _ConfigsPageState extends State<ConfigsPage> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, 'Sim');
+                                      onPressed: () async
+                                      {
+                                        setState(() {
+                                          _isSigningOut = true;
+                                        });
+                                        await FirebaseAuth.instance.signOut();
+                                        setState(() {
+                                          _isSigningOut = false;
+                                        });
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) => LoginPage(),
+                                          ),
+                                        );
                                       },
                                       child: ShaderMask(
                                         shaderCallback: (Rect rect) {

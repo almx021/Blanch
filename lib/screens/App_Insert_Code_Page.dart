@@ -14,6 +14,8 @@ class InsertCodePage extends StatefulWidget {
 class _InsertCodePageState extends State<InsertCodePage> {
   final _codeController = TextEditingController(text: "");
 
+  final _focusCode = FocusNode();
+
   final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
@@ -34,11 +36,14 @@ class _InsertCodePageState extends State<InsertCodePage> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    return ScaffoldMessenger(
-        key: _scaffoldMessengerKey,
-        child: Scaffold(body:
-            ScopedModelDescendant<UserModel>(builder: (context, child, model) {
-          return Stack(
+    return GestureDetector(
+      onTap: () {
+        _focusCode.unfocus();
+      },
+      child: ScaffoldMessenger(
+          key: _scaffoldMessengerKey,
+          child: Scaffold(body:
+          Stack(
             children: [
               Container(
                   decoration: BoxDecoration(gradient: AppGradients.linear)),
@@ -59,8 +64,8 @@ class _InsertCodePageState extends State<InsertCodePage> {
                               fontSize: width <= 335
                                   ? 17.0
                                   : width <= 375
-                                      ? 18.0
-                                      : 20.0,
+                                  ? 18.0
+                                  : 20.0,
                             ),
                           ),
                         ),
@@ -117,7 +122,8 @@ class _InsertCodePageState extends State<InsertCodePage> {
                                   borderRadius: BorderRadius.circular(50.0),
                                   side: BorderSide(color: Colors.white)),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
+                              _focusCode.unfocus();
                               if (_codeController.text.isEmpty) {
                                 _scaffoldMessengerKey.currentState
                                     .showSnackBar(SnackBar(
@@ -165,7 +171,8 @@ class _InsertCodePageState extends State<InsertCodePage> {
                 ),
               )
             ],
-          );
-        })));
+          ),
+          )),
+    );
   }
 }

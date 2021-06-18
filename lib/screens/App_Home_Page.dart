@@ -1,8 +1,11 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
+
+import 'App_Perfil_Page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,90 +13,94 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
+  User user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.backGroundApp,
-          automaticallyImplyLeading: false,
-          title: Image.asset(
-            AppImages.textLogo,
-            width: size.width * 0.30,
-          ),
-          actions: [
-            Container(
-              width: 55,
-              height: 80,
-              child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: AppColors.backGroundApp,
-                  ),
-                  child: Image.asset(
-                    AppImages.notification,
-                    width: size.width * 0.06,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/atividades');
-                  }),
-            ),
-            Container(
-              width: 55,
-              height: 80,
-              child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: AppColors.backGroundApp,
-                  ),
-                  child: Image.asset(
-                    AppImages.chatApp,
-                    width: size.width * .06,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
-                  }),
-            ),
-            Container(
-              width: 55,
-              height: 80,
-              child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: AppColors.backGroundApp,
-                  ),
-                  child: Image.asset(
-                    AppImages.settingsApp,
-                    width: size.width * .06,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/configs');
-                  }),
-            ),
-          ],
+      appBar: AppBar(
+        backgroundColor: AppColors.backGroundApp,
+        automaticallyImplyLeading: false,
+        title: Image.asset(
+          AppImages.textLogo,
+          width: size.width * 0.30,
         ),
-        body: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(color: AppColors.backGroundApp),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SingleChildScrollView(
-                    child: Stack(
-                      children: [
-                        Container(
-                          color: AppColors.backGroundApp,
-                          width: size.width,
-                          height: size.height,
-                          // child: Image.asset(AppImages.novoPost),
-                        ),
-                      ],
-                    ),
+        actions: [
+          Container(
+            width: 55,
+            height: 80,
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
+                child: Image.asset(
+                  AppImages.notification,
+                  width: size.width * 0.06,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/atividades');
+                }),
+          ),
+          Container(
+            width: 55,
+            height: 80,
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
+                child: Image.asset(
+                  AppImages.chatApp,
+                  width: size.width * .06,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/chat');
+                }),
+          ),
+          Container(
+            width: 55,
+            height: 80,
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backGroundApp,
+                ),
+                child: Image.asset(
+                  AppImages.settingsApp,
+                  width: size.width * .06,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/configs');
+                }),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(color: AppColors.backGroundApp),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  child: Stack(
+                    children: [
+                      Container(
+                        color: AppColors.backGroundApp,
+                        width: size.width,
+                        height: size.height,
+                        // child: Image.asset(AppImages.novoPost),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Align(
+          ),
+          Align(
               alignment: Alignment.bottomLeft,
               child: SizedBox(
                 height: size.height*(60/843),
@@ -232,17 +239,23 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/perfil');
+                              Navigator.of(context)
+                                  .push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PerfilPage(user: user),
+                                ),
+                              );
                             }),
                       ),
                     ],
                   ),
                 ),
               )
-            )
-          ],
-        ),
-        // Barra Inferior:
+          )
+        ],
+      ),
+      // Barra Inferior:
     );
   }
 }

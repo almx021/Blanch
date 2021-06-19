@@ -1,6 +1,7 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
 
@@ -10,6 +11,7 @@ class EmAltaPage extends StatefulWidget {
 }
 
 class _EmAltaPageState extends State<EmAltaPage> {
+  User user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -189,8 +191,10 @@ class _EmAltaPageState extends State<EmAltaPage> {
                               backgroundColor: AppColors.backGroundApp,
                             ),
                             child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                AppImages.perfilImage,
+                              backgroundImage: user.photoURL == null ? NetworkImage(
+                                  AppImages.perfilImage
+                              ) : NetworkImage(
+                                user.photoURL,
                               ),
                             ),
                             onPressed: () {

@@ -1,14 +1,19 @@
 import 'dart:async';
 
+import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FireAuth {
+  static bool isSignedInWithGoogle = false;
+
   static Future<User> registerUsingEmailPassword({
     String name,
     String email,
     String password,
+    String photoURL,
   }) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
@@ -21,7 +26,7 @@ class FireAuth {
       await user.updateDisplayName(name);
       await user.reload();
       user = auth.currentUser;
-      await _saveUserData(name, email);
+      await _saveUserData(name, email, photoURL);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -31,6 +36,51 @@ class FireAuth {
     } catch (e) {
       print(e);
     }
+    await user.sendEmailVerification();
+    return user;
+  }
+
+  static Future<User> signInWithGoogle(
+      {@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    User user;
+    bool dataAlreadyExists = false;
+
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+
+        await _saveUserData(user.displayName, user.email, user.photoURL);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          print('Conta existe com diferentes credenciais');
+        } else if (e.code == 'invalid-credential') {
+          print("credencial invalida");
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        onFail();
+      }
+    }
+    print("User Name: ${user.displayName}");
+    print("User Email ${user.email}");
+    print("User Photo: ${user.photoURL}");
     return user;
   }
 
@@ -77,15 +127,34 @@ class FireAuth {
     }
   }
 
-  static Future<Null> _saveUserData(String name, String email) async {
+  static Future<Null> _saveUserData(
+      String name, String email, String photoURL) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user = auth.currentUser;
     Map<String, dynamic> userData = {
       "name": name,
       "email": email,
-
+      "photoURL": photoURL,
     };
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).set(userData);
+  }
+
+  static Future<void> signUserOut() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    await FirebaseAuth.instance.signOut();
+  }
+
+  static Future<void> deleteAccount() async {
+    //testando ainda, nao ta pronto
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user = auth.currentUser;
+    try {
+      await user.delete();
+    } catch (e) {
+      print("x");
+    }
   }
 }

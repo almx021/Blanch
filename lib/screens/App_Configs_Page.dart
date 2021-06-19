@@ -1,6 +1,7 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Gradients.dart';
+import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -223,7 +224,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
                                         setState(() {
                                           _isSigningOut = true;
                                         });
-                                        await FirebaseAuth.instance.signOut();
+                                        await FireAuth.signUserOut();
                                         setState(() {
                                           _isSigningOut = false;
                                         });

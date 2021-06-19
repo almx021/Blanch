@@ -290,10 +290,17 @@ class _LoginPageState extends State<LoginPage> {
                                           side:
                                           BorderSide(color: Colors.white)),
                                     ),
-                                    onPressed: () {
-                                      //model.signInWithGoogle(
-
-                                      //    onSuccess: _onSuccess, onFail: _onFail);
+                                    onPressed: () async {
+                                      User user = await FireAuth.signInWithGoogle(onSuccess: _onSuccess, onFail: _onFail);
+                                      if (user != null) {
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                HomePage(),
+                                          ),
+                                        );
+                                      }
+                                      return _onFail();
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -383,5 +390,18 @@ class _LoginPageState extends State<LoginPage> {
       duration: Duration(seconds: 2),
     ));
   }
+
+  void _onSuccess() {
+    _scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text("Usuário criado com sucesso!"),
+      backgroundColor: Colors.greenAccent,
+      duration: Duration(seconds: 2),
+    ));
+    Future.delayed(Duration(seconds: 2)).then((_) {
+      Navigator.of(context).pop();
+    });
+  }
 }
+
+
 

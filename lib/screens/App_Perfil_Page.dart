@@ -7,11 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:appteste/screens/App_EditarPerfil_Page.dart';
+
 
 class PerfilPage extends StatefulWidget {
-  final User user;
 
-  const PerfilPage({this.user});
 
   @override
   _PerfilPageState createState() => _PerfilPageState();
@@ -22,13 +22,10 @@ class _PerfilPageState extends State<PerfilPage> {
   bool _isSendingVerification = false;
   bool _isSigningOut = false;
 
-  User _currentUser;
+  User user = FirebaseAuth.instance.currentUser;
 
-  @override
-  void initState() {
-    _currentUser = widget.user;
-    super.initState();
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,7 @@ class _PerfilPageState extends State<PerfilPage> {
             icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: Text(
-            '${_currentUser.displayName}',
+            '${user.displayName}',
             style: TextStyle(color: Colors.white),
           ),
           actions: [
@@ -90,8 +87,10 @@ class _PerfilPageState extends State<PerfilPage> {
                         ),
                         CircleAvatar(
                           radius: 50,
-                          backgroundImage: NetworkImage(
-                            AppImages.perfilImage,
+                          backgroundImage: user.photoURL == null ? NetworkImage(
+                              AppImages.perfilImage
+                          ) : NetworkImage(
+                            user.photoURL,
                           ),
                         ),
                         Padding(
@@ -106,8 +105,8 @@ class _PerfilPageState extends State<PerfilPage> {
                               width: widthScreen * 0.073,
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/editarPerfil');})
-                      ])),
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => EditarPerfilPage()));
+                      })])),
               Padding(padding: EdgeInsets.only(top: 12)),
               Text(
 
@@ -323,8 +322,10 @@ class _PerfilPageState extends State<PerfilPage> {
                               backgroundColor: AppColors.backGroundApp,
                             ),
                             child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                AppImages.perfilImage,
+                              backgroundImage: user.photoURL == null ? NetworkImage(
+                                  AppImages.perfilImage
+                              ) : NetworkImage(
+                                user.photoURL,
                               ),
                             ),
                             onPressed: () {

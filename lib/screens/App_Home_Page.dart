@@ -1,3 +1,5 @@
+
+
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
@@ -8,6 +10,7 @@ import 'package:gradient_text/gradient_text.dart';
 import 'App_Perfil_Page.dart';
 
 class HomePage extends StatefulWidget {
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -234,8 +237,10 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: AppColors.backGroundApp,
                             ),
                             child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                AppImages.perfilImage,
+                              backgroundImage: user.photoURL == null ? NetworkImage(
+                                  AppImages.perfilImage
+                              ) : NetworkImage(
+                                user.photoURL,
                               ),
                             ),
                             onPressed: () {
@@ -243,7 +248,7 @@ class _HomePageState extends State<HomePage> {
                                   .push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      PerfilPage(user: user),
+                                      PerfilPage(),
                                 ),
                               );
                             }),

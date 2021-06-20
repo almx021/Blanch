@@ -81,6 +81,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 onPressed: () {
                   showDialog(
+                    barrierDismissible: false,
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(

@@ -1,11 +1,9 @@
 
 
 import 'package:appteste/core/App_Colors.dart';
-import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_text/gradient_text.dart';
 
 import 'App_Perfil_Page.dart';
 
@@ -17,8 +15,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-
   User user = FirebaseAuth.instance.currentUser;
+
+
 
   @override
   Widget build(BuildContext context) {

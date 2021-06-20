@@ -2,12 +2,12 @@ import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+
 import 'package:appteste/core/App_Logos.dart';
 
 import '../core/App_Gradients.dart';
 import 'App_Home_Page.dart';
-import 'App_Login_Page.dart';
+
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key key}) : super(key: key);
@@ -305,11 +305,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                             if (_formKey.currentState
                                                 .validate()) {
 
-                                              Map<String, dynamic> userData = {
-                                                "name": _nameController.text,
-                                                "email": _emailController.text
-                                              };
-
                                               User user = await FireAuth
                                                   .registerUsingEmailPassword(
                                                 name: _nameController.text,
@@ -324,10 +319,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                                     .push(
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        LoginPage(),
+                                                        HomePage(),
                                                   ),
                                                 );
                                               }
+                                              await showDialog(context: context, builder: (BuildContext context) {
+                                                return AlertDialog();
+                                              });
                                             }
                                           },
                                           style: TextButton.styleFrom(

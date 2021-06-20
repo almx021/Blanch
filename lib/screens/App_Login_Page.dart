@@ -1,13 +1,11 @@
 
-import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:scoped_model/scoped_model.dart';
 import '../core/App_Gradients.dart';
 import 'App_Home_Page.dart';
 import 'App_Register_Page.dart';
@@ -33,6 +31,9 @@ class _LoginPageState extends State<LoginPage> {
   bool _passwordLoginVisible = false;
 
   bool _isProcessing = false;
+
+  bool isNewUser;
+
 
 
   @override
@@ -291,7 +292,9 @@ class _LoginPageState extends State<LoginPage> {
                                           BorderSide(color: Colors.white)),
                                     ),
                                     onPressed: () async {
+
                                       User user = await FireAuth.signInWithGoogle(onSuccess: _onSuccess, onFail: _onFail);
+
                                       if (user != null) {
                                         Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
@@ -299,6 +302,16 @@ class _LoginPageState extends State<LoginPage> {
                                                 HomePage(),
                                           ),
                                         );
+                                      }
+                                      print(verifyIsNewUser());
+                                      isNewUser = await verifyIsNewUser();
+                                      if(isNewUser) {
+                                        await showDialog(
+                                          barrierDismissible: false,
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                          return AlertDialog();
+                                        });
                                       }
                                       return _onFail();
                                     },
@@ -382,8 +395,19 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  Future<bool> verifyIsNewUser() async {
+    User user = FirebaseAuth.instance.currentUser;
+    var collection = FirebaseFirestore.instance.collection('users');
+    var docSnapshot = await collection.doc(user.uid).get();
+    if(docSnapshot.exists) {
+      Map<String, dynamic> data = docSnapshot.data();
+      print("dados tela home${data['newUser']}");
+      return data['newUser'];
+    }
+  }
 
   void _onFail() {
+
     _scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text("Email ou senha inválidos!"),
       backgroundColor: Colors.redAccent,
@@ -401,7 +425,11 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.of(context).pop();
     });
   }
+
 }
+
+
+
 
 
 

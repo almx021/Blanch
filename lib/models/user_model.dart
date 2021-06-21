@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FireAuth {
@@ -14,13 +15,23 @@ class FireAuth {
     String name,
     String email,
     String password,
-    String photoURL,
-    String username,
     bool isNewUser,
+    VoidCallback onSuccess,
+    VoidCallback onFail
 
   }) async {
+
+    Map<String, dynamic> userData = {
+      "name": name,
+      "email": email,
+      "newUser": isNewUser,
+    };
+    
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
+    
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
@@ -31,12 +42,15 @@ class FireAuth {
       await user.reload();
       user = auth.currentUser;
       isNewUser = userCredential.additionalUserInfo.isNewUser;
-      await _saveUserData(name, email, photoURL, isNewUser);
+      await firestore.collection("users").doc(user.uid).set(userData);
+      onSuccess();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
+        onFail();
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
+        onFail();
       }
     } catch (e) {
       print(e);
@@ -51,6 +65,10 @@ class FireAuth {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
     bool isNewUser;
+
+
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -71,15 +89,34 @@ class FireAuth {
         user = userCredential.user;
         isNewUser = userCredential.additionalUserInfo.isNewUser;
 
+        Map<String, dynamic> userData = {
+          "name": user.displayName,
+          "email": user.email,
+          "photoURL": user.photoURL,
+          "newUser": isNewUser,
 
-        await _saveUserData(user.displayName, user.email, user.photoURL, isNewUser);
+        };
+
+        print("user is new user 1$isNewUser");
+        if (isNewUser) {
+          await firestore.collection("users").doc(user.uid).set(userData);
+        } else {
+          await firestore.collection("users").doc(user.uid).update({"newUser": isNewUser});
+        }
+
+
+
+        onSuccess();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           print('Conta existe com diferentes credenciais');
+          onFail();
         } else if (e.code == 'invalid-credential') {
           print("credencial invalida");
+          onFail();
         } else if (e.code == 'email-already-in-use') {
           print('The account already exists for that email.');
+          onFail();
         }
       } catch (e) {
         onFail();
@@ -97,6 +134,9 @@ class FireAuth {
     String email,
     String password,
     BuildContext context,
+    VoidCallback onSuccess,
+    VoidCallback onFail,
+    String username
   }) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
@@ -108,7 +148,6 @@ class FireAuth {
       );
       user = userCredential.user;
       isNewUser = userCredential.additionalUserInfo.isNewUser;
-      await _saveUserData(user.displayName, user.email, user.photoURL, isNewUser);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -138,8 +177,8 @@ class FireAuth {
     }
   }
 
-  static Future<Null> _saveUserData(
-      String name, String email, String photoURL, bool newUser) async {
+  /*static Future<Null> _saveUserData(
+      String name, String email, String photoURL, bool newUser, String username) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user = auth.currentUser;
     Map<String, dynamic> userData = {
@@ -147,9 +186,33 @@ class FireAuth {
       "email": email,
       "photoURL": photoURL,
       "newUser": newUser,
+      "username": "",
     };
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).set(userData);
+    
+  }*/
+
+  static Future<Null> updateUsername({String username}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user = auth.currentUser;
+    Map<String, dynamic> userData = {
+      "username": username,
+    };
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    await firestore.collection("users").doc(user.uid).update(userData);
+
+  }
+
+  static Future<Null> updateIsNewUser({String isNewUser}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user = auth.currentUser;
+    Map<String, dynamic> userData = {
+      "newUser": isNewUser,
+    };
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    await firestore.collection("users").doc(user.uid).update(userData);
+
   }
 
   static Future<void> signUserOut() async {

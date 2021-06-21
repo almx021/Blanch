@@ -9,6 +9,7 @@ import 'package:appteste/screens/App_ItensSalvos_Page.dart';
 import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:appteste/screens/App_New_Password_Page.dart';
 import 'package:appteste/screens/App_New_Post.dart';
+import 'package:appteste/screens/App_Username_Page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
             '/itensSalvos': (context) => ItensSalvosPage(),
             '/AlterarDados': (context) => AlterarDadosPage(),
             '/editarPerfil': (context) => EditarPerfilPage(),
+            '/username': (context) => UsernamePage(),
           },
         );
   }

@@ -1,6 +1,7 @@
 
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/models/user_model.dart';
+import 'package:appteste/screens/App_Username_Page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -203,6 +204,8 @@ class _LoginPageState extends State<LoginPage> {
                                         email: _emailTextController.text,
                                         password: _passwordTextController.text,
                                         context: context,
+                                        onFail: _onFail,
+                                        onSuccess: _onSuccess,
                                       );
 
 
@@ -293,27 +296,44 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     onPressed: () async {
 
-                                      User user = await FireAuth.signInWithGoogle(onSuccess: _onSuccess, onFail: _onFail);
+                                      User user = await FireAuth.signInWithGoogle(onSuccess: _onSuccessGoogle, onFail: _onFail);
 
                                       if (user != null) {
-                                        Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomePage(),
-                                          ),
-                                        );
-                                      }
-                                      print(verifyIsNewUser());
-                                      isNewUser = await verifyIsNewUser();
-                                      if(isNewUser) {
-                                        await showDialog(
+                                        print(verifyIsNewUser());
+                                        isNewUser = await verifyIsNewUser();
+                                        if(isNewUser) {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UsernamePage(),
+                                            ),
+                                          );
+                                          /*await showDialog(
                                           barrierDismissible: false,
                                             context: context,
                                             builder: (BuildContext context) {
                                           return AlertDialog();
-                                        });
+                                        });*/
+                                        } else {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePage(),
+                                            ),
+                                          );
+                                        }
+
                                       }
-                                      return _onFail();
+
+                                      /*if(isNewUser) {
+                                        return UsernamePage();
+                                        *//*await showDialog(
+                                          barrierDismissible: false,
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                          return AlertDialog();
+                                        });*//*
+                                      }*/
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -424,6 +444,14 @@ class _LoginPageState extends State<LoginPage> {
     Future.delayed(Duration(seconds: 2)).then((_) {
       Navigator.of(context).pop();
     });
+  }
+
+  void _onSuccessGoogle() {
+    _scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
+      content: Text("Login feito com sucesso"),
+      backgroundColor: Colors.greenAccent,
+      duration: Duration(seconds: 2),
+    ));
   }
 
 }

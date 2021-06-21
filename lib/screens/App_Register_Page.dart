@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:appteste/core/App_Logos.dart';
 
 import '../core/App_Gradients.dart';
-import 'App_Home_Page.dart';
+import 'App_Username_Page.dart';
 
 
 class RegisterPage extends StatefulWidget {
@@ -311,6 +311,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 email: _emailController.text,
                                                 password:
                                                 _passwordController.text,
+                                                onSuccess: _onSuccess,
+                                                onFail: _onFail,
                                               );
 
 
@@ -319,13 +321,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                                     .push(
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        HomePage(),
+                                                        UsernamePage(),
                                                   ),
                                                 );
                                               }
-                                              await showDialog(context: context, builder: (BuildContext context) {
+                                              /*await showDialog(context: context, builder: (BuildContext context) {
                                                 return AlertDialog();
-                                              });
+                                              });*/ //esperar decidir se vai ficar tela username ou alert, n apagar
                                             }
                                           },
                                           style: TextButton.styleFrom(
@@ -386,9 +388,7 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: Colors.greenAccent,
       duration: Duration(seconds: 2),
     ));
-    Future.delayed(Duration(seconds: 2)).then((_) {
-      Navigator.of(context).pop();
-    });
+
   }
 
   void _onFail() {

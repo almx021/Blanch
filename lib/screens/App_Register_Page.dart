@@ -393,7 +393,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _onFail() {
     _scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
-      content: Text("Falha ao criar usuário!"),
+      content: Text("Falha ao criar usuário! Verifique se já não tem uma conta criada."),
       backgroundColor: Colors.redAccent,
       duration: Duration(seconds: 2),
     ));

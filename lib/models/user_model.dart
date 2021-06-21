@@ -6,8 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class FireAuth {
+
+  static Map<String, dynamic> userData = Map();
 
   static bool isSignedInWithGoogle = false;
 
@@ -17,8 +20,7 @@ class FireAuth {
     String password,
     bool isNewUser,
     VoidCallback onSuccess,
-    VoidCallback onFail
-
+    VoidCallback onFail,
   }) async {
 
     Map<String, dynamic> userData = {
@@ -61,7 +63,7 @@ class FireAuth {
   }
 
   static Future<User> signInWithGoogle(
-      {@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
+      {@required VoidCallback onSuccess, @required VoidCallback onFail, @required VoidCallback getInfos}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
     bool isNewUser;
@@ -104,8 +106,7 @@ class FireAuth {
           await firestore.collection("users").doc(user.uid).update({"newUser": isNewUser});
         }
 
-
-
+        getInfos();
         onSuccess();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
@@ -136,6 +137,7 @@ class FireAuth {
     BuildContext context,
     VoidCallback onSuccess,
     VoidCallback onFail,
+    VoidCallback getInfos,
     String username
   }) async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -148,6 +150,8 @@ class FireAuth {
       );
       user = userCredential.user;
       isNewUser = userCredential.additionalUserInfo.isNewUser;
+
+      getInfos();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -193,7 +197,7 @@ class FireAuth {
     
   }*/
 
-  static Future<Null> updateUsername({String username}) async {
+  static Future<Null> updateUsername({@required String username, @required VoidCallback getInfos}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user = auth.currentUser;
     Map<String, dynamic> userData = {
@@ -201,6 +205,7 @@ class FireAuth {
     };
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).update(userData);
+    getInfos();
 
   }
 
@@ -232,4 +237,28 @@ class FireAuth {
       print("x");
     }
   }
+
+  static Future<void> getInfos() async {
+    User user = FirebaseAuth.instance.currentUser;
+    var collection = FirebaseFirestore.instance.collection('users');
+    var docSnapshot = await collection.doc(user.uid).get();
+    if(docSnapshot.exists) {
+      Map<String, dynamic> data = docSnapshot.data();
+      print("dados tela home${data['newUser']}");
+      print(data);
+      print(data['username']);
+      userData = data;
+    }
+  }
+
+  /*Future<void> getUsername() async {
+    Map<String, dynamic> data = await   getInfos();
+    print("dadosss $data");
+    final String username = await data['username'];
+    setState(() => _username = username);
+    print(_username);
+  }*/
+
+
+
 }

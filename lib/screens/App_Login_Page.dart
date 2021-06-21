@@ -206,6 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                                         context: context,
                                         onFail: _onFail,
                                         onSuccess: _onSuccess,
+                                        getInfos: FireAuth.getInfos,
                                       );
 
 
@@ -296,8 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     onPressed: () async {
 
-                                      User user = await FireAuth.signInWithGoogle(onSuccess: _onSuccessGoogle, onFail: _onFail);
-
+                                      User user = await FireAuth.signInWithGoogle(onSuccess: _onSuccessGoogle, onFail: _onFail, getInfos: FireAuth.getInfos);
                                       if (user != null) {
                                         print(verifyIsNewUser());
                                         isNewUser = await verifyIsNewUser();

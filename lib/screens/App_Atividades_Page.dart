@@ -1,6 +1,4 @@
 import 'package:appteste/core/App_Gradients.dart';
-import 'package:appteste/screens/App_Configs_Page.dart';
-import 'package:appteste/main.dart';
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +12,7 @@ class AtividadesPage extends StatefulWidget {
   _AtividadesPageState createState() => _AtividadesPageState();
 }
 
-class _AtividadesPageState extends State<AtividadesPage> {
+class _AtividadesPageState extends State<AtividadesPage> { 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -67,7 +65,8 @@ class _AtividadesPageState extends State<AtividadesPage> {
                             child: TextButton(
                               style: TextButton.styleFrom(),
                               onPressed: () {
-                                Navigator.pushNamed(context, '/PerfilOutroUsuario');
+                                Navigator.pushNamed(
+                                    context, '/PerfilOutroUsuario');
                               },
                               child: Align(
                                   alignment: Alignment.centerLeft,
@@ -127,36 +126,43 @@ class _AtividadesPageState extends State<AtividadesPage> {
                                       alignment: Alignment.centerLeft,
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           GradientText("@JuliaGoncalves",
-                                              gradient: AppGradients.orangelinear,
+                                              gradient:
+                                                  AppGradients.orangelinear,
                                               style: TextStyle(
                                                   fontSize: AdaptiveTextSize()
                                                       .getadaptiveTextSize(
-                                                      context, 12),
+                                                          context, 12),
                                                   fontWeight: FontWeight.w500)),
                                           Padding(
-                                              padding: EdgeInsets.only(top: 3.0)),
+                                              padding:
+                                                  EdgeInsets.only(top: 3.0)),
                                           Text(
                                               "Júlia Gonçalves curtiu sua \npublicação",
                                               style: TextStyle(
                                                   fontSize: AdaptiveTextSize()
                                                       .getadaptiveTextSize(
-                                                      context, 14),
+                                                          context, 14),
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w500)),
                                         ],
                                       )),
-                                  Spacer(flex: 2,),
-                                  Align(alignment: Alignment.centerRight,
-                                  child: Image.asset(AppImages.PubliPastel,
-                                  width: 70,
-                                  height: 70,),)
+                                  Spacer(
+                                    flex: 2,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Image.asset(
+                                      AppImages.publiPastel,
+                                      width: 70,
+                                      height: 70,
+                                    ),
+                                  )
                                 ],
                               ),
                             )),
-
                       ],
                     ),
                   )),

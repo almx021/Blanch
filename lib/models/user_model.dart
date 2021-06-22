@@ -1,15 +1,12 @@
 import 'dart:async';
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class FireAuth {
-
   static Map<String, dynamic> userData = Map();
 
   static bool isSignedInWithGoogle = false;
@@ -22,16 +19,15 @@ class FireAuth {
     VoidCallback onSuccess,
     VoidCallback onFail,
   }) async {
-
     Map<String, dynamic> userData = {
       "name": name,
       "email": email,
       "newUser": isNewUser,
     };
-    
+
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
-    
+
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
@@ -58,19 +54,19 @@ class FireAuth {
       print(e);
     }
     await user.sendEmailVerification();
-    print("User is New user? ${isNewUser}");
+    print("User is New user? $isNewUser");
     return user;
   }
 
   static Future<User> signInWithGoogle(
-      {@required VoidCallback onSuccess, @required VoidCallback onFail, @required VoidCallback getInfos}) async {
+      {@required VoidCallback onSuccess,
+      @required VoidCallback onFail,
+      @required VoidCallback getInfos}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
     bool isNewUser;
 
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -96,14 +92,16 @@ class FireAuth {
           "email": user.email,
           "photoURL": user.photoURL,
           "newUser": isNewUser,
-
         };
 
         print("user is new user 1$isNewUser");
         if (isNewUser) {
           await firestore.collection("users").doc(user.uid).set(userData);
         } else {
-          await firestore.collection("users").doc(user.uid).update({"newUser": isNewUser});
+          await firestore
+              .collection("users")
+              .doc(user.uid)
+              .update({"newUser": isNewUser});
         }
 
         getInfos();
@@ -126,20 +124,19 @@ class FireAuth {
     print("User Name: ${user.displayName}");
     print("User Email ${user.email}");
     print("User Photo: ${user.photoURL}");
-    print("User is New user? ${isNewUser}");
+    print("User is New user? $isNewUser");
 
     return user;
   }
 
-  static Future<User> signInUsingEmailPassword({
-    String email,
-    String password,
-    BuildContext context,
-    VoidCallback onSuccess,
-    VoidCallback onFail,
-    VoidCallback getInfos,
-    String username
-  }) async {
+  static Future<User> signInUsingEmailPassword(
+      {String email,
+      String password,
+      BuildContext context,
+      VoidCallback onSuccess,
+      VoidCallback onFail,
+      VoidCallback getInfos,
+      String username}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
     bool isNewUser;
@@ -172,7 +169,7 @@ class FireAuth {
     return refreshedUser;
   }
 
-  static Future<User> passwordRecover(String email) async {
+  static Future passwordRecover(String email) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
       await auth.sendPasswordResetEmail(email: email);
@@ -197,7 +194,8 @@ class FireAuth {
     
   }*/
 
-  static Future<Null> updateUsername({@required String username, @required VoidCallback getInfos}) async {
+  static Future<Null> updateUsername(
+      {@required String username, @required VoidCallback getInfos}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user = auth.currentUser;
     Map<String, dynamic> userData = {
@@ -206,7 +204,6 @@ class FireAuth {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).update(userData);
     getInfos();
-
   }
 
   static Future<Null> updateIsNewUser({String isNewUser}) async {
@@ -217,7 +214,6 @@ class FireAuth {
     };
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).update(userData);
-
   }
 
   static Future<void> signUserOut() async {
@@ -242,7 +238,7 @@ class FireAuth {
     User user = FirebaseAuth.instance.currentUser;
     var collection = FirebaseFirestore.instance.collection('users');
     var docSnapshot = await collection.doc(user.uid).get();
-    if(docSnapshot.exists) {
+    if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data();
       print("dados tela home${data['newUser']}");
       print(data);
@@ -258,7 +254,5 @@ class FireAuth {
     setState(() => _username = username);
     print(_username);
   }*/
-
-
 
 }

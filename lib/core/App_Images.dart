@@ -1,18 +1,17 @@
-import 'package:flutter/material.dart';
-
 class AppImages {
   static String get logo => 'images/blanchlogo.png';
-  static String get iconGoogle => 'images/image-icon-google-removebg-preview.png';
-  static String get eye_off => 'images/eye-off.svg';
+  static String get iconGoogle =>
+      'images/image-icon-google-removebg-preview.png';
+  static String get eyeOff => 'images/eye-off.svg';
   static String get leftArrow => 'images/leftArrow.png';
   static String get camera5 => 'images/camera 5.png';
   static String get relogio => 'images/relogio.png';
   static String get prato => 'images/prato.png';
-  static String get salgado_botao => 'images/Tag 1.png';
-  static String get crocante_botao => 'images/Tag 2.png';
-  static String get pratico_botao => 'images/Tag 3.png';
-  static String get rende_muito_botao => 'images/Tag 5.png';
-  static String get rapido_de_fazer_botao => 'images/Tag 6.png';
+  static String get salgadoBotao => 'images/Tag 1.png';
+  static String get crocanteBotao => 'images/Tag 2.png';
+  static String get praticoBotao => 'images/Tag 3.png';
+  static String get rendeMuitoBotao => 'images/Tag 5.png';
+  static String get rapidoDeFazerBotao => 'images/Tag 6.png';
   static String get newPost => 'images/Novo_Post.png';
   static String get notification => 'images/vector.png';
   static String get emAlta => 'images/Em_alta.png';
@@ -30,10 +29,9 @@ class AppImages {
   static String get accounthd => 'images/accounthd.png';
 
   static String get editPerfil => 'images/edit 1.png';
-  static String get Publi => 'images/Rectangle 42.png';
-  static String get PubliPeixe => 'images/Peixe.png';
-  static String get PubliRosquinha => 'images/Rosquinha.png';
-  static String get PubliPastel => 'images/pastel.png';
-  static String get Iconecamera => 'images/IconeCamera.png';
-
+  static String get publi => 'images/Rectangle 42.png';
+  static String get publiPeixe => 'images/Peixe.png';
+  static String get publiRosquinha => 'images/Rosquinha.png';
+  static String get publiPastel => 'images/pastel.png';
+  static String get iconeCamera => 'images/IconeCamera.png';
 }

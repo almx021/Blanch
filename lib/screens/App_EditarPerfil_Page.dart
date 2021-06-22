@@ -3,7 +3,6 @@ import 'package:appteste/core/App_Images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
 class EditarPerfilPage extends StatefulWidget {
   @override
   _EditarPerfilPageState createState() => _EditarPerfilPageState();
@@ -14,7 +13,6 @@ class _EditarPerfilPageState extends State<EditarPerfilPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -53,18 +51,18 @@ class _EditarPerfilPageState extends State<EditarPerfilPage> {
                       Container(
                         child: CircleAvatar(
                           radius: 41.0,
-                          backgroundImage: user.photoURL == null ? NetworkImage(
-                              AppImages.perfilImage
-                          ) : NetworkImage(
-                            user.photoURL,
-                          ),
+                          backgroundImage: user.photoURL == null
+                              ? NetworkImage(AppImages.perfilImage)
+                              : NetworkImage(
+                                  user.photoURL,
+                                ),
                         ),
                       ),
                       IconButton(
                         padding: EdgeInsets.only(left: 28, top: 28),
                         onPressed: () {},
                         icon: Image.asset(
-                          AppImages.Iconecamera,
+                          AppImages.iconeCamera,
                           width: 70,
                           height: 70,
                         ),

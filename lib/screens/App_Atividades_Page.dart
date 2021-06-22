@@ -66,7 +66,9 @@ class _AtividadesPageState extends State<AtividadesPage> {
                             padding: EdgeInsets.only(left: 0),
                             child: TextButton(
                               style: TextButton.styleFrom(),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/PerfilOutroUsuario');
+                              },
                               child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Column(

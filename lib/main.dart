@@ -9,6 +9,9 @@ import 'package:appteste/screens/App_ItensSalvos_Page.dart';
 import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:appteste/screens/App_New_Password_Page.dart';
 import 'package:appteste/screens/App_New_Post.dart';
+import 'package:appteste/screens/App_Perfil_Outro_Usuario_Page.dart';
+import 'package:appteste/screens/App_Seguidores_Page.dart';
+import 'package:appteste/screens/App_Seguindo_Page.dart';
 import 'package:appteste/screens/App_Username_Page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,6 +60,9 @@ class MyApp extends StatelessWidget {
             '/ajuda': (context) => HelpPage(),
             '/mensagens': (context) => MensagemPage(),
             '/emAlta': (context) => EmAltaPage(),
+            '/Seguidores': (context) => SeguidoresPage(),
+            '/Seguindo': (context) => SeguindoPage(),
+            '/PerfilOutroUsuario': (context) => PerfilOutroUsuarioPage(),
 /*
             '/perfil': (context) => PerfilPage(),
 */

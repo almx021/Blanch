@@ -1,71 +1,48 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
-import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_text/gradient_text.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:appteste/screens/App_EditarPerfil_Page.dart';
 
+import 'App_Account_Page.dart';
 
-class PerfilPage extends StatefulWidget {
-
+class PerfilOutroUsuarioPage extends StatefulWidget {
+  const PerfilOutroUsuarioPage({Key key}) : super(key: key);
 
   @override
-  _PerfilPageState createState() => _PerfilPageState();
+  _PerfilOutroUsuarioPageState createState() => _PerfilOutroUsuarioPageState();
 }
 
-class _PerfilPageState extends State<PerfilPage> {
-
-  bool _isSendingVerification = false;
-  bool _isSigningOut = false;
-
+class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
   User user = FirebaseAuth.instance.currentUser;
-
-
-
+  bool pressGeoON = false;
+  bool cmbscritta = false;
 
   @override
   Widget build(BuildContext context) {
     var heightScreen = MediaQuery.of(context).size.height;
     var widthScreen = MediaQuery.of(context).size.width;
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: AppColors.backGroundApp,
       appBar: AppBar(
-          elevation: 0.0,
-          centerTitle: true,
-          backgroundColor: AppColors.backGroundApp,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Image.asset(AppImages.leftArrow, width: 25),
-          ),
-          title: Text(
-            '${user.displayName}',
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: [
-            Container(
-              width: 60,
-              height: 80,
-              child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: AppColors.backGroundApp,
-                  ),
-                  child: Icon(
-                    Icons.bookmarks_outlined,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/itensSalvos');
-                  }),
-            ),
-          ]),
+        elevation: 0.0,
+        centerTitle: true,
+        backgroundColor: AppColors.backGroundApp,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Image.asset(AppImages.leftArrow, width: 25),
+        ),
+        title: Text(
+          'PerfilOutroUsuario',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Stack(
         children: [
           Container(
@@ -83,33 +60,17 @@ class _PerfilPageState extends State<PerfilPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(right: widthScreen * 0.5 - 50),
+                          padding:
+                              EdgeInsets.only(right: widthScreen * 0.5 - 50),
                         ),
                         CircleAvatar(
                           radius: 50,
-                          backgroundImage: user.photoURL == null ? NetworkImage(
-                              AppImages.perfilImage
-                          ) : NetworkImage(
-                            user.photoURL,
-                          ),
+                          backgroundImage: NetworkImage(
+                              "https://randomuser.me/api/portraits/women/49.jpg"),
                         ),
-                        Padding(
-                          padding :EdgeInsets.only(left: widthScreen * 0.24,),
-                        ),
-                        TextButton(
-                            style: TextButton.styleFrom(
-                                backgroundColor: AppColors.backGroundApp,
-                                minimumSize: Size.fromWidth(0)),
-                            child: Image.asset(
-                              AppImages.editPerfil,
-                              width: widthScreen * 0.073,
-                            ),
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => EditarPerfilPage()));
-                      })])),
+                      ])),
               Padding(padding: EdgeInsets.only(top: 12)),
               Text(
-
                 '@',
                 style: TextStyle(color: Colors.white),
               ),
@@ -118,38 +79,79 @@ class _PerfilPageState extends State<PerfilPage> {
                 "bio",
                 style: TextStyle(color: Colors.white),
               ),
-              Padding(padding: EdgeInsets.only(top: 6)),
+              Padding(
+                padding: EdgeInsets.only(top: size.height * 0.02),
+                child: Container(
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        pressGeoON = !pressGeoON;
+                        cmbscritta = !cmbscritta;
+                      });
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(30.0),
+                          side: BorderSide(color: Colors.white10)),
+                    ),
+                    child: Ink(
+                        decoration: BoxDecoration(
+                          gradient: pressGeoON ? AppGradients.orangelinear : LinearGradient(colors: [Color(0xff282828), Color(0xff282828)]),
+                          borderRadius:
+                          BorderRadius.circular(30.0),
+                        ),
+                        child: Container(
+                          height: 0.05 * size.height,
+                          width: 0.35 * size.width,
+                          alignment: Alignment.center,
+                          child: cmbscritta ? Text("Seguindo",
+                            style: TextStyle(
+                              fontSize: AdaptiveTextSize()
+                                  .getadaptiveTextSize(context, 14),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),) : Text("Seguir",
+                            style: TextStyle(
+                              fontSize: AdaptiveTextSize()
+                                  .getadaptiveTextSize(context, 14),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),),
+                        )),
+                  ),
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(top: size.height * 0.02)),
               IntrinsicHeight(
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: (){},
-                      child: Column(children: [
-                        Text(
-                          '0', //'${model.userData["postagens"]}',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'postagens',
-                          style: TextStyle(
-                              color: Colors.white38,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ]),
-                    ),
+                        onPressed: () {},
+                        child: Column(children: [
+                          Text(
+                            '0', //'${model.userData["postagens"]}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: AdaptiveTextSize()
+                                    .getadaptiveTextSize(context, 18),
+                                fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            'postagens',
+                            style: TextStyle(
+                                color: Colors.white38,
+                                fontSize: AdaptiveTextSize()
+                                    .getadaptiveTextSize(context, 18),
+                                fontWeight: FontWeight.w400),
+                          )
+                        ]),
+                      ),
                     VerticalDivider(
                       color: Colors.white38,
                     ),
                     TextButton(
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/Seguidores');
-                      },
+                      onPressed: () {},
                       child: Column(children: [
                         Text(
                           '0', //'${model.userData["seguidores"]}',
@@ -171,9 +173,7 @@ class _PerfilPageState extends State<PerfilPage> {
                       color: Colors.white38,
                     ),
                     TextButton(
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/Seguindo');
-                      },
+                      onPressed: () {},
                       child: Column(children: [
                         Text(
                           '0', //'${model.userData["seguindo"]}',
@@ -201,11 +201,10 @@ class _PerfilPageState extends State<PerfilPage> {
               ),
             ]),
           ),
-
           Align(
               alignment: Alignment.bottomLeft,
               child: SizedBox(
-                height: heightScreen*(60/843),
+                height: heightScreen * (60 / 843),
                 child: Container(
                   width: size.width,
                   height: size.height * .07,
@@ -213,10 +212,12 @@ class _PerfilPageState extends State<PerfilPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding( padding: EdgeInsets.only(right: size.width * 0.034/2) ),
+                      Padding(
+                          padding:
+                              EdgeInsets.only(right: size.width * 0.034 / 2)),
                       Container(
-                        width: size.width*(60/411),
-                        height: size.height*(60/843),
+                        width: size.width * (60 / 411),
+                        height: size.height * (60 / 843),
                         child: TextButton(
                             style: TextButton.styleFrom(
                               backgroundColor: AppColors.backGroundApp,
@@ -225,55 +226,55 @@ class _PerfilPageState extends State<PerfilPage> {
                               children: [
                                 Image.asset(
                                   AppImages.homepage,
-                                  width: size.width*(30/411),
-                                  height: size.height*(30/843),
+                                  width: size.width * (30 / 411),
+                                  height: size.height * (30 / 843),
                                   //width: size.width * .1,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top:0),
+                                  padding: EdgeInsets.only(top: 0),
                                 ),
                                 Text(
                                   'Home',
-                                  style: TextStyle(fontSize: 11, color: Colors.white38),
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white38),
                                 ),
                               ],
                             ),
                             onPressed: () {
                               Navigator.pushNamed(context, '/home');
                             }),
-
                       ),
-                      Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
+                      Padding(
+                          padding: EdgeInsets.only(left: size.width * 0.034)),
                       Container(
-                        width: widthScreen*(70/411),
-                        height: heightScreen*(60/843),
+                        width: widthScreen * (70 / 411),
+                        height: heightScreen * (60 / 843),
                         child: TextButton(
                             style: TextButton.styleFrom(
-                              backgroundColor:AppColors.backGroundApp,
+                              backgroundColor: AppColors.backGroundApp,
                             ),
                             child: Column(
                               children: [
                                 Image.asset(
                                   AppImages.searchIcon,
-                                  width: widthScreen*(30/411),
-                                  height: heightScreen*(30/843),
+                                  width: widthScreen * (30 / 411),
+                                  height: heightScreen * (30 / 843),
                                   //width: size.width * .1,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top:0),
+                                  padding: EdgeInsets.only(top: 0),
                                 ),
                                 Text(
                                   'Pesquisa',
-                                  style: TextStyle(fontSize: 11, color: Colors.white38),
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white38),
                                 ),
                               ],
                             ),
-                            onPressed: () {
-
-                            }),
-
+                            onPressed: () {}),
                       ),
-                      Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
+                      Padding(
+                          padding: EdgeInsets.only(left: size.width * 0.034)),
                       Container(
                         width: size.width * 0.19,
                         height: size.height * 0.095,
@@ -294,11 +295,11 @@ class _PerfilPageState extends State<PerfilPage> {
                               Navigator.pushNamed(context, '/newpost');
                             }),
                       ),
-                      Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
-
+                      Padding(
+                          padding: EdgeInsets.only(left: size.width * 0.034)),
                       Container(
-                        width: size.width*(60/411),
-                        height: size.height*(60/843),
+                        width: size.width * (60 / 411),
+                        height: size.height * (60 / 843),
                         child: TextButton(
                             style: TextButton.styleFrom(
                               backgroundColor: AppColors.backGroundApp,
@@ -307,27 +308,26 @@ class _PerfilPageState extends State<PerfilPage> {
                               children: [
                                 Image.asset(
                                   AppImages.emAlta,
-                                  width: size.width*(30/411),
-                                  height: size.height*(30/843),
+                                  width: size.width * (30 / 411),
+                                  height: size.height * (30 / 843),
                                   //width: size.width * .1,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top:0),
+                                  padding: EdgeInsets.only(top: 0),
                                 ),
                                 Text(
                                   'Em alta',
-                                  style: TextStyle(fontSize: 11, color: Colors.white38),
+                                  style: TextStyle(
+                                      fontSize: 11, color: Colors.white38),
                                 ),
                               ],
                             ),
                             onPressed: () {
                               Navigator.pushNamed(context, '/emAlta');
                             }),
-
                       ),
-
-
-                      Padding( padding: EdgeInsets.only(left: size.width * 0.034) ),
+                      Padding(
+                          padding: EdgeInsets.only(left: size.width * 0.034)),
                       Container(
                         width: size.width * 0.19,
                         height: size.height * 0.095,
@@ -336,11 +336,11 @@ class _PerfilPageState extends State<PerfilPage> {
                               backgroundColor: AppColors.backGroundApp,
                             ),
                             child: CircleAvatar(
-                              backgroundImage: user.photoURL == null ? NetworkImage(
-                                  AppImages.perfilImage
-                              ) : NetworkImage(
-                                user.photoURL,
-                              ),
+                              backgroundImage: user.photoURL == null
+                                  ? NetworkImage(AppImages.perfilImage)
+                                  : NetworkImage(
+                                      user.photoURL,
+                                    ),
                             ),
                             onPressed: () {
                               Navigator.pushNamed(context, '/perfil');
@@ -349,8 +349,7 @@ class _PerfilPageState extends State<PerfilPage> {
                     ],
                   ),
                 ),
-              )
-          )
+              ))
         ],
       ),
 

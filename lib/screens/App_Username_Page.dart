@@ -103,7 +103,7 @@ class _UsernamePageState extends State<UsernamePage> {
                                 FirebaseAuth auth = FirebaseAuth.instance;
                                 User user = auth.currentUser;
 
-                                await FireAuth.updateUsername(username: _usernameController.text);
+                                await FireAuth.updateUsername(username: _usernameController.text, getInfos: FireAuth.getInfos);
                                 print("dentro do if $usernameValidated");
                                 if (user != null && usernameValidated == true) {
                                   Navigator.of(context).push(
@@ -173,6 +173,7 @@ class _UsernamePageState extends State<UsernamePage> {
       _onFail();
       return false;
     }
+
     return true;
     /*if(docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data();

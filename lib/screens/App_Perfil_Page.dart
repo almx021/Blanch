@@ -27,6 +27,8 @@ class _PerfilPageState extends State<PerfilPage> {
 
 
 
+
+
   @override
   Widget build(BuildContext context) {
     var heightScreen = MediaQuery.of(context).size.height;
@@ -109,8 +111,7 @@ class _PerfilPageState extends State<PerfilPage> {
                       })])),
               Padding(padding: EdgeInsets.only(top: 12)),
               Text(
-
-                '@',
+                '@${FireAuth.userData["username"]}',
                 style: TextStyle(color: Colors.white),
               ),
               Padding(padding: EdgeInsets.only(top: 12)),

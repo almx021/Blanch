@@ -211,7 +211,7 @@ class _UsernamePageState extends State<UsernamePage> {
     ));
   }
 */
-  dynamic _validator(String value) {
+  String _validator(String value) {
     if (value.length < 5 || value.isEmpty) {
       return "Username is too short";
     }

@@ -17,6 +17,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'models/user_model.dart';
 import 'screens/App_Account_Page.dart';
 import 'screens/App_Config_Notifications_Page.dart';
 import 'screens/App_Help_Page.dart';
@@ -29,6 +30,10 @@ import 'screens/App_Sobre_Page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  if(FireAuth.userData != null){
+    await FireAuth.getInfos();
+  }
+
   runApp(MyApp());
 }
 

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FireAuth {
-  static Map<String, dynamic> userData = Map();
+  static Map<String, dynamic> userData = null;
 
   static bool isSignedInWithGoogle = false;
 

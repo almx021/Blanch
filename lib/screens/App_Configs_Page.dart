@@ -228,11 +228,9 @@ class _ConfigsPageState extends State<ConfigsPage> {
                                         setState(() {
                                           _isSigningOut = false;
                                         });
-                                        Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                            builder: (context) => LoginPage(),
-                                          ),
-                                        );
+
+                                        Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+
                                       },
                                       child: ShaderMask(
                                         shaderCallback: (Rect rect) {

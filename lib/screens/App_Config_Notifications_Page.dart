@@ -57,6 +57,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500)),
                       ),
+
                       Switch(
                         value: switched,
                         onChanged: (value) {

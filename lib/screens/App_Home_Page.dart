@@ -2,7 +2,6 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
-import 'package:appteste/core/Posts.dart';
 import 'package:appteste/models/post_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

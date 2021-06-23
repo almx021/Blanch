@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Gradients.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appteste/models/chatMessage_model.dart';
@@ -11,38 +17,59 @@ class MensagemPage extends StatefulWidget {
 }
 
 class _MensagemPageState extends State<MensagemPage> {
+  String url;
+
+  void _sendMessage({String text, File imgFile}) async {
+
+    Map<String, dynamic> data = {};
+
+    if (imgFile != null) {
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child(DateTime.now().microsecondsSinceEpoch.toString())
+          .putFile(imgFile);
+
+      TaskSnapshot taskSnapshot = await task;
+      url = await taskSnapshot.ref.getDownloadURL();
+      data['imgUrl'] = url;
+    }
+    if (text != null) data['text'] = text;
+
+    FirebaseFirestore.instance.collection('mensagens').add(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
-    List<ChatMessage> messages = [
-      ChatMessage(
-          messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
-      ChatMessage(
-          messageContent: "Tenho novidades para te falar",
-          messageType: "sender"),
-      ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "Conta aí as novidades!", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
-      ChatMessage(
-          messageContent: "Tenho novidades para te falar",
-          messageType: "sender"),
-      ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "Conta aí as novidades!", messageType: "receiver"),
-      ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "Conta aí as novidades!", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
-      ChatMessage(
-          messageContent: "Tenho novidades para te falar",
-          messageType: "sender"),
-      ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-      ChatMessage(
-          messageContent: "Conta aí as novidades!", messageType: "receiver"),
-    ];
+    // List<ChatMessage> messages = [
+    //   ChatMessage(
+    //       messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
+    //   ChatMessage(
+    //       messageContent: "Tenho novidades para te falar",
+    //       messageType: "sender"),
+    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
+    //   ChatMessage(
+    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
+    //   ChatMessage(
+    //       messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
+    //   ChatMessage(
+    //       messageContent: "Tenho novidades para te falar",
+    //       messageType: "sender"),
+    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
+    //   ChatMessage(
+    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
+    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
+    //   ChatMessage(
+    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
+    //   ChatMessage(
+    //       messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
+    //   ChatMessage(
+    //       messageContent: "Tenho novidades para te falar",
+    //       messageType: "sender"),
+    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
+    //   ChatMessage(
+    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
+    // ];
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -77,34 +104,32 @@ class _MensagemPageState extends State<MensagemPage> {
           Container(
             decoration: BoxDecoration(color: AppColors.backGroundApp),
           ),
-          ListView.builder(
-            itemCount: messages.length,
-            shrinkWrap: true,
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            itemBuilder: (context, index) {
-              return Container(
-                padding:
-                    EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
-                child: Align(
-                  alignment: (messages[index].messageType == "receiver"
-                      ? Alignment.topLeft
-                      : Alignment.topRight),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      gradient: (messages[index].messageType == "receiver"
-                          ? AppGradients.orangelinear
-                          : AppGradients.grey),
-                    ),
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      messages[index].messageContent,
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
-                  ),
-                ),
-              );
-            },
+          Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('mensagens').snapshots(),
+                builder: (context, snapshot){
+                    switch(snapshot.connectionState){
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return Center(
+                          child:  CircularProgressIndicator(),
+                        );
+                      default:
+                        List<DocumentSnapshot> menssage =snapshot.data.docs.reversed.toList();
+
+                        return ListView.builder(
+                          itemCount: menssage.length,
+                          reverse: true,
+                          itemBuilder: (context, index){
+                            return MenssageTile(
+                             mensagens:menssage[index]['text'],
+                            );
+                          }
+                        );
+                    };
+              }
+
+              ),
           ),
           Align(
             alignment: Alignment.bottomLeft,
@@ -121,61 +146,43 @@ class _MensagemPageState extends State<MensagemPage> {
                 padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
                 height: 60,
                 width: double.infinity,
-                child: Row(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                          height: 35,
-                          width: 35,
-                          decoration: BoxDecoration(
-                            gradient: AppGradients.orangelinear,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: IconButton(
-                            padding: EdgeInsets.all(w * 0.013),
-                            icon: Image.asset(
-                              AppImages.camera5,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                          )),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                            hintText: "Mensagem...",
-                            hintStyle:
-                            TextStyle(color: Color.fromRGBO(79, 79, 79, 1)),
-                            border: InputBorder.none),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    FloatingActionButton(
-                      onPressed: () {},
-                      child: Icon(
-                        Icons.send,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                    ),
-                  ],
-                ),
-
+                child: TextComposer(_sendMessage),
               ),
             ),
           )
         ],
       ),
-
     );
   }
 }
+class MenssageTile extends StatelessWidget {
+  String mensagens;
+
+ MenssageTile({ @required this.mensagens});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding:
+      EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            gradient: (
+                AppGradients.orangelinear
+            ),
+          ),
+          padding: EdgeInsets.all(16),
+          child: Text(
+            mensagens,
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

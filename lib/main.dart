@@ -31,10 +31,8 @@ import 'screens/App_Sobre_Page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  if(FireAuth.userData != null){
-    await FireAuth.getInfos();
-  }
 
+  await FireAuth.init();
   runApp(MyApp());
 }
 

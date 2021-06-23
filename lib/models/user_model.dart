@@ -5,9 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FireAuth {
-  static Map<String, dynamic> userData = null;
+  static SharedPreferences _preferences;
+  static Map<String, dynamic> userData;
 
   static bool isSignedInWithGoogle = false;
 
@@ -245,6 +247,10 @@ class FireAuth {
       print(data['username']);
       userData = data;
     }
+  }
+
+  static Future init() async {
+    _preferences = await SharedPreferences.getInstance();
   }
 
   /*Future<void> getUsername() async {

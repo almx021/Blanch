@@ -32,135 +32,134 @@ class _UsernamePageState extends State<UsernamePage> {
             key: _scaffoldMessengerKey,
             child: Scaffold(
                 body: Form(
-              key: _formKey,
-              child: Stack(
-                children: [
-                  Container(
-                      decoration: BoxDecoration(gradient: AppGradients.linear)),
-                  SingleChildScrollView(
-                    child: Stack(
-                      children: [
-                        Logos.buildMiniLogo(
-                            context, width, height, AppImages.logo),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                  key: _formKey,
+                  child: Stack(
+                    children: [
+                      Container(
+                          decoration: BoxDecoration(gradient: AppGradients.linear)),
+                      SingleChildScrollView(
+                        child: Stack(
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 0.26 * height),
-                              child: Text(
-                                'Bem vindo ao Blanch!',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 21.0,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 0.1 * height),
-                              child: Text(
-                                'Informe seu nome de usuário:',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                  top: 0.017 * height,
-                                  left:
-                                      width < 360 ? 0.09 * width : 0.1 * width,
-                                  right:
-                                      width < 360 ? 0.09 * width : 0.1 * width),
-                              child: TextFormField(
-                                controller: _usernameController,
-                                focusNode: _focusUsername,
-                                validator: _validator,
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                    labelStyle: TextStyle(
+                            Logos.buildMiniLogo(
+                                context, width, height, AppImages.logo),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 0.26 * height),
+                                  child: Text(
+                                    'Bem vindo ao Blanch!',
+                                    style: TextStyle(
                                       color: Colors.white,
-                                    )),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15.0),
-                              ),
-                            ),
-                            Divider(color: Colors.transparent),
-                            Container(
-                              padding: EdgeInsets.only(top: 5.0),
-                              child: TextButton(
-                                onPressed: () async {
-                                  bool usernameValidated = await userValidate(
-                                      _usernameController.text);
-                                  print("antesdoif $usernameValidated");
-                                  if (_formKey.currentState.validate() &&
-                                      usernameValidated == true) {
-                                    FirebaseAuth auth = FirebaseAuth.instance;
-                                    User user = auth.currentUser;
-
-                                    await FireAuth.updateUsername(
-                                        username: _usernameController.text,
-                                        getInfos: FireAuth.getInfos);
-                                    print("dentro do if $usernameValidated");
-                                    if (user != null &&
-                                        usernameValidated == true) {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => HomePage(),
-                                        ),
-                                      );
-                                    }
-                                  }
-
-
-                                  print("dps de tudo $usernameValidated");
-                                  setState(() {
-                                    usernameValidated = true;
-                                  });
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50.0),
-                                      side: BorderSide(color: Colors.white)),
-                                ),
-                                child: Ink(
-                                    decoration: BoxDecoration(
-                                      gradient: AppGradients.orangelinear,
-                                      borderRadius: BorderRadius.circular(50.0),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 21.0,
                                     ),
-                                    child: Container(
-                                      height: 50.0,
-                                      width: 130.0,
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Salvar',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    )),
-                              ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 0.1 * height),
+                                  child: Text(
+                                    'Informe seu nome de usuário:',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      top: 0.017 * height,
+                                      left:
+                                      width < 360 ? 0.09 * width : 0.1 * width,
+                                      right:
+                                      width < 360 ? 0.09 * width : 0.1 * width),
+                                  child: TextFormField(
+                                    controller: _usernameController,
+                                    focusNode: _focusUsername,
+                                    validator: _validator,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(50.0),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide:
+                                          BorderSide(color: Colors.white),
+                                          borderRadius: BorderRadius.circular(50.0),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          color: Colors.white,
+                                        )),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15.0),
+                                  ),
+                                ),
+                                Divider(color: Colors.transparent),
+                                Container(
+                                  padding: EdgeInsets.only(top: 5.0),
+                                  child: TextButton(
+                                    onPressed: () async {
+                                      bool usernameValidated = await userValidate(
+                                          _usernameController.text);
+                                      print("antesdoif $usernameValidated");
+                                      if (_formKey.currentState.validate() &&
+                                          usernameValidated == true) {
+                                        FirebaseAuth auth = FirebaseAuth.instance;
+                                        User user = auth.currentUser;
+
+                                        await FireAuth.updateUsername(
+                                            username: _usernameController.text,
+                                            getInfos: FireAuth.getInfos);
+                                        print("dentro do if $usernameValidated");
+                                        if (user != null &&
+                                            usernameValidated == true) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) => HomePage(),
+                                            ),
+                                          );
+                                        }
+                                      }
+
+                                      print("dps de tudo $usernameValidated");
+                                      setState(() {
+                                        usernameValidated = true;
+                                      });
+                                    },
+                                    style: TextButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50.0),
+                                          side: BorderSide(color: Colors.white)),
+                                    ),
+                                    child: Ink(
+                                        decoration: BoxDecoration(
+                                          gradient: AppGradients.orangelinear,
+                                          borderRadius: BorderRadius.circular(50.0),
+                                        ),
+                                        child: Container(
+                                          height: 50.0,
+                                          width: 130.0,
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            'Salvar',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ))));
+                      )
+                    ],
+                  ),
+                ))));
   }
 
   Future<bool> userValidate(String username) async {
@@ -172,7 +171,7 @@ class _UsernamePageState extends State<UsernamePage> {
     });*/
     var collection = firestore.collection("users");
     final docSnapshot =
-        await collection.where("username", isEqualTo: username).get();
+    await collection.where("username", isEqualTo: username).get();
     print(docSnapshot);
     print(docSnapshot.docs.length);
 
@@ -204,7 +203,6 @@ class _UsernamePageState extends State<UsernamePage> {
   }
 
   /*void _onFailUserLength() {
-
     _scaffoldMessengerKey.currentState.showSnackBar(SnackBar(
       content: Text("Usuário precisa ter no mínimo 5 caracteres"),
       backgroundColor: Colors.redAccent,

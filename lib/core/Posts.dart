@@ -74,7 +74,7 @@ class _PostsState extends State<Posts> {
             height: size.height * .25,
             width: size.width,
             child: Image.asset(
-              AppImages.PubliPastel,
+              AppImages.publiPastel,
               fit: BoxFit.cover,
             ),
           ),

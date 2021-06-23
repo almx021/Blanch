@@ -353,7 +353,7 @@ class _NewPostState extends State<NewPost> {
                 TextButton(
                   onPressed: () {},
                   child: Image.asset(
-                    AppImages.salgado_botao,
+                    AppImages.salgadoBotao,
                     height: 30.0,
                     width: 80.0,
                   ),
@@ -361,7 +361,7 @@ class _NewPostState extends State<NewPost> {
                 TextButton(
                   onPressed: () {},
                   child: Image.asset(
-                    AppImages.crocante_botao,
+                    AppImages.crocanteBotao,
                     height: 30.0,
                     width: 80.0,
                   ),
@@ -369,7 +369,7 @@ class _NewPostState extends State<NewPost> {
                 TextButton(
                   onPressed: () {},
                   child: Image.asset(
-                    AppImages.pratico_botao,
+                    AppImages.praticoBotao,
                     height: 30.0,
                     width: 80.0,
                   ),
@@ -380,7 +380,7 @@ class _NewPostState extends State<NewPost> {
                 TextButton(
                   onPressed: () {},
                   child: Image.asset(
-                    AppImages.rende_muito_botao,
+                    AppImages.rendeMuitoBotao,
                     height: 35.0,
                     width: 90.0,
                   ),
@@ -388,7 +388,7 @@ class _NewPostState extends State<NewPost> {
                 TextButton(
                   onPressed: () {},
                   child: Image.asset(
-                    AppImages.rapido_de_fazer_botao,
+                    AppImages.rapidoDeFazerBotao,
                     height: 35.0,
                     width: 90.0,
                   ),

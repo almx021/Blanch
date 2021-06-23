@@ -27,6 +27,7 @@ import 'screens/App_Insert_Code_Page.dart';
 import 'screens/App_Register_Page.dart';
 import 'screens/App_Sobre_Page.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

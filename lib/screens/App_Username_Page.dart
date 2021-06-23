@@ -122,6 +122,7 @@ class _UsernamePageState extends State<UsernamePage> {
                                     }
                                   }
 
+
                                   print("dps de tudo $usernameValidated");
                                   setState(() {
                                     usernameValidated = true;

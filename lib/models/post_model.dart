@@ -4,10 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class FirePost {
-
   static getData() async {
     return await FirebaseFirestore.instance.collection("posts").get();
   }
@@ -22,18 +20,15 @@ class FirePost {
     String user,
     String url,
     File image,
-
-
     @required VoidCallback onSuccess,
-
   }) async {
-
     onSuccess();
 
-    if(image != null){
-      UploadTask task = FirebaseStorage.instance.ref().child(
-        DateTime.now().microsecondsSinceEpoch.toString()
-      ).putFile(image);
+    if (image != null) {
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child(DateTime.now().microsecondsSinceEpoch.toString())
+          .putFile(image);
 
       TaskSnapshot taskSnapshot = await task;
       url = await taskSnapshot.ref.getDownloadURL();
@@ -48,12 +43,9 @@ class FirePost {
       "uidUser": uidUser,
       "user": user,
       "imageURL": url,
-
     };
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("posts").doc().set(postData);
-
-
   }
 }

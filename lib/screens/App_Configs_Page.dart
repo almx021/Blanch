@@ -5,8 +5,6 @@ import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'App_Login_Page.dart';
-
 class ConfigsPage extends StatefulWidget {
   final User user;
 
@@ -17,7 +15,6 @@ class ConfigsPage extends StatefulWidget {
 }
 
 class _ConfigsPageState extends State<ConfigsPage> {
-
   bool _isSigningOut = false;
   User _currentUser;
 
@@ -219,8 +216,7 @@ class _ConfigsPageState extends State<ConfigsPage> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () async
-                                      {
+                                      onPressed: () async {
                                         setState(() {
                                           _isSigningOut = true;
                                         });
@@ -229,8 +225,9 @@ class _ConfigsPageState extends State<ConfigsPage> {
                                           _isSigningOut = false;
                                         });
 
-                                        Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
-
+                                        Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                                '/login', (route) => false);
                                       },
                                       child: ShaderMask(
                                         shaderCallback: (Rect rect) {

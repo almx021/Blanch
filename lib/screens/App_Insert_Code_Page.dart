@@ -1,5 +1,4 @@
 import 'package:appteste/core/App_Logos.dart';
-import 'package:appteste/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../core/App_Gradients.dart';

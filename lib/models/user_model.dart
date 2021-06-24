@@ -173,12 +173,13 @@ class FireAuth {
     return refreshedUser;
   }
 
-  static Future passwordRecover(String email) async {
+  static Future<String> passwordRecover(String email) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
       await auth.sendPasswordResetEmail(email: email);
+      return 'ok';
     } catch (e) {
-      print(e);
+      return e.toString();
     }
   }
 

@@ -27,15 +27,13 @@ class _MensagemPageState extends State<MensagemPage> {
       currentUser = user;
     });
   }
+
   String url;
   User currentUser = FirebaseAuth.instance.currentUser;
 
   void _sendMessage({String text, File imgFile}) async {
-
-
-
     Map<String, dynamic> data = {
-      'uid' : user.uid,
+      'uid': user.uid,
       'senderName': user.displayName,
       'senderPhotoUrl': user.photoURL,
       'time': Timestamp.now()
@@ -56,10 +54,7 @@ class _MensagemPageState extends State<MensagemPage> {
     FirebaseFirestore.instance.collection('mensagens').add(data);
   }
 
-
-
   @override
-
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -99,7 +94,8 @@ class _MensagemPageState extends State<MensagemPage> {
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                    .collection('mensagens').orderBy('time')
+                    .collection('mensagens')
+                    .orderBy('time')
                     .snapshots(),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
@@ -110,18 +106,16 @@ class _MensagemPageState extends State<MensagemPage> {
                       );
                     default:
                       List<DocumentSnapshot> menssage =
-                      snapshot.data.docs.reversed.toList();
+                          snapshot.data.docs.reversed.toList();
 
                       return ListView.builder(
                           itemCount: menssage.length,
                           reverse: true,
                           itemBuilder: (context, index) {
                             return MenssageTile(
-                                mensagens: menssage[index]['text'], mine: true
-                            );
+                                mensagens: menssage[index]['text'], mine: true);
                           });
                   }
-                  ;
                 }),
           ),
           Align(
@@ -160,35 +154,37 @@ class MenssageTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
       child: SingleChildScrollView(
-        child: !mine ? Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              gradient: (AppGradients.orangelinear),
-            ),
-            padding: EdgeInsets.all(16),
-            child: Text(
-              mensagens,
-              textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-          ),
-        ): Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              gradient: (AppGradients.grey),
-            ),
-            padding: EdgeInsets.all(16),
-            child: Text(
-              mensagens,
-              textAlign: TextAlign.end,
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-          ),
-        ),
+        child: !mine
+            ? Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: (AppGradients.orangelinear),
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    mensagens,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                ),
+              )
+            : Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: (AppGradients.grey),
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    mensagens,
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                ),
+              ),
       ),
     );
   }

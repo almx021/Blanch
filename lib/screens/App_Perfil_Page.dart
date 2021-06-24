@@ -7,8 +7,6 @@ import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:appteste/screens/App_EditarPerfil_Page.dart';
-import 'package:appteste/core/App_Variables.dart';
 
 class PerfilPage extends StatefulWidget {
   @override
@@ -119,7 +117,6 @@ class _PerfilPageState extends State<PerfilPage> {
                             onPressed: () {
                               Navigator.pushNamed(context, '/editarPerfil')
                                   .then((value) => onGoBack(value));
-                              ;
                             })
                       ])),
               Padding(padding: EdgeInsets.only(top: 12)),

@@ -27,7 +27,6 @@ import 'screens/App_Insert_Code_Page.dart';
 import 'screens/App_Register_Page.dart';
 import 'screens/App_Sobre_Page.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -40,42 +39,42 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-          theme: ThemeData(
-            hintColor: Colors.white,
-            primaryColor: Colors.white,
-          ),
-          title: 'Named Routes Demo',
-          initialRoute: '/',
-          routes: {
-            '/': (context) => AuthenticationWrapper(),
-            '/register': (context) => RegisterPage(),
-            '/recover': (context) => RecoverPage(),
-            '/insertCode': (context) => InsertCodePage(),
-            '/newPassword': (context) => NewPasswordPage(),
-            '/login': (context) => LoginPage(),
-            '/home': (context) => HomePage(),
-            '/configs': (context) => ConfigsPage(),
-            '/newpost': (context) => NewPost(),
-            '/chat': (context) => ChatPage(),
-            '/atividades': (context) => AtividadesPage(),
-            '/sobre': (context) => SobrePage(),
-            '/conta': (context) => AccountPage(),
-            '/notificacoes': (context) => NotificationsPage(),
-            '/ajuda': (context) => HelpPage(),
-            '/mensagens': (context) => MensagemPage(),
-            '/emAlta': (context) => EmAltaPage(),
-            '/Seguidores': (context) => SeguidoresPage(),
-            '/Seguindo': (context) => SeguindoPage(),
-            '/PerfilOutroUsuario': (context) => PerfilOutroUsuarioPage(),
+      theme: ThemeData(
+        hintColor: Colors.white,
+        primaryColor: Colors.white,
+      ),
+      title: 'Named Routes Demo',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => AuthenticationWrapper(),
+        '/register': (context) => RegisterPage(),
+        '/recover': (context) => RecoverPage(),
+        '/insertCode': (context) => InsertCodePage(),
+        '/newPassword': (context) => NewPasswordPage(),
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+        '/configs': (context) => ConfigsPage(),
+        '/newpost': (context) => NewPost(),
+        '/chat': (context) => ChatPage(),
+        '/atividades': (context) => AtividadesPage(),
+        '/sobre': (context) => SobrePage(),
+        '/conta': (context) => AccountPage(),
+        '/notificacoes': (context) => NotificationsPage(),
+        '/ajuda': (context) => HelpPage(),
+        '/mensagens': (context) => MensagemPage(),
+        '/emAlta': (context) => EmAltaPage(),
+        '/Seguidores': (context) => SeguidoresPage(),
+        '/Seguindo': (context) => SeguindoPage(),
+        '/PerfilOutroUsuario': (context) => PerfilOutroUsuarioPage(),
 /*
             '/perfil': (context) => PerfilPage(),
 */
-            '/itensSalvos': (context) => ItensSalvosPage(),
-            '/AlterarDados': (context) => AlterarDadosPage(),
-            '/editarPerfil': (context) => EditarPerfilPage(),
-            '/username': (context) => UsernamePage(),
-          },
-        );
+        '/itensSalvos': (context) => ItensSalvosPage(),
+        '/AlterarDados': (context) => AlterarDadosPage(),
+        '/editarPerfil': (context) => EditarPerfilPage(),
+        '/username': (context) => UsernamePage(),
+      },
+    );
   }
 }
 
@@ -86,9 +85,8 @@ class AuthenticationWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     User user = FirebaseAuth.instance.currentUser;
 
-
     if (user != null) {
-
+      FireAuth.getInfos();
       return HomePage();
     } else {
       return LoginPage();

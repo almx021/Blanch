@@ -24,7 +24,6 @@ class _NewPostState extends State<NewPost> {
   final _picker = ImagePicker();
 
   final _formKey = GlobalKey<FormState>();
-
   File selectedImage;
   User user = FirebaseAuth.instance.currentUser;
 

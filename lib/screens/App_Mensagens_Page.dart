@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Gradients.dart';
+import 'package:appteste/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,16 +12,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appteste/models/chatMessage_model.dart';
 
+import 'App_Username_Page.dart';
+
 class MensagemPage extends StatefulWidget {
   @override
   _MensagemPageState createState() => _MensagemPageState();
 }
 
 class _MensagemPageState extends State<MensagemPage> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      currentUser = user;
+    });
+  }
   String url;
+  User currentUser = FirebaseAuth.instance.currentUser;
 
   void _sendMessage({String text, File imgFile}) async {
-    Map<String, dynamic> data = {};
+
+
+
+    Map<String, dynamic> data = {
+      'uid' : user.uid,
+      'senderName': user.displayName,
+      'senderPhotoUrl': user.photoURL,
+      'time': Timestamp.now()
+    };
 
     if (imgFile != null) {
       UploadTask task = FirebaseStorage.instance
@@ -37,38 +56,12 @@ class _MensagemPageState extends State<MensagemPage> {
     FirebaseFirestore.instance.collection('mensagens').add(data);
   }
 
+
+
   @override
+
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
-    // List<ChatMessage> messages = [
-    //   ChatMessage(
-    //       messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
-    //   ChatMessage(
-    //       messageContent: "Tenho novidades para te falar",
-    //       messageType: "sender"),
-    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-    //   ChatMessage(
-    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
-    //   ChatMessage(
-    //       messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
-    //   ChatMessage(
-    //       messageContent: "Tenho novidades para te falar",
-    //       messageType: "sender"),
-    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-    //   ChatMessage(
-    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
-    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-    //   ChatMessage(
-    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
-    //   ChatMessage(
-    //       messageContent: "Bom dia Marcelo, como vai?", messageType: "sender"),
-    //   ChatMessage(
-    //       messageContent: "Tenho novidades para te falar",
-    //       messageType: "sender"),
-    //   ChatMessage(messageContent: "Eu to bem Ana!", messageType: "receiver"),
-    //   ChatMessage(
-    //       messageContent: "Conta aí as novidades!", messageType: "receiver"),
-    // ];
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -106,7 +99,7 @@ class _MensagemPageState extends State<MensagemPage> {
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                    .collection('mensagens')
+                    .collection('mensagens').orderBy('time')
                     .snapshots(),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
@@ -117,14 +110,14 @@ class _MensagemPageState extends State<MensagemPage> {
                       );
                     default:
                       List<DocumentSnapshot> menssage =
-                          snapshot.data.docs.reversed.toList();
+                      snapshot.data.docs.reversed.toList();
 
                       return ListView.builder(
                           itemCount: menssage.length,
                           reverse: true,
                           itemBuilder: (context, index) {
                             return MenssageTile(
-                              mensagens: menssage[index]['text'],
+                                mensagens: menssage[index]['text'], mine: true
                             );
                           });
                   }
@@ -158,24 +151,42 @@ class _MensagemPageState extends State<MensagemPage> {
 
 class MenssageTile extends StatelessWidget {
   String mensagens;
+  bool mine;
 
-  MenssageTile({@required this.mensagens});
+  MenssageTile({@required this.mensagens, this.mine});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            gradient: (AppGradients.orangelinear),
+      child: SingleChildScrollView(
+        child: !mine ? Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              gradient: (AppGradients.orangelinear),
+            ),
+            padding: EdgeInsets.all(16),
+            child: Text(
+              mensagens,
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
           ),
-          padding: EdgeInsets.all(16),
-          child: Text(
-            mensagens,
-            style: TextStyle(fontSize: 15, color: Colors.white),
+        ): Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              gradient: (AppGradients.grey),
+            ),
+            padding: EdgeInsets.all(16),
+            child: Text(
+              mensagens,
+              textAlign: TextAlign.end,
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
           ),
         ),
       ),

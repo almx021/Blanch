@@ -86,59 +86,61 @@ class _MensagemPageState extends State<MensagemPage> {
           )
         ],
       ),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(color: AppColors.backGroundApp),
-          ),
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('mensagens')
-                    .orderBy('time')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    default:
-                      List<DocumentSnapshot> menssage =
-                          snapshot.data.docs.reversed.toList();
+      body: Container(
+        decoration: BoxDecoration(color: AppColors.backGroundApp),
+        child: Column(
 
-                      return ListView.builder(
-                          itemCount: menssage.length,
-                          reverse: true,
-                          itemBuilder: (context, index) {
-                            return MenssageTile(
-                                mensagens: menssage[index]['text'], mine: true);
-                          });
-                  }
-                }),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              decoration: BoxDecoration(
-                color: AppColors.backGroundApp,
-              ),
-              child: Container(
-                margin: EdgeInsets.all(w * 0.02),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  color: Color.fromRGBO(29, 29, 29, 1),
-                ),
-                padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-                height: 60,
-                width: double.infinity,
-                child: TextComposer(_sendMessage),
-              ),
+          children: <Widget>[
+
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('mensagens')
+                      .orderBy('time')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      default:
+                        List<DocumentSnapshot> menssage =
+                        snapshot.data.docs.reversed.toList();
+
+                        return ListView.builder(
+                            itemCount: menssage.length,
+                            reverse: true,
+                            itemBuilder: (context, index) {
+                              return MenssageTile(
+                                  mensagens: menssage[index]['text'], mine: true);
+                            });
+                    }
+                  }),
             ),
-          )
-        ],
-      ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.backGroundApp,
+                ),
+                child: Container(
+                  margin: EdgeInsets.all(w * 0.02),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Color.fromRGBO(29, 29, 29, 1),
+                  ),
+                  padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                  height: 60,
+                  width: double.infinity,
+                  child: TextComposer(_sendMessage),
+                ),
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }

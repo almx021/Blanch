@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Logos {
+class Builders {
   static Widget buildMiniLogo(BuildContext context, double screenWidth,
       double screenHeight, String logo) {
     return Padding(

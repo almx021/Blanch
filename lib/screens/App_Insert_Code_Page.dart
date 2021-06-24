@@ -1,4 +1,4 @@
-import 'package:appteste/core/App_Logos.dart';
+import 'package:appteste/core/App_Builders.dart';
 import 'package:flutter/material.dart';
 
 import '../core/App_Gradients.dart';
@@ -48,7 +48,7 @@ class _InsertCodePageState extends State<InsertCodePage> {
                 SingleChildScrollView(
                   child: Stack(
                     children: [
-                      Logos.buildMiniLogo(
+                      Builders.buildMiniLogo(
                           context, width, height, AppImages.logo),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,

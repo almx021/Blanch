@@ -101,9 +101,23 @@ class _RecoverPageState extends State<RecoverPage> {
                                     duration: Duration(seconds: 2),
                                   ));
                                 } else {
-                                  await FireAuth.passwordRecover(
-                                      _emailController.text);
-                                  Navigator.pushNamed(context, '/insertCode');
+                                  String response =
+                                      await FireAuth.passwordRecover(
+                                          _emailController.text);
+                                  if (response != 'ok') {
+                                    _scaffoldMessengerKey.currentState
+                                        .showSnackBar(SnackBar(
+                                            content:
+                                                Text("Insira um email válido"),
+                                            backgroundColor: Colors.redAccent,
+                                            duration: Duration(seconds: 2)));
+                                    return;
+                                  }
+                                  _scaffoldMessengerKey.currentState
+                                      .showSnackBar(SnackBar(
+                                          content: Text("Confira seu email"),
+                                          backgroundColor: Colors.greenAccent,
+                                          duration: Duration(seconds: 2)));
                                 }
                               },
                               style: TextButton.styleFrom(

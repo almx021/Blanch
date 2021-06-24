@@ -20,7 +20,6 @@ class _MensagemPageState extends State<MensagemPage> {
   String url;
 
   void _sendMessage({String text, File imgFile}) async {
-
     Map<String, dynamic> data = {};
 
     if (imgFile != null) {
@@ -105,31 +104,32 @@ class _MensagemPageState extends State<MensagemPage> {
             decoration: BoxDecoration(color: AppColors.backGroundApp),
           ),
           Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('mensagens').snapshots(),
-                builder: (context, snapshot){
-                    switch(snapshot.connectionState){
-                      case ConnectionState.none:
-                      case ConnectionState.waiting:
-                        return Center(
-                          child:  CircularProgressIndicator(),
-                        );
-                      default:
-                        List<DocumentSnapshot> menssage =snapshot.data.docs.reversed.toList();
+            child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('mensagens')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    default:
+                      List<DocumentSnapshot> menssage =
+                          snapshot.data.docs.reversed.toList();
 
-                        return ListView.builder(
+                      return ListView.builder(
                           itemCount: menssage.length,
                           reverse: true,
-                          itemBuilder: (context, index){
+                          itemBuilder: (context, index) {
                             return MenssageTile(
-                             mensagens:menssage[index]['text'],
+                              mensagens: menssage[index]['text'],
                             );
-                          }
-                        );
-                    };
-              }
-
-              ),
+                          });
+                  }
+                  ;
+                }),
           ),
           Align(
             alignment: Alignment.bottomLeft,
@@ -155,25 +155,22 @@ class _MensagemPageState extends State<MensagemPage> {
     );
   }
 }
+
 class MenssageTile extends StatelessWidget {
   String mensagens;
 
- MenssageTile({ @required this.mensagens});
-
+  MenssageTile({@required this.mensagens});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-      EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+      padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
       child: Align(
         alignment: Alignment.topLeft,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            gradient: (
-                AppGradients.orangelinear
-            ),
+            gradient: (AppGradients.orangelinear),
           ),
           padding: EdgeInsets.all(16),
           child: Text(
@@ -185,4 +182,3 @@ class MenssageTile extends StatelessWidget {
     );
   }
 }
-

@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/core/App_Variables.dart';
 import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appteste/screens/App_EditarPerfil_Page.dart';
+import 'package:appteste/core/App_Variables.dart';
 
 class PerfilPage extends StatefulWidget {
   @override
@@ -16,12 +20,34 @@ class _PerfilPageState extends State<PerfilPage> {
   bool _isSigningOut = false;
 
   User user = FirebaseAuth.instance.currentUser;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  FutureOr onGoBack(dynamic value) {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     var heightScreen = MediaQuery.of(context).size.height;
     var widthScreen = MediaQuery.of(context).size.width;
     var size = MediaQuery.of(context).size;
+
+    Widget buildCircleAvatar(double radius) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: selectedImage == null
+            ? user.photoURL == null
+                ? AssetImage(AppImages.perfilImage)
+                : NetworkImage(
+                    user.photoURL,
+                  )
+            : FileImage(selectedImage),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.backGroundApp,
       appBar: AppBar(
@@ -76,14 +102,7 @@ class _PerfilPageState extends State<PerfilPage> {
                           padding:
                               EdgeInsets.only(right: widthScreen * 0.5 - 50),
                         ),
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: user.photoURL == null
-                              ? NetworkImage(AppImages.perfilImage)
-                              : NetworkImage(
-                                  user.photoURL,
-                                ),
-                        ),
+                        buildCircleAvatar(50),
                         Padding(
                           padding: EdgeInsets.only(
                             left: widthScreen * 0.24,
@@ -98,16 +117,16 @@ class _PerfilPageState extends State<PerfilPage> {
                               width: widthScreen * 0.073,
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditarPerfilPage()));
+                              Navigator.pushNamed(context, '/editarPerfil')
+                                  .then((value) => onGoBack(value));
+                              ;
                             })
                       ])),
               Padding(padding: EdgeInsets.only(top: 12)),
               Text(
-                '@${FireAuth.userData["username"]}',
+                FireAuth.userData != null
+                    ? '@${FireAuth.userData["username"]}'
+                    : '@null',
                 style: TextStyle(color: Colors.white),
               ),
               Padding(padding: EdgeInsets.only(top: 12)),
@@ -331,15 +350,9 @@ class _PerfilPageState extends State<PerfilPage> {
                             style: TextButton.styleFrom(
                               backgroundColor: AppColors.backGroundApp,
                             ),
-                            child: CircleAvatar(
-                              backgroundImage: user.photoURL == null
-                                  ? NetworkImage(AppImages.perfilImage)
-                                  : NetworkImage(
-                                      user.photoURL,
-                                    ),
-                            ),
+                            child: buildCircleAvatar(20),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/perfil');
+                              //Navigator.pushNamed(context, '/perfil');
                             }),
                       ),
                     ],

@@ -1,8 +1,11 @@
+import 'dart:async';
 
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/core/App_Variables.dart';
 import 'package:appteste/models/post_model.dart';
+import 'package:appteste/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,28 +24,33 @@ class _HomePageState extends State<HomePage> {
   FirePost firePost = FirePost();
   QuerySnapshot postSnapshot;
 
+  FutureOr onGoBack(dynamic value) {
+    setState(() {});
+  }
+
   Widget PostList() {
     return Container(
-      child:  Column(
+      child: Column(
         children: [
-          postSnapshot != null ?
-            ListView.builder(
-              itemCount: postSnapshot.docs.length,
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index){
-
-                return PostTile(
-                  imageURL: postSnapshot.docs[index]['imageURL'],
-                  user: postSnapshot.docs[index]['user'],
-                  descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
-                );
-              },
-            ) : Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
+          postSnapshot != null
+              ? ListView.builder(
+                  itemCount: postSnapshot.docs.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return PostTile(
+                      imageURL: postSnapshot.docs[index]['imageURL'],
+                      user: postSnapshot.docs[index]['user'],
+                      descricaoDaReceita: postSnapshot.docs[index]
+                          ['descricaoDaReceita'],
+                    );
+                  },
+                )
+              : Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
         ],
       ),
     );
@@ -52,7 +60,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirePost.getData().then((result){
+    FirePost.getData().then((result) {
       setState(() {
         postSnapshot = result;
       });
@@ -136,9 +144,7 @@ class _HomePageState extends State<HomePage> {
                         height: size.height,
                         // child: Image.asset(AppImages.novoPost),
                       ),
-
                       PostList(),
-
                     ],
                   ),
                 ),
@@ -216,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             onPressed: () {
-                              print((postSnapshot.docs[1].data as Map) ['user']);
+                              print((postSnapshot.docs[1].data as Map)['user']);
                             }),
                       ),
                       Padding(
@@ -282,18 +288,22 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: AppColors.backGroundApp,
                             ),
                             child: CircleAvatar(
-                              backgroundImage: user.photoURL == null
-                                  ? NetworkImage(AppImages.perfilImage)
-                                  : NetworkImage(
-                                      user.photoURL,
-                                    ),
+                              backgroundImage: selectedImage == null
+                                  ? user.photoURL == null
+                                      ? AssetImage(AppImages.perfilImage)
+                                      : NetworkImage(
+                                          user.photoURL,
+                                        )
+                                  : FileImage(selectedImage),
                             ),
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => PerfilPage(),
-                                ),
-                              );
+                              Navigator.of(context)
+                                  .push(
+                                    MaterialPageRoute(
+                                      builder: (context) => PerfilPage(),
+                                    ),
+                                  )
+                                  .then((value) => onGoBack(value));
                             }),
                       ),
                     ],
@@ -308,18 +318,16 @@ class _HomePageState extends State<HomePage> {
 }
 
 class PostTile extends StatelessWidget {
-
   String descricaoDaReceita;
   String user;
   String imageURL;
 
-  PostTile({ @required this.imageURL, this.descricaoDaReceita, this.user});
+  PostTile({@required this.imageURL, this.descricaoDaReceita, this.user});
 
   int curtidas = 0;
 
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
 
     return Container(
@@ -334,8 +342,7 @@ class PostTile extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: CircleAvatar(
-                  ),
+                  child: CircleAvatar(),
                 ),
                 Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
@@ -379,7 +386,10 @@ class PostTile extends StatelessWidget {
           Container(
             height: size.height * .25,
             width: size.width,
-            child: Image.network(imageURL, fit: BoxFit.cover,),
+            child: Image.network(
+              imageURL,
+              fit: BoxFit.cover,
+            ),
           ),
           Row(
             children: [
@@ -403,13 +413,15 @@ class PostTile extends StatelessWidget {
                 '${descricaoDaReceita}',
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
-              Align(alignment: Alignment.centerRight,
+              Align(
+                alignment: Alignment.centerRight,
                 child: IconButton(
                     icon: Icon(
                       Icons.bookmarks_outlined,
                       color: Colors.grey,
                     ),
-                    onPressed: () {}),),
+                    onPressed: () {}),
+              ),
             ],
           ),
           Row(
@@ -434,11 +446,13 @@ class PostTile extends StatelessWidget {
                   style: TextStyle(color: Colors.blue, fontSize: 18),
                 )),
           ),
-          Align(alignment: Alignment.bottomRight,
+          Align(
+            alignment: Alignment.bottomRight,
             child: Text(
               'Publicado 15 minutos atrás',
               style: TextStyle(color: Colors.grey, fontSize: 15),
-            ),)
+            ),
+          )
         ],
       ),
     );

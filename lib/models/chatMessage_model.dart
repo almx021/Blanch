@@ -6,14 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ChatMessage{
+class ChatMessage {
   String messageContent;
   String messageType;
   ChatMessage({@required this.messageContent, @required this.messageType});
 }
 
 class TextComposer extends StatefulWidget {
-
   TextComposer(this.sendMessage);
   final Function({String text, File imgFile}) sendMessage;
 
@@ -22,7 +21,6 @@ class TextComposer extends StatefulWidget {
 }
 
 class _TextComposerState extends State<TextComposer> {
-
   final TextEditingController _controller = TextEditingController();
   bool _isComposing = false;
   void reset() {
@@ -35,6 +33,7 @@ class _TextComposerState extends State<TextComposer> {
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
+    final _picker = ImagePicker();
     return Row(
       children: <Widget>[
         GestureDetector(
@@ -53,9 +52,10 @@ class _TextComposerState extends State<TextComposer> {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  final File imgFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-                  if(imgFile == null) return;
-                  widget.sendMessage(imgFile: imgFile);
+                  final PickedFile imgFile =
+                      await _picker.getImage(source: ImageSource.gallery);
+                  if (imgFile == null) return;
+                  widget.sendMessage(imgFile: File(imgFile.path));
                 },
               )),
         ),
@@ -68,19 +68,17 @@ class _TextComposerState extends State<TextComposer> {
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
                 hintText: "Mensagem...",
-                hintStyle:
-                TextStyle(color: Color.fromRGBO(79, 79, 79, 1)),
+                hintStyle: TextStyle(color: Color.fromRGBO(79, 79, 79, 1)),
                 border: InputBorder.none),
             onChanged: (text) {
               setState(() {
-                _isComposing= text.isNotEmpty;
+                _isComposing = text.isNotEmpty;
               });
-            } ,
+            },
             onSubmitted: (text) {
-              widget.sendMessage (text: text);
+              widget.sendMessage(text: text);
               reset();
-
-            }  ,
+            },
           ),
         ),
         SizedBox(
@@ -88,14 +86,15 @@ class _TextComposerState extends State<TextComposer> {
         ),
         IconButton(
           color: Colors.white,
-          onPressed: _isComposing ? () {
-            widget.sendMessage (text: _controller.text);
-            reset();
-
-          }: null,
+          onPressed: _isComposing
+              ? () {
+                  widget.sendMessage(text: _controller.text);
+                  reset();
+                }
+              : null,
           icon: Icon(
             Icons.send,
-            color: _isComposing ? Colors.white: Colors.grey,
+            color: _isComposing ? Colors.white : Colors.grey,
             size: 25,
           ),
           //color: Colors.transparent,

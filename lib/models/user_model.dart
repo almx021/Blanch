@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -206,6 +208,28 @@ class FireAuth {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).update(userData);
     getInfos();
+  }
+
+  static Future updateProfilePic(File image) async {
+    User user = FirebaseAuth.instance.currentUser;
+
+    if (image != null) {
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child("UsersProfilePictures/${user.uid}/" +
+              DateTime.now().microsecondsSinceEpoch.toString())
+          .putFile(image);
+
+      TaskSnapshot taskSnapshot = await task;
+      var url = await taskSnapshot.ref.getDownloadURL();
+      Map<String, dynamic> userData = {"photoURL": url};
+
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      await firestore.collection("users").doc(user.uid).update(userData);
+
+      await user.updatePhotoURL(url);
+      getInfos();
+    }
   }
 
   static Future<Null> updateIsNewUser({String isNewUser}) async {

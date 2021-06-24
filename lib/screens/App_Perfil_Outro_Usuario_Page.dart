@@ -92,31 +92,40 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(30.0),
                           side: BorderSide(color: Colors.white10)),
                     ),
                     child: Ink(
                         decoration: BoxDecoration(
-                          gradient: pressGeoON ? AppGradients.orangelinear : LinearGradient(colors: [Color(0xff282828), Color(0xff282828)]),
-                          borderRadius:
-                          BorderRadius.circular(30.0),
+                          gradient: pressGeoON
+                              ? AppGradients.orangelinear
+                              : LinearGradient(colors: [
+                                  Color(0xff282828),
+                                  Color(0xff282828)
+                                ]),
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: Container(
                           height: 0.05 * size.height,
                           width: 0.35 * size.width,
                           alignment: Alignment.center,
-                          child: cmbscritta ? Text("Seguindo",
-                            style: TextStyle(
-                              fontSize: AdaptiveTextSize()
-                                  .getadaptiveTextSize(context, 14),
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500),) : Text("Seguir",
-                            style: TextStyle(
-                              fontSize: AdaptiveTextSize()
-                                  .getadaptiveTextSize(context, 14),
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500),),
+                          child: cmbscritta
+                              ? Text(
+                                  "Seguindo",
+                                  style: TextStyle(
+                                      fontSize: AdaptiveTextSize()
+                                          .getadaptiveTextSize(context, 14),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              : Text(
+                                  "Seguir",
+                                  style: TextStyle(
+                                      fontSize: AdaptiveTextSize()
+                                          .getadaptiveTextSize(context, 14),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
                         )),
                   ),
                 ),
@@ -127,26 +136,26 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                        onPressed: () {},
-                        child: Column(children: [
-                          Text(
-                            '0', //'${model.userData["postagens"]}',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: AdaptiveTextSize()
-                                    .getadaptiveTextSize(context, 18),
-                                fontWeight: FontWeight.w400),
-                          ),
-                          Text(
-                            'postagens',
-                            style: TextStyle(
-                                color: Colors.white38,
-                                fontSize: AdaptiveTextSize()
-                                    .getadaptiveTextSize(context, 18),
-                                fontWeight: FontWeight.w400),
-                          )
-                        ]),
-                      ),
+                      onPressed: () {},
+                      child: Column(children: [
+                        Text(
+                          '0', //'${model.userData["postagens"]}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: AdaptiveTextSize()
+                                  .getadaptiveTextSize(context, 18),
+                              fontWeight: FontWeight.w400),
+                        ),
+                        Text(
+                          'postagens',
+                          style: TextStyle(
+                              color: Colors.white38,
+                              fontSize: AdaptiveTextSize()
+                                  .getadaptiveTextSize(context, 18),
+                              fontWeight: FontWeight.w400),
+                        )
+                      ]),
+                    ),
                     VerticalDivider(
                       color: Colors.white38,
                     ),
@@ -337,7 +346,7 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                             ),
                             child: CircleAvatar(
                               backgroundImage: user.photoURL == null
-                                  ? NetworkImage(AppImages.perfilImage)
+                                  ? AssetImage(AppImages.perfilImage)
                                   : NetworkImage(
                                       user.photoURL,
                                     ),

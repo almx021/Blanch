@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:appteste/core/App_Variables.dart';
 
 class EditarPerfilPage extends StatefulWidget {
   @override
@@ -9,7 +14,20 @@ class EditarPerfilPage extends StatefulWidget {
 }
 
 class _EditarPerfilPageState extends State<EditarPerfilPage> {
+  final _picker = ImagePicker();
+
   User user = FirebaseAuth.instance.currentUser;
+
+  Future<void> getImage() async {
+    final PickedFile image =
+        await _picker.getImage(source: ImageSource.gallery);
+    if (image == null) return;
+
+    setState(() {
+      selectedImage = File(image.path);
+      FireAuth.updateProfilePic(selectedImage);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +41,11 @@ class _EditarPerfilPageState extends State<EditarPerfilPage> {
         leading: IconButton(
             icon: Image.asset(AppImages.leftArrow, width: 25),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(
+                context,
+                /*      MaterialPageRoute(
+                      builder: (context) => (Image.asset(selectedImage.path)))*/
+              );
             }),
         title: Text(
           'Editar Perfil',
@@ -48,16 +70,22 @@ class _EditarPerfilPageState extends State<EditarPerfilPage> {
                   ),
                   Stack(
                     children: [
-                      Container(
-                        child: CircleAvatar(
-                          radius: 41.0,
-                          backgroundImage: user.photoURL == null
-                              ? NetworkImage(AppImages.perfilImage)
-                              : NetworkImage(
-                                  user.photoURL,
-                                ),
-                        ),
-                      ),
+                      InkWell(
+                          child: Container(
+                            child: CircleAvatar(
+                              radius: 41.0,
+                              backgroundImage: selectedImage == null
+                                  ? user.photoURL == null
+                                      ? AssetImage(AppImages.perfilImage)
+                                      : NetworkImage(
+                                          user.photoURL,
+                                        )
+                                  : FileImage(selectedImage),
+                            ),
+                          ),
+                          onTap: () {
+                            getImage();
+                          }),
                       IconButton(
                         padding: EdgeInsets.only(left: 28, top: 28),
                         onPressed: () {},

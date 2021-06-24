@@ -12,7 +12,7 @@ class AtividadesPage extends StatefulWidget {
   _AtividadesPageState createState() => _AtividadesPageState();
 }
 
-class _AtividadesPageState extends State<AtividadesPage> { 
+class _AtividadesPageState extends State<AtividadesPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -55,7 +55,7 @@ class _AtividadesPageState extends State<AtividadesPage> {
                           onPressed: () {},
                           child: CircleAvatar(
                               radius: 25.0,
-                              backgroundImage: NetworkImage(
+                              backgroundImage: AssetImage(
                                 AppImages.perfilImage,
                               )),
                         ),
@@ -110,7 +110,7 @@ class _AtividadesPageState extends State<AtividadesPage> {
                           onPressed: () {},
                           child: CircleAvatar(
                               radius: 25.0,
-                              backgroundImage: NetworkImage(
+                              backgroundImage: AssetImage(
                                 AppImages.perfilImage,
                               )),
                         ),

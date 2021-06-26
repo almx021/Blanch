@@ -358,19 +358,19 @@ class PostTile extends StatelessWidget {
                                 user,
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     fontSize: AdaptiveTextSize()
-                                        .getadaptiveTextSize(context, 15)),
+                                        .getadaptiveTextSize(context, 14.5)),
                               ),
                               Padding(
                                   padding:
                                       EdgeInsets.only(left: size.width * 0.015),
                                   child: Text(
-                                    'Nova receita!',
+                                    'nova receita!',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: AdaptiveTextSize()
-                                            .getadaptiveTextSize(context, 14)),
+                                            .getadaptiveTextSize(context, 14.5)),
                                   )),
                             ],
                           ),
@@ -426,14 +426,14 @@ class PostTile extends StatelessWidget {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: AdaptiveTextSize()
-                              .getadaptiveTextSize(context, 16.5))),
+                              .getadaptiveTextSize(context, 14))),
                 ),
                 GradientText(
                   '  #Salgado #Tag1 #Tag2',
                   gradient: AppGradients.linear,
                   style: TextStyle(
                       fontSize:
-                          AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
                 )
               ],
             ),
@@ -453,9 +453,9 @@ class PostTile extends StatelessWidget {
                           '${user}',
                           style: TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               fontSize: AdaptiveTextSize()
-                                  .getadaptiveTextSize(context, 16)),
+                                  .getadaptiveTextSize(context, 14.5)),
                         ),
                         Padding(
                             padding: EdgeInsets.only(left: size.width * 0.015)),
@@ -465,7 +465,7 @@ class PostTile extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: AdaptiveTextSize()
-                                    .getadaptiveTextSize(context, 16)),
+                                    .getadaptiveTextSize(context, 14.5)),
                           ),
                         ),
                       ],
@@ -496,9 +496,9 @@ class PostTile extends StatelessWidget {
                   '@usuário',
                   style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                       fontSize:
-                          AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14)),
                 ),
                 Padding(padding: EdgeInsets.only(left: size.width * 0.015)),
                 Text(
@@ -506,7 +506,7 @@ class PostTile extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.white70,
                       fontSize:
-                          AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14)),
                 ),
               ],
             ),

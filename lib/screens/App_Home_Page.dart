@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
 
+import 'App_Account_Page.dart';
 import 'App_Perfil_Page.dart';
 
 class HomePage extends StatefulWidget {
@@ -335,51 +336,71 @@ class PostTile extends StatelessWidget {
       child: Column(
         children: [
           Divider(),
-          Container(
-            width: size.width,
-            height: size.height * .07,
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width * 0.03, bottom: size.height * 0.01),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: CircleAvatar(),
-                ),
-                Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                        Text(
-                          user,
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                        Text(
-                          'nova receita!',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        )
-                      ],
-                    ),
                     Align(
-                      alignment: Alignment.centerLeft,
-                      child: GradientText(
-                        '@usuário',
-                        gradient: AppGradients.linear,
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      child: CircleAvatar(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: size.width * 0.025),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                user,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: AdaptiveTextSize()
+                                        .getadaptiveTextSize(context, 15)),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: size.width * 0.015),
+                                  child: Text(
+                                    'Nova receita!',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: AdaptiveTextSize()
+                                            .getadaptiveTextSize(context, 14)),
+                                  )),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: GradientText(
+                              '@usuário',
+                              gradient: AppGradients.linear,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: AdaptiveTextSize()
+                                      .getadaptiveTextSize(context, 15)),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.more_vert,
-                        color: Colors.grey,
-                      ),
-                      onPressed: () {}),
-                )
+                Padding(
+                    padding: EdgeInsets.only(right: size.width * 0.02),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                          child: Icon(
+                            Icons.more_vert,
+                            color: Colors.white,
+                          ),
+                          onTap: () {}),
+                    )),
               ],
             ),
           ),
@@ -391,51 +412,104 @@ class PostTile extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Row(
-            children: [
-              Text('Curtido por ${curtidas} pessoas',
-                  style: TextStyle(color: Colors.white, fontSize: 18)),
-              GradientText(
-                '  #Salgado #Tag1 #Tag2',
-                gradient: AppGradients.linear,
-                style: TextStyle(fontSize: 18),
-              )
-            ],
+          Padding(
+            padding: EdgeInsets.only(
+                top: size.height * 0.01,
+                left: size.width * 0.02,
+                right: size.width * 0.02,
+                bottom: size.height * 0.003),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: Text('Curtido por ${curtidas} pessoas',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: AdaptiveTextSize()
+                              .getadaptiveTextSize(context, 16.5))),
+                ),
+                GradientText(
+                  '  #Salgado #Tag1 #Tag2',
+                  gradient: AppGradients.linear,
+                  style: TextStyle(
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+                )
+              ],
+            ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${user}',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              Text(
-                '${descricaoDaReceita}',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                    icon: Icon(
-                      Icons.bookmarks_outlined,
-                      color: Colors.grey,
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: size.width * 0.02, top: size.height * 0.004),
+                  child: Expanded(
+                    child: Wrap(
+                      children: [
+                        Text(
+                          '${user}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: AdaptiveTextSize()
+                                  .getadaptiveTextSize(context, 16)),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(left: size.width * 0.015)),
+                        Flexible(
+                          child: Text(
+                            '${descricaoDaReceita}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: AdaptiveTextSize()
+                                    .getadaptiveTextSize(context, 16)),
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {}),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: size.width * 0.015),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                      child: Icon(
+                        Icons.bookmarks_outlined,
+                        color: Colors.white,
+                      ),
+                      onTap: () {}),
+                ),
               ),
             ],
           ),
-          Row(
-            children: [
-              Text(
-                '@usuário',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              Text(
-                'Muito bom!',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width * 0.02, top: size.height * 0.005),
+            child: Row(
+              children: [
+                Text(
+                  '@usuário',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
+                ),
+                Padding(padding: EdgeInsets.only(left: size.width * 0.015)),
+                Text(
+                  'Muito bom!',
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
+                ),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.centerLeft,
@@ -443,16 +517,26 @@ class PostTile extends StatelessWidget {
                 onPressed: () {},
                 child: Text(
                   'Ver mais',
-                  style: TextStyle(color: Colors.blue, fontSize: 18),
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 15)),
                 )),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              'Publicado 15 minutos atrás',
-              style: TextStyle(color: Colors.grey, fontSize: 15),
+          Padding(
+            padding: EdgeInsets.only(
+                right: size.width * 0.02, bottom: size.height * 0.02),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                'Publicado 15 minutos atrás',
+                style: TextStyle(
+                    color: Colors.white38,
+                    fontSize:
+                        AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

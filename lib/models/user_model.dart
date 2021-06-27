@@ -250,14 +250,34 @@ class FireAuth {
     await FirebaseAuth.instance.signOut();
   }
 
-  static Future<void> deleteAccount() async {
-    //testando ainda, nao ta pronto
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User user = auth.currentUser;
+  static Future<void> deleteAccount(password) async {
+    User user = FirebaseAuth.instance.currentUser;
+    AuthCredential credentials =
+        EmailAuthProvider.credential(email: user.email, password: password);
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FirebaseStorage storage = FirebaseStorage.instance;
     try {
+      await user.reauthenticateWithCredential(credentials);
+      try {
+        await storage
+            .ref()
+            .child("UsersProfilePictures/${user.uid}/")
+            .list()
+            .then(
+                (element) => element.items.forEach((item) {
+                      item.delete();
+                    }), onError: (e) {
+          print('ERRO onError: $e');
+        });
+      } catch (e) {
+        print("ERRO try 2 $e");
+        if (e.toString() == "No object exists at the desired reference.")
+          print('OBJETO INEXISTENTE');
+      }
+      await firestore.collection('users').doc(user.uid).delete();
       await user.delete();
     } catch (e) {
-      print("x");
+      print("ERRO try 1: $e");
     }
   }
 

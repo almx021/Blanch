@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/core/App_Variables.dart';
 import 'package:appteste/models/post_model.dart';
 import 'package:appteste/models/user_model.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
 
+import 'App_Account_Page.dart';
 import 'App_Perfil_Page.dart';
 
 class HomePage extends StatefulWidget {
@@ -151,165 +153,15 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: SizedBox(
-                height: size.height * (60 / 843),
-                child: Container(
-                  width: size.width,
-                  height: size.height * .07,
-                  color: AppColors.backGroundApp,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                          padding:
-                              EdgeInsets.only(right: size.width * 0.034 / 2)),
-                      Container(
-                        width: size.width * (60 / 411),
-                        height: size.height * (60 / 843),
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  AppImages.homeSelected,
-                                  width: size.width * (30 / 411),
-                                  height: size.height * (30 / 843),
-                                  //width: size.width * .1,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 0),
-                                ),
-                                Text(
-                                  'Home',
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/home');
-                            }),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: size.width * (70 / 411),
-                        height: size.height * (60 / 843),
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  AppImages.searchIcon,
-                                  width: size.width * (30 / 411),
-                                  height: size.height * (30 / 843),
-                                  //width: size.width * .1,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 0),
-                                ),
-                                Text(
-                                  'Pesquisa',
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white38),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              print((postSnapshot.docs[1].data as Map)['user']);
-                            }),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: size.width * 0.19,
-                        height: size.height * 0.095,
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(150)),
-                              child: Image.asset(
-                                AppImages.newPost,
-                                width: size.width * 0.097,
-                                height: size.height * 0.047,
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/newpost');
-                            }),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: size.width * (60 / 411),
-                        height: size.height * (60 / 843),
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  AppImages.emAlta,
-                                  width: size.width * (30 / 411),
-                                  height: size.height * (30 / 843),
-                                  //width: size.width * .1,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 0),
-                                ),
-                                Text(
-                                  'Em alta',
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white38),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/emAlta');
-                            }),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: size.width * 0.19,
-                        height: size.height * 0.095,
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: CircleAvatar(
-                              backgroundImage: selectedImage == null
-                                  ? user.photoURL == null
-                                      ? AssetImage(AppImages.perfilImage)
-                                      : NetworkImage(
-                                          user.photoURL,
-                                        )
-                                  : FileImage(selectedImage),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .push(
-                                    MaterialPageRoute(
-                                      builder: (context) => PerfilPage(),
-                                    ),
-                                  )
-                                  .then((value) => onGoBack(value));
-                            }),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
+          Builders.buildBottomNavBar(
+            context: context,
+            type: "home",
+            height: size.height,
+            width: size.width,
+            user: user,
+            selectedImage: selectedImage,
+            onGoBack: onGoBack,
+          ),
         ],
       ),
       // Barra Inferior:
@@ -335,51 +187,71 @@ class PostTile extends StatelessWidget {
       child: Column(
         children: [
           Divider(),
-          Container(
-            width: size.width,
-            height: size.height * .07,
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width * 0.03, bottom: size.height * 0.01),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: CircleAvatar(),
-                ),
-                Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                        Text(
-                          user,
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                        Text(
-                          'nova receita!',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        )
-                      ],
-                    ),
                     Align(
-                      alignment: Alignment.centerLeft,
-                      child: GradientText(
-                        '@usuário',
-                        gradient: AppGradients.linear,
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      child: CircleAvatar(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: size.width * 0.025),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                user,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: AdaptiveTextSize()
+                                        .getadaptiveTextSize(context, 14.5)),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: size.width * 0.015),
+                                  child: Text(
+                                    'nova receita!',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: AdaptiveTextSize()
+                                            .getadaptiveTextSize(context, 14.5)),
+                                  )),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: GradientText(
+                              '@usuário',
+                              gradient: AppGradients.linear,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: AdaptiveTextSize()
+                                      .getadaptiveTextSize(context, 15)),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.more_vert,
-                        color: Colors.grey,
-                      ),
-                      onPressed: () {}),
-                )
+                Padding(
+                    padding: EdgeInsets.only(right: size.width * 0.02),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                          child: Icon(
+                            Icons.more_vert,
+                            color: Colors.white,
+                          ),
+                          onTap: () {}),
+                    )),
               ],
             ),
           ),
@@ -391,68 +263,133 @@ class PostTile extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Row(
-            children: [
-              Text('Curtido por ${curtidas} pessoas',
-                  style: TextStyle(color: Colors.white, fontSize: 18)),
-              GradientText(
-                '  #Salgado #Tag1 #Tag2',
-                gradient: AppGradients.linear,
-                style: TextStyle(fontSize: 18),
-              )
-            ],
+          Padding(
+            padding: EdgeInsets.only(
+                top: size.height * 0.01,
+                left: size.width * 0.02,
+                right: size.width * 0.02,
+                bottom: size.height * 0.003),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: Text('Curtido por ${curtidas} pessoas',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: AdaptiveTextSize()
+                              .getadaptiveTextSize(context, 14))),
+                ),
+                GradientText(
+                  '  #Salgado #Tag1 #Tag2',
+                  gradient: AppGradients.linear,
+                  style: TextStyle(
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
+                )
+              ],
+            ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${user}',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              Text(
-                '${descricaoDaReceita}',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                    icon: Icon(
-                      Icons.bookmarks_outlined,
-                      color: Colors.grey,
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: size.width * 0.02, top: size.height * 0.004),
+                  child: Expanded(
+                    child: Wrap(
+                      children: [
+                        Text(
+                          '${user}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: AdaptiveTextSize()
+                                  .getadaptiveTextSize(context, 14.5)),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(left: size.width * 0.015)),
+                        Flexible(
+                          child: Text(
+                            '${descricaoDaReceita}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: AdaptiveTextSize()
+                                    .getadaptiveTextSize(context, 14.5)),
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {}),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: size.width * 0.015),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                      child: Icon(
+                        Icons.bookmarks_outlined,
+                        color: Colors.white,
+                      ),
+                      onTap: () {}),
+                ),
               ),
             ],
           ),
-          Row(
-            children: [
-              Text(
-                '@usuário',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-              Text(
-                'Muito bom!',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width * 0.02, top: size.height * 0.005),
+            child: Row(
+              children: [
+                Text(
+                  '@usuário',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14)),
+                ),
+                Padding(padding: EdgeInsets.only(left: size.width * 0.015)),
+                Text(
+                  'Muito bom!',
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14)),
+                ),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.centerLeft,
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/DetalhesPost');
+                },
                 child: Text(
                   'Ver mais',
-                  style: TextStyle(color: Colors.blue, fontSize: 18),
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize:
+                          AdaptiveTextSize().getadaptiveTextSize(context, 15)),
                 )),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              'Publicado 15 minutos atrás',
-              style: TextStyle(color: Colors.grey, fontSize: 15),
+          Padding(
+            padding: EdgeInsets.only(
+                right: size.width * 0.02, bottom: size.height * 0.02),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                'Publicado 15 minutos atrás',
+                style: TextStyle(
+                    color: Colors.white38,
+                    fontSize:
+                        AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

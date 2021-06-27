@@ -142,16 +142,14 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                           '0', //'${model.userData["postagens"]}',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: AdaptiveTextSize()
-                                  .getadaptiveTextSize(context, 18),
+                              fontSize: 18,
                               fontWeight: FontWeight.w400),
                         ),
                         Text(
                           'postagens',
                           style: TextStyle(
                               color: Colors.white38,
-                              fontSize: AdaptiveTextSize()
-                                  .getadaptiveTextSize(context, 18),
+                              fontSize:  18,
                               fontWeight: FontWeight.w400),
                         )
                       ]),

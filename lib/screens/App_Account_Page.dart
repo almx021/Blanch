@@ -1,6 +1,7 @@
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Gradients.dart';
+import 'package:appteste/models/user_model.dart';
 import 'package:flutter/material.dart';
 import '../core/App_Colors.dart';
 
@@ -23,6 +24,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
+    final _passwordController = TextEditingController();
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -81,7 +83,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 onPressed: () {
                   showDialog(
-                    barrierDismissible: false,
+                      barrierDismissible: false,
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
@@ -101,6 +103,7 @@ class _AccountPageState extends State<AccountPage> {
                             child: Container(
                               height: size.height * 0.05,
                               child: TextField(
+                                controller: _passwordController,
                                 obscureText: true,
                                 style: TextStyle(
                                     fontSize: AdaptiveTextSize()
@@ -158,44 +161,51 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                await FireAuth.deleteAccount(
+                                    _passwordController.text);
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.all(Radius.circular(20.0))),
-                                        backgroundColor: Color.fromRGBO(39, 39, 39, 1),
-                                        title:
-                                        Text('Sua conta foi excluída',
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0))),
+                                        backgroundColor:
+                                            Color.fromRGBO(39, 39, 39, 1),
+                                        title: Text('Sua conta foi excluída',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: AdaptiveTextSize()
-                                                  .getadaptiveTextSize(context, 17),
+                                                  .getadaptiveTextSize(
+                                                      context, 17),
                                             )),
-                                        content: Row(
-                                          children: [
-                                            Text("Sentiremos sua falta",
-                                          style: TextStyle(
-                                          color: Colors.grey,
-                                        )),
-                                           Text(" ☹",
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: AdaptiveTextSize()
-                                                      .getadaptiveTextSize(context, 20),
-                                                )),
-                                        ]
-                                      ),
+                                        content: Row(children: [
+                                          Text("Sentiremos sua falta",
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              )),
+                                          Text(" ☹",
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: AdaptiveTextSize()
+                                                    .getadaptiveTextSize(
+                                                        context, 20),
+                                              )),
+                                        ]),
                                         actions: [
                                           TextButton(
                                             onPressed: () {
-                                              Navigator.pop(context, 'Cancelar');
+//                                              Navigator.pop(context, 'Cancelar');
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                  context,
+                                                  '/',
+                                                  (route) => false);
                                             },
                                             child: ShaderMask(
                                               shaderCallback: (Rect rect) {
-                                                return (AppGradients.orangelinear)
+                                                return (AppGradients
+                                                        .orangelinear)
                                                     .createShader(rect);
                                               },
                                               child: Text(
@@ -203,7 +213,8 @@ class _AccountPageState extends State<AccountPage> {
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .button
-                                                    .copyWith(color: Colors.white),
+                                                    .copyWith(
+                                                        color: Colors.white),
                                               ),
                                             ),
                                           ),

@@ -1,4 +1,4 @@
-import 'package:appteste/core/App_Logos.dart';
+import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/models/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class _RecoverPageState extends State<RecoverPage> {
                 SingleChildScrollView(
                   child: Stack(
                     children: [
-                      Logos.buildMiniLogo(
+                      Builders.buildMiniLogo(
                           context, width, height, AppImages.logo),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,

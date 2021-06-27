@@ -514,7 +514,9 @@ class PostTile extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/DetalhesPost');
+                },
                 child: Text(
                   'Ver mais',
                   style: TextStyle(

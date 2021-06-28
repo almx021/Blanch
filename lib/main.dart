@@ -11,6 +11,7 @@ import 'package:appteste/screens/App_Login_Page.dart';
 import 'package:appteste/screens/App_New_Password_Page.dart';
 import 'package:appteste/screens/App_New_Post.dart';
 import 'package:appteste/screens/App_Perfil_Outro_Usuario_Page.dart';
+import 'package:appteste/screens/App_Search_Page.dart';
 import 'package:appteste/screens/App_Seguidores_Page.dart';
 import 'package:appteste/screens/App_Seguindo_Page.dart';
 import 'package:appteste/screens/App_Username_Page.dart';
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
         '/Seguindo': (context) => SeguindoPage(),
         '/PerfilOutroUsuario': (context) => PerfilOutroUsuarioPage(),
         '/DetalhesPost': (context) => DetalhesPostPage(),
+        '/searchPage' : (context) => SearchPage(),
 /*
             '/perfil': (context) => PerfilPage(),
 */

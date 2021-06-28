@@ -1,8 +1,8 @@
 import 'dart:async';
 
-
 import 'package:appteste/screens/App_Perfil_Page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appteste/core/App_Variables.dart';
 
@@ -14,7 +14,7 @@ class Builders {
       double screenHeight, String logo) {
     return Padding(
         padding:
-        EdgeInsets.only(top: 0.08 * screenWidth, left: 0.03 * screenWidth),
+            EdgeInsets.only(top: 0.08 * screenWidth, left: 0.03 * screenWidth),
         child: Container(
             constraints: BoxConstraints(
                 minWidth: 0.175 * screenWidth, minHeight: 0.175 * screenHeight),
@@ -63,7 +63,7 @@ class Builders {
   }) {
     //quando chamar vai chamar context: context, type: "home", height: size.height, width: size.width, user: user,
     // selectedImage: selectedImage, onGoBack: onGoBack
-    return Align(
+    /*return Align(
         alignment: Alignment.bottomLeft,
         child: SizedBox(
           height: height * (60 / 843),
@@ -103,7 +103,9 @@ class Builders {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/home');
+                        if(type != "home") {
+                          Navigator.pushNamed(context, '/home');
+                        }
                       }),
                 ),
                 Padding(
@@ -191,7 +193,10 @@ class Builders {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/emAlta');
+                        if(type != "emAlta") {
+                          Navigator.pushNamed(context, '/emAlta');
+                        }
+
                       }),
                 ),
                 Padding(
@@ -213,20 +218,185 @@ class Builders {
                             : FileImage(selectedImage),
                       ),
                       onPressed: () {
-                        Navigator.of(context)
-                            .push(
-                          MaterialPageRoute(
-                            builder: (context) => PerfilPage(),
-                          ),
-                        )
-                            .then((value) => onGoBack);
+                        if(type != "perfil") {
+                          Navigator.of(context)
+                              .push(
+                            MaterialPageRoute(
+                              builder: (context) => PerfilPage(),
+                            ),
+                          ).then((value) => onGoBack);
+                        }
                       }),
                 ),
               ],
             ),
           ),
         )
+    ); */
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Container(
+        width: width,
+        height: height * .07,
+        color: AppColors.backGroundApp,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(padding: EdgeInsets.only(right: width * 0.034 / 2)),
+            GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      width: width * 0.146,
+                      height: height * 0.047,
+                      child: Image.asset(
+                        type == "home"
+                            ? AppImages.homeSelected
+                            : AppImages.homepage,
+                        width: width * 0.19, height: height * 0.095,
+                        //width: size.width * .1,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0),
+                      child: Text(
+                        'Home',
+                        style: TextStyle(
+                            fontSize: 10,
+                            color:
+                                type == "home" ? Colors.white : Colors.white38),
+                      ),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  if (type != "home") {
+                    Navigator.pushNamed(context, '/home');
+                  }
+                }),
+            Padding(padding: EdgeInsets.only(left: width * 0.034)),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    width: width * 0.146,
+                    height: height * 0.047,
+                    child: Image.asset(
+                      AppImages.searchIcon,
+                      width: width * 0.19,
+                      height: height * 0.095,
+                      color: type == "search" ? Colors.white : Colors.white38,
+                      //width: size.width * .1,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 0),
+                    child: Text(
+                      'Pesquisa',
+                      style: TextStyle(
+                          fontSize: 10,
+                          color:
+                              type == "search" ? Colors.white : Colors.white38),
+                    ),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/searchPage');
+              },
+            ),
+            Padding(padding: EdgeInsets.only(left: width * 0.034)),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                width: width * 0.19,
+                height: height * 0.095,
+                child: Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(150)),
+                  child: Image.asset(
+                    AppImages.newPost,
+                    width: width * 0.097,
+                    height: height * 0.047,
+                  ),
+                ),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/newpost');
+              },
+            ),
+            Padding(padding: EdgeInsets.only(left: width * 0.034)),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    width: width * 0.146,
+                    height: height * 0.047,
+                    child: Image.asset(
+                      AppImages.emAlta,
+                      width: width * 0.19,
+                      height: height * 0.095,
+                      color: type == "emAlta" ? Colors.white : Colors.white38,
+                      //width: size.width * .1,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 0),
+                    child: Text(
+                      'Em alta',
+                      style: TextStyle(
+                          fontSize: 10,
+                          color:
+                              type == "emAlta" ? Colors.white : Colors.white38),
+                    ),
+                  )
+                ],
+              ),
+              onTap: () {
+                if (type != "emAlta") {
+                  Navigator.pushNamed(context, '/emAlta');
+                }
+              },
+            ),
+            Padding(padding: EdgeInsets.only(left: width * 0.034)),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                width: width * 0.19,
+                height: height * 0.095,
+                child: CircleAvatar(
+                  backgroundImage: selectedImage == null
+                      ? user.photoURL == null
+                          ? AssetImage(AppImages.perfilImage)
+                          : NetworkImage(
+                              user.photoURL,
+                            )
+                      : FileImage(selectedImage),
+                ),
+              ),
+              onTap: () {
+                if (type != "perfil") {
+                  Navigator.of(context)
+                      .push(
+                        MaterialPageRoute(
+                          builder: (context) => PerfilPage(),
+                        ),
+                      )
+                      .then((value) => onGoBack);
+                }
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
-
 }

@@ -305,7 +305,9 @@ class Builders {
                   )
                 ],
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/searchPage');
+              },
             ),
             Padding(padding: EdgeInsets.only(left: width * 0.034)),
             GestureDetector(

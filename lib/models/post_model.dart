@@ -5,9 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 
-class FirePost {
+ class FirePost {
+
+   DocumentReference _reference;
+
   static getData() async {
-    return await FirebaseFirestore.instance.collection("posts").get();
+    return await FirebaseFirestore.instance.collection("posts").orderBy("time").get();
+  }
+
+  static Future deletePost(DocumentReference _reference) {
+    DocumentReference reference = _reference;
+    return reference.delete();
   }
 
   static Future<User> registerPostData({
@@ -43,6 +51,7 @@ class FirePost {
       "uidUser": uidUser,
       "user": user,
       "imageURL": url,
+      "time": Timestamp.now(),
     };
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;

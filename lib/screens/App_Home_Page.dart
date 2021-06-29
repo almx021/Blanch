@@ -26,6 +26,17 @@ class _HomePageState extends State<HomePage> {
   FirePost firePost = FirePost();
   QuerySnapshot postSnapshot;
 
+  Future<Null> _onRefresh () async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => super.widget));
+    });
+    return null;
+  }
+
   FutureOr onGoBack(dynamic value) {
     setState(() {});
   }
@@ -36,15 +47,16 @@ class _HomePageState extends State<HomePage> {
         children: [
           postSnapshot != null
               ? ListView.builder(
+                  reverse: true,
                   itemCount: postSnapshot.docs.length,
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return PostTile(
                       imageURL: postSnapshot.docs[index]['imageURL'],
+                      postID: postSnapshot.docs[index].id,
                       user: postSnapshot.docs[index]['user'],
-                      descricaoDaReceita: postSnapshot.docs[index]
-                          ['descricaoDaReceita'],
+                      descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
                     );
                   },
                 )
@@ -134,25 +146,27 @@ class _HomePageState extends State<HomePage> {
           Container(
             decoration: BoxDecoration(color: AppColors.backGroundApp),
           ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SingleChildScrollView(
-                  child: Stack(
-                    children: [
-                      Container(
-                        color: AppColors.backGroundApp,
-                        width: size.width,
-                        height: size.height,
-                        // child: Image.asset(AppImages.novoPost),
+          RefreshIndicator(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SingleChildScrollView(
+                      child: Stack(
+                        children: [
+                          Container(
+                            color: AppColors.backGroundApp,
+                            width: size.width,
+                            height: size.height,
+                            // child: Image.asset(AppImages.novoPost),
+                          ),
+                          PostList(),
+                        ],
                       ),
-                      PostList(),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+              onRefresh: _onRefresh),
           Builders.buildBottomNavBar(
             context: context,
             type: "home",
@@ -173,8 +187,9 @@ class PostTile extends StatelessWidget {
   String descricaoDaReceita;
   String user;
   String imageURL;
+  String postID;
 
-  PostTile({@required this.imageURL, this.descricaoDaReceita, this.user});
+  PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID});
 
   int curtidas = 0;
 
@@ -246,8 +261,11 @@ class PostTile extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
-                          child: Icon(
-                            Icons.more_vert,
+                          child: IconButton(
+                            icon: Icon(Icons.more_vert),
+                            onPressed: () async {
+                             await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+                            },
                             color: Colors.white,
                           ),
                           onTap: () {}),
@@ -329,9 +347,12 @@ class PostTile extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                      child: Icon(
+                      child: IconButton(
+                      icon: Icon(
                         Icons.bookmarks_outlined,
-                        color: Colors.white,
+                        color: Colors.white,),
+                        onPressed: (){
+                        },
                       ),
                       onTap: () {}),
                 ),

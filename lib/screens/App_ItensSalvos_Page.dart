@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../core/App_Colors.dart';
@@ -11,9 +13,15 @@ class ItensSalvosPage extends StatefulWidget {
 }
 
 class _ItensSalvosPageState extends State<ItensSalvosPage> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    User user = FirebaseAuth.instance.currentUser;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -40,160 +48,63 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
         children: [
           Container(
             decoration: BoxDecoration(color: AppColors.backGroundApp),
-          ),
-          Column(
-            children: [
-              Divider(),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 25),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        padding: EdgeInsets.all(0.0),
-                        primary: Colors.white,
-                      ),
+          ), 
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('PostsSalvos')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                    List<DocumentSnapshot> itensSalvos =
+                    snapshot.data.docs.reversed.toList();
 
-                      //AppColors.backGroundApp,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          AppImages.publiPastel,
-                          fit: BoxFit.cover,
-                          width: 170,
-                          height: 125,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          padding: EdgeInsets.all(0.0),
-                          primary: Colors.white),
-                      //AppColors.backGroundApp,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          AppImages.publiPastel,
-                          fit: BoxFit.cover,
-                          width: 170,
-                          height: 125,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
+                    return Expanded(child:
+                    ListView.builder(
+                        reverse: true,
+                        itemCount: itensSalvos.length,
+                        itemBuilder: (context, index) {
+                          if (snapshot.data.docs[index]['userUid'].contains(user.uid)) {
+                            return
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15)),
+                                  padding: EdgeInsets.all(0.0),
+                                  primary: Colors.white,
+                                ),
+                                //AppColors.backGroundApp,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.network(snapshot.data.docs[index]['imageURL'],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                onPressed: () {},
+                              );
+                          }
+                          else {
+                            return Column(
+                              children: [
+                              Container(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              color: Colors.white,//AppColors.backGroundApp,
+                              width: size.width,
+                              height: size.height*.3,
+                            ),
+                                Divider(),
+                              ],
+                            );
+                          }
+                        }));
+                }
+
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 15),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 25),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            padding: EdgeInsets.all(0.0),
-                            primary: Colors.white),
-                        //AppColors.backGroundApp,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
-                            AppImages.publiPastel,
-                            fit: BoxFit.cover,
-                            width: 170,
-                            height: 125,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            padding: EdgeInsets.all(0.0),
-                            primary: Colors.white),
-                        //AppColors.backGroundApp,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
-                            AppImages.publiPastel,
-                            fit: BoxFit.cover,
-                            width: 170,
-                            height: 125,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 15),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 25),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            padding: EdgeInsets.all(0.0),
-                            primary: Colors.white),
-                        //AppColors.backGroundApp,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
-                            AppImages.publiPastel,
-                            fit: BoxFit.cover,
-                            width: 170,
-                            height: 125,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            padding: EdgeInsets.all(0.0),
-                            primary: Colors.white),
-                        //AppColors.backGroundApp,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
-                            AppImages.publiPastel,
-                            fit: BoxFit.cover,
-                            width: 170,
-                            height: 125,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );
   }
 }
+
+
+

@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
                       postID: postSnapshot.docs[index].id,
                       user: postSnapshot.docs[index]['user'],
                       descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                      useruid: user.uid,
                     );
                   },
                 )
@@ -188,14 +189,21 @@ class PostTile extends StatelessWidget {
   String user;
   String imageURL;
   String postID;
+  String useruid;
 
-  PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID});
+  PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid});
 
   int curtidas = 0;
+
+
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    Map<String, dynamic> postData = {
+      "imageURL": imageURL,
+      "userUid" : useruid,
+    };
 
     return Container(
       color: AppColors.backGroundApp,
@@ -352,6 +360,8 @@ class PostTile extends StatelessWidget {
                         Icons.bookmarks_outlined,
                         color: Colors.white,),
                         onPressed: (){
+                          FirebaseFirestore.instance.collection("PostsSalvos").
+                          doc("$useruid-$postID").set(postData);
                         },
                       ),
                       onTap: () {}),

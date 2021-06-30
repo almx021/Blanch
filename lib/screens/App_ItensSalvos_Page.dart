@@ -48,63 +48,62 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
         children: [
           Container(
             decoration: BoxDecoration(color: AppColors.backGroundApp),
-          ), 
+          ),
           StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('PostsSalvos')
                   .snapshots(),
               builder: (context, snapshot) {
-                    List<DocumentSnapshot> itensSalvos =
-                    snapshot.data.docs.reversed.toList();
+                List<DocumentSnapshot> itensSalvos =
+                snapshot.data.docs.reversed.toList();
 
-                    return Expanded(child:
-                    ListView.builder(
-                        reverse: true,
-                        itemCount: itensSalvos.length,
-                        itemBuilder: (context, index) {
-                          if (snapshot.data.docs[index]['userUid'].contains(user.uid)) {
-                            return
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding: EdgeInsets.all(0.0),
-                                  primary: Colors.white,
-                                ),
-                                //AppColors.backGroundApp,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.network(snapshot.data.docs[index]['imageURL'],
-                                    fit: BoxFit.cover,
+                return
+                  ListView.builder(
+                      itemCount: itensSalvos.length,
+                      itemBuilder: (context, index) {
+                        if (snapshot.data.docs[index]['userUid'].contains(user.uid)) {
+                          return
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 25,top: 20),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15)),
+                                      padding: EdgeInsets.all(0.0),
+                                      primary: Colors.white,
+                                    ),
+
+                                    //AppColors.backGroundApp,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.network(
+                                        snapshot.data.docs[index]['imageURL'],
+                                        fit: BoxFit.cover,
+                                        width: 170,
+                                        height: 125,
+                                      ),
+                                    ),
+                                    onPressed: () {},
                                   ),
                                 ),
-                                onPressed: () {},
-                              );
-                          }
-                          else {
-                            return Column(
-                              children: [
-                              Container(
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              color: Colors.white,//AppColors.backGroundApp,
-                              width: size.width,
-                              height: size.height*.3,
-                            ),
-                                Divider(),
+
                               ],
                             );
-                          }
-                        }));
-                }
-
-              ),
+                        }
+                        else {
+                          return Stack(
+                            children: [
+                              Column()
+                            ],
+                          );
+                        }
+                      });
+              }
+          ),
         ],
       ),
     );
   }
 }
-
-
-

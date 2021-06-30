@@ -4,10 +4,14 @@ import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Variables.dart';
+import 'package:appteste/models/post_model.dart';
 import 'package:appteste/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'App_Home_Page.dart';
 
 class PerfilPage extends StatefulWidget {
   @override
@@ -17,11 +21,19 @@ class PerfilPage extends StatefulWidget {
 class _PerfilPageState extends State<PerfilPage> {
   bool _isSendingVerification = false;
   bool _isSigningOut = false;
+  FirePost firePost = FirePost();
+  QuerySnapshot postSnapshot;
 
   User user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
+    FirePost.getData().then((result) {
+      setState(() {
+        postSnapshot = result;
+      });
+    });
   }
 
   FutureOr onGoBack(dynamic value) {
@@ -212,6 +224,36 @@ class _PerfilPageState extends State<PerfilPage> {
                 endIndent: 20,
                 color: Colors.white38,
               ),
+              Container(
+                child: Column(
+                  children: [
+                    postSnapshot != null
+                        ? ListView.builder(
+                      reverse: true,
+                      itemCount: postSnapshot.docs.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        if(postSnapshot.docs[index]['uidUser'] == user.uid){
+                          return PostTile(
+                            imageURL: postSnapshot.docs[index]['imageURL'],
+                            postID: postSnapshot.docs[index].id,
+                            user: postSnapshot.docs[index]['user'],
+                            descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                            useruid: user.uid,
+                          );
+                        }
+                        return Container();
+                      },
+                    )
+                        : Container(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ]),
           ),
           Builders.buildBottomNavBar(

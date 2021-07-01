@@ -14,7 +14,7 @@ class Builders {
       double screenHeight, String logo) {
     return Padding(
         padding:
-            EdgeInsets.only(top: 0.08 * screenWidth, left: 0.03 * screenWidth),
+        EdgeInsets.only(top: 0.08 * screenWidth, left: 0.03 * screenWidth),
         child: Container(
             constraints: BoxConstraints(
                 minWidth: 0.175 * screenWidth, minHeight: 0.175 * screenHeight),
@@ -196,7 +196,6 @@ class Builders {
                         if(type != "emAlta") {
                           Navigator.pushNamed(context, '/emAlta');
                         }
-
                       }),
                 ),
                 Padding(
@@ -266,7 +265,7 @@ class Builders {
                         style: TextStyle(
                             fontSize: 10,
                             color:
-                                type == "home" ? Colors.white : Colors.white38),
+                            type == "home" ? Colors.white : Colors.white38),
                       ),
                     )
                   ],
@@ -300,7 +299,7 @@ class Builders {
                       style: TextStyle(
                           fontSize: 10,
                           color:
-                              type == "search" ? Colors.white : Colors.white38),
+                          type == "search" ? Colors.white : Colors.white38),
                     ),
                   )
                 ],
@@ -318,7 +317,7 @@ class Builders {
                 height: height * 0.095,
                 child: Container(
                   decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(150)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(150)),
                   child: Image.asset(
                     AppImages.newPost,
                     width: width * 0.097,
@@ -354,7 +353,7 @@ class Builders {
                       style: TextStyle(
                           fontSize: 10,
                           color:
-                              type == "emAlta" ? Colors.white : Colors.white38),
+                          type == "emAlta" ? Colors.white : Colors.white38),
                     ),
                   )
                 ],
@@ -375,10 +374,10 @@ class Builders {
                 child: CircleAvatar(
                   backgroundImage: selectedImage == null
                       ? user.photoURL == null
-                          ? AssetImage(AppImages.perfilImage)
-                          : NetworkImage(
-                              user.photoURL,
-                            )
+                      ? AssetImage(AppImages.perfilImage)
+                      : NetworkImage(
+                    user.photoURL,
+                  )
                       : FileImage(selectedImage),
                 ),
               ),
@@ -386,10 +385,10 @@ class Builders {
                 if (type != "perfil") {
                   Navigator.of(context)
                       .push(
-                        MaterialPageRoute(
-                          builder: (context) => PerfilPage(),
-                        ),
-                      )
+                    MaterialPageRoute(
+                      builder: (context) => PerfilPage(),
+                    ),
+                  )
                       .then((value) => onGoBack);
                 }
               },

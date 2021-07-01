@@ -51,10 +51,10 @@ class _PerfilPageState extends State<PerfilPage> {
         radius: radius,
         backgroundImage: selectedImage == null
             ? user.photoURL == null
-                ? AssetImage(AppImages.perfilImage)
-                : NetworkImage(
-                    user.photoURL,
-                  )
+            ? AssetImage(AppImages.perfilImage)
+            : NetworkImage(
+          user.photoURL,
+        )
             : FileImage(selectedImage),
       );
     }
@@ -111,7 +111,7 @@ class _PerfilPageState extends State<PerfilPage> {
                       children: [
                         Padding(
                           padding:
-                              EdgeInsets.only(right: widthScreen * 0.5 - 50),
+                          EdgeInsets.only(right: widthScreen * 0.5 - 50),
                         ),
                         buildCircleAvatar(50),
                         Padding(

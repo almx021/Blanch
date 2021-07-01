@@ -31,6 +31,7 @@ class _MensagemPageState extends State<MensagemPage> {
   String url;
   User currentUser = FirebaseAuth.instance.currentUser;
 
+
   void _sendMessage({String text, File imgFile}) async {
     Map<String, dynamic> data = {
       'uid': user.uid,
@@ -50,7 +51,6 @@ class _MensagemPageState extends State<MensagemPage> {
       data['imgUrl'] = url;
     }
     if (text != null) data['text'] = text;
-
     FirebaseFirestore.instance.collection('mensagens').add(data);
   }
 
@@ -114,7 +114,7 @@ class _MensagemPageState extends State<MensagemPage> {
                             reverse: true,
                             itemBuilder: (context, index) {
                               return MenssageTile(
-                                  mensagens: menssage[index]['text'], mine: true);
+                                  mensagens: menssage[index]['text'], mine: true, data:menssage[index].data());
                             });
                     }
                   }),
@@ -149,7 +149,9 @@ class MenssageTile extends StatelessWidget {
   String mensagens;
   bool mine;
 
-  MenssageTile({@required this.mensagens, this.mine});
+  MenssageTile({@required this.mensagens, this.mine, this.data});
+
+  final Map<String,dynamic> data;
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +167,10 @@ class MenssageTile extends StatelessWidget {
                     gradient: (AppGradients.orangelinear),
                   ),
                   padding: EdgeInsets.all(16),
-                  child: Text(
+                  child:
+                  data['imgUrl'] != null ?
+                      Image.network(data['imgUrl'])
+                  :Text(
                     mensagens,
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 15, color: Colors.white),
@@ -180,7 +185,10 @@ class MenssageTile extends StatelessWidget {
                     gradient: (AppGradients.grey),
                   ),
                   padding: EdgeInsets.all(16),
-                  child: Text(
+                  child:
+                  data['imgUrl'] != null ?
+                  Image.network(data['imgUrl'])
+                  :Text(
                     mensagens,
                     textAlign: TextAlign.end,
                     style: TextStyle(fontSize: 15, color: Colors.white),

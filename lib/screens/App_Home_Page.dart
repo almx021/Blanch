@@ -52,13 +52,28 @@ class _HomePageState extends State<HomePage> {
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return PostTile(
-                      imageURL: postSnapshot.docs[index]['imageURL'],
-                      postID: postSnapshot.docs[index].id,
-                      user: postSnapshot.docs[index]['user'],
-                      descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
-                      useruid: user.uid,
-                    );
+                    if (index == 0) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom : 100),
+                        child: PostTile(
+                          imageURL: postSnapshot.docs[index]['imageURL'],
+                          postID: postSnapshot.docs[index].id,
+                          user: postSnapshot.docs[index]['user'],
+                          descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                          useruid: user.uid,
+                        ),
+
+                      );
+                    } else {
+                      return PostTile(
+                        imageURL: postSnapshot.docs[index]['imageURL'],
+                        postID: postSnapshot.docs[index].id,
+                        user: postSnapshot.docs[index]['user'],
+                        descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                        useruid: user.uid,
+                      );
+                    }
+
                   },
                 )
               : Container(

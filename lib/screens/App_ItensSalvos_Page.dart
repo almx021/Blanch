@@ -54,6 +54,9 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                   .collection('PostsSalvos')
                   .snapshots(),
               builder: (context, snapshot) {
+                if(!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator(),);
+                }
                 List<DocumentSnapshot> itensSalvos =
                 snapshot.data.docs.reversed.toList();
 

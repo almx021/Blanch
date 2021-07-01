@@ -90,7 +90,7 @@ class _EditarPerfilPageState extends State<EditarPerfilPage> {
                         padding: EdgeInsets.only(left: 28, top: 28),
                         onPressed: () {},
                         icon: Image.asset(
-                          AppImages.iconeCamera,
+                          AppImages.cameraicon,
                           width: 70,
                           height: 70,
                         ),

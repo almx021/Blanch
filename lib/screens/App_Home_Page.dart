@@ -1,19 +1,16 @@
 import 'dart:async';
-
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/core/App_Variables.dart';
 import 'package:appteste/models/post_model.dart';
-import 'package:appteste/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
-
 import 'App_Account_Page.dart';
-import 'App_Perfil_Page.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -52,6 +49,15 @@ class _HomePageState extends State<HomePage> {
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
+
+                    void deletar() async {
+                      if (postSnapshot.docs[index]['uidUser'].contains(user.uid)){
+                        await FirebaseFirestore.instance.collection('posts').doc(postSnapshot.docs[index].id).delete();
+                      } else {
+                        return null;
+                      }
+                    }
+
                     if (index == 0) {
                       return Padding(
                         padding: EdgeInsets.only(bottom : 100),
@@ -206,11 +212,11 @@ class PostTile extends StatelessWidget {
   String postID;
   String useruid;
 
+  User currentUser = FirebaseAuth.instance.currentUser;
+
   PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid});
 
   int curtidas = 0;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +293,9 @@ class PostTile extends StatelessWidget {
                           child: IconButton(
                             icon: Icon(Icons.more_vert),
                             onPressed: () async {
-                             await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+                              if(useruid == currentUser.uid){
+                                await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+                              }
                             },
                             color: Colors.white,
                           ),
@@ -296,7 +304,8 @@ class PostTile extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          GestureDetector(
+          child: Container(
             height: size.height * .25,
             width: size.width,
             child: Image.network(
@@ -304,6 +313,10 @@ class PostTile extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+            onTap: (){
+              Navigator.pushNamed(context, '/DetalhesPost');
+            },
+    ),
           Padding(
             padding: EdgeInsets.only(
                 top: size.height * 0.01,

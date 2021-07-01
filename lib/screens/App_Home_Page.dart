@@ -47,25 +47,40 @@ class _HomePageState extends State<HomePage> {
         children: [
           postSnapshot != null
               ? ListView.builder(
-            reverse: true,
-            itemCount: postSnapshot.docs.length,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return PostTile(
-                imageURL: postSnapshot.docs[index]['imageURL'],
-                postID: postSnapshot.docs[index].id,
-                user: postSnapshot.docs[index]['user'],
-                descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
-                useruid: user.uid,
-              );
-            },
-          )
+                  reverse: true,
+                  itemCount: postSnapshot.docs.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom : 100),
+                        child: PostTile(
+                          imageURL: postSnapshot.docs[index]['imageURL'],
+                          postID: postSnapshot.docs[index].id,
+                          user: postSnapshot.docs[index]['user'],
+                          descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                          useruid: user.uid,
+                        ),
+
+                      );
+                    } else {
+                      return PostTile(
+                        imageURL: postSnapshot.docs[index]['imageURL'],
+                        postID: postSnapshot.docs[index].id,
+                        user: postSnapshot.docs[index]['user'],
+                        descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                        useruid: user.uid,
+                      );
+                    }
+
+                  },
+                )
               : Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
         ],
       ),
     );
@@ -238,7 +253,7 @@ class PostTile extends StatelessWidget {
                               ),
                               Padding(
                                   padding:
-                                  EdgeInsets.only(left: size.width * 0.015),
+                                      EdgeInsets.only(left: size.width * 0.015),
                                   child: Text(
                                     'nova receita!',
                                     style: TextStyle(
@@ -272,7 +287,7 @@ class PostTile extends StatelessWidget {
                           child: IconButton(
                             icon: Icon(Icons.more_vert),
                             onPressed: () async {
-                              await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+                             await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
                             },
                             color: Colors.white,
                           ),
@@ -310,7 +325,7 @@ class PostTile extends StatelessWidget {
                   gradient: AppGradients.linear,
                   style: TextStyle(
                       fontSize:
-                      AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14.5)),
                 )
               ],
             ),
@@ -355,16 +370,13 @@ class PostTile extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.bookmarks_outlined,
-                          color: Colors.white,),
-                        onPressed: (){
-                          FirebaseFirestore.instance.collection("PostsSalvos").
-                          doc("$useruid-$postID").set(postData);
-                        },
-                      ),
-                      onTap: () {}),
+                      child: Icon(
+                        Icons.bookmarks_outlined,
+                        color: Colors.white,),
+                      onTap: () {
+                        FirebaseFirestore.instance.collection("PostsSalvos").
+                        doc("$useruid-$postID").set(postData);
+                      }),
                 ),
               ),
             ],
@@ -380,7 +392,7 @@ class PostTile extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontSize:
-                      AdaptiveTextSize().getadaptiveTextSize(context, 14)),
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14)),
                 ),
                 Padding(padding: EdgeInsets.only(left: size.width * 0.015)),
                 Text(
@@ -388,7 +400,7 @@ class PostTile extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.white70,
                       fontSize:
-                      AdaptiveTextSize().getadaptiveTextSize(context, 14)),
+                          AdaptiveTextSize().getadaptiveTextSize(context, 14)),
                 ),
               ],
             ),
@@ -404,7 +416,7 @@ class PostTile extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.blue,
                       fontSize:
-                      AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+                          AdaptiveTextSize().getadaptiveTextSize(context, 15)),
                 )),
           ),
           Padding(
@@ -417,7 +429,7 @@ class PostTile extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.white38,
                     fontSize:
-                    AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+                        AdaptiveTextSize().getadaptiveTextSize(context, 15)),
               ),
             ),
           ),

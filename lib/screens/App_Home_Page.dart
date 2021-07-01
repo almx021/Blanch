@@ -355,16 +355,13 @@ class PostTile extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                      child: IconButton(
-                      icon: Icon(
+                      child: Icon(
                         Icons.bookmarks_outlined,
                         color: Colors.white,),
-                        onPressed: (){
-                          FirebaseFirestore.instance.collection("PostsSalvos").
-                          doc("$useruid-$postID").set(postData);
-                        },
-                      ),
-                      onTap: () {}),
+                      onTap: () {
+                        FirebaseFirestore.instance.collection("PostsSalvos").
+                        doc("$useruid-$postID").set(postData);
+                      }),
                 ),
               ),
             ],

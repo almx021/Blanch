@@ -296,7 +296,8 @@ class PostTile extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          GestureDetector(
+          child: Container(
             height: size.height * .25,
             width: size.width,
             child: Image.network(
@@ -304,6 +305,10 @@ class PostTile extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+            onTap: (){
+              Navigator.pushNamed(context, '/DetalhesPost');
+            },
+    ),
           Padding(
             padding: EdgeInsets.only(
                 top: size.height * 0.01,

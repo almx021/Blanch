@@ -87,10 +87,11 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         onPressed: () {},
                         child: CircleAvatar(
-                            radius: 25.0,
-                            backgroundImage: AssetImage(
-                              AppImages.perfilImage,
-                            )),
+                          radius:25,
+                          backgroundImage: NetworkImage(
+                            currentUser.photoURL,
+                          ),
+                        ),
                       ),
                       Container(
                           width: size.width - 70,

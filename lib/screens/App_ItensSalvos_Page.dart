@@ -23,6 +23,7 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
     User user = FirebaseAuth.instance.currentUser;
 
 
+    var a;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

@@ -28,6 +28,8 @@ import 'package:flutter/cupertino.dart';
     String user,
     String url,
     File image,
+    String userImage,
+    String username,
     @required VoidCallback onSuccess,
   }) async {
     onSuccess();
@@ -52,6 +54,8 @@ import 'package:flutter/cupertino.dart';
       "user": user,
       "imageURL": url,
       "time": Timestamp.now(),
+      "username": username,
+      "userImage": userImage,
     };
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;

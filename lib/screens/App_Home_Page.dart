@@ -67,6 +67,9 @@ class _HomePageState extends State<HomePage> {
                           user: postSnapshot.docs[index]['user'],
                           descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
                           useruid: user.uid,
+                          username: postSnapshot.docs[index]['username'],
+                          userPhotoURL: postSnapshot.docs[index]['userImage'],
+                          currentPage: "homePage",
                         ),
 
                       );
@@ -76,7 +79,10 @@ class _HomePageState extends State<HomePage> {
                         postID: postSnapshot.docs[index].id,
                         user: postSnapshot.docs[index]['user'],
                         descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                        username: postSnapshot.docs[index]['username'],
                         useruid: user.uid,
+                        userPhotoURL: postSnapshot.docs[index]['userImage'],
+                        currentPage: "homePage",
                       );
                     }
 
@@ -205,16 +211,27 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class Constants{
+  static const String DeletarPost = "Deletar post";
+
+  static const List<String> choices = <String>[
+    DeletarPost,
+  ];
+}
+
 class PostTile extends StatelessWidget {
   String descricaoDaReceita;
   String user;
   String imageURL;
   String postID;
   String useruid;
-
+  String username;
+  String userPhotoURL;
+  String currentPage;
   User currentUser = FirebaseAuth.instance.currentUser;
 
-  PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid});
+  PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid, this.username,
+    this.userPhotoURL, this. currentPage});
 
   int curtidas = 0;
 
@@ -224,6 +241,7 @@ class PostTile extends StatelessWidget {
     Map<String, dynamic> postData = {
       "imageURL": imageURL,
       "userUid" : useruid,
+      "postId" : postID,
     };
 
     return Container(
@@ -240,7 +258,12 @@ class PostTile extends StatelessWidget {
                 Row(
                   children: [
                     Align(
-                      child: CircleAvatar(),
+                      child: CircleAvatar(
+                        radius:20,
+                        backgroundImage: NetworkImage(
+                          userPhotoURL,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: size.width * 0.025),
@@ -272,7 +295,7 @@ class PostTile extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: GradientText(
-                              '@usuário',
+                              '@$username',
                               gradient: AppGradients.linear,
                               style: TextStyle(
                                   color: Colors.white,
@@ -289,17 +312,26 @@ class PostTile extends StatelessWidget {
                     padding: EdgeInsets.only(right: size.width * 0.02),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                          child: IconButton(
-                            icon: Icon(Icons.more_vert),
-                            onPressed: () async {
-                              if(useruid == currentUser.uid){
-                                await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
-                              }
-                            },
-                            color: Colors.white,
-                          ),
-                          onTap: () {}),
+                      child: currentPage == "perfilPage"?PopupMenuButton<String>(
+                        icon: Icon(Icons.more_vert,color: Colors.white),
+                        onSelected: choiceAction,
+                        itemBuilder: (BuildContext context){
+                          return Constants.choices.map((String choice){
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(choice),
+                            );
+                          }).toList();
+                        },
+                      ):PopupMenuButton<String>(
+                        icon: Icon(Icons.more_vert,color: Colors.white),
+                        onSelected: choiceAction,
+                        itemBuilder: (BuildContext context){
+                          return Constants.choices.map((String choice){
+
+                          }).toList();
+                        },
+                      )
                     )),
               ],
             ),
@@ -449,5 +481,19 @@ class PostTile extends StatelessWidget {
         ],
       ),
     );
+  }
+  void choiceAction(String choice)async{
+    QuerySnapshot _myDoc = await FirebaseFirestore.instance.collection('PostsSalvos').get();
+    List<DocumentSnapshot> _myDocCount = _myDoc.docs;
+    if(choice == Constants.DeletarPost){
+      if(useruid == currentUser.uid){
+        await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+        for(int i = 0; i < _myDocCount.length; i++){
+          if(_myDocCount[i]['postId'].contains(postID)){
+            //Excluir item salvo do firebase
+          }
+    }
+      }
+    }
   }
 }

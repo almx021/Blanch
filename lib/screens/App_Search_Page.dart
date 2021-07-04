@@ -69,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                 height: size.height,
               );
             }
-            List<Row> searchResults = [];
+            List<GestureDetector> searchResults = [];
 
             if (_searchUserController.text != '') {
               for (int i = 0; i < (snapshot.data.docs.length); i++) {
@@ -77,18 +77,30 @@ class _SearchPageState extends State<SearchPage> {
                     .toLowerCase()
                     .contains(_searchUserController.text.toLowerCase()))
                   searchResults.add(
-                    Row(
+                    GestureDetector(child: Row(
                       children: [
                         TextButton(
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.all(0.0),
                             minimumSize: Size(25.0, 25.0),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    currentUser.uid == snapshot.data.docs[i].id ? PerfilPage() : PerfilOutroUsuarioPage(
+                                      name: snapshot.data.docs[i]
+                                      ['name'],
+                                      foto: snapshot.data.docs[i]['photoURL'],
+                                      nomedeusuario: snapshot.data.docs[i]['username'],
+                                      uidUsuario: snapshot.data.docs[i].id,
+                                    )));
+                          },
                           child: CircleAvatar(
                             radius: 25,
                             backgroundImage:
-                                NetworkImage(snapshot.data.docs[i]['photoURL']),
+                            NetworkImage(snapshot.data.docs[i]['photoURL']),
                           ),
                         ),
                         Container(
@@ -101,20 +113,20 @@ class _SearchPageState extends State<SearchPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            PerfilOutroUsuarioPage(
-                                              name: snapshot.data.docs[i]
-                                                  ['name'],
-                                              foto: snapshot.data.docs[i]['photoURL'],
-                                              nomedeusuario: snapshot.data.docs[i]['username'],
-                                              uidUsuario: snapshot.data.docs[i].id,
-                                            )));
+                                        currentUser.uid == snapshot.data.docs[i].id ? PerfilPage() : PerfilOutroUsuarioPage(
+                                          name: snapshot.data.docs[i]
+                                          ['name'],
+                                          foto: snapshot.data.docs[i]['photoURL'],
+                                          nomedeusuario: snapshot.data.docs[i]['username'],
+                                          uidUsuario: snapshot.data.docs[i].id,
+                                        )));
                                 print("UID ${snapshot.data.docs[i].id}");
                               },
                               child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       GradientText(
                                           snapshot.data.docs[i]['name'],
@@ -122,7 +134,7 @@ class _SearchPageState extends State<SearchPage> {
                                           style: TextStyle(
                                               fontSize: AdaptiveTextSize()
                                                   .getadaptiveTextSize(
-                                                      context, 12),
+                                                  context, 12),
                                               fontWeight: FontWeight.w500)),
                                       Padding(
                                           padding: EdgeInsets.only(top: 3.0)),
@@ -131,13 +143,27 @@ class _SearchPageState extends State<SearchPage> {
                                           style: TextStyle(
                                               fontSize: AdaptiveTextSize()
                                                   .getadaptiveTextSize(
-                                                      context, 14),
+                                                  context, 14),
                                               color: Colors.white,
                                               fontWeight: FontWeight.w500)),
                                     ],
                                   )),
                             )),
                       ],
+                    ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                currentUser.uid == snapshot.data.docs[i].id ? PerfilPage() : PerfilOutroUsuarioPage(
+                                  name: snapshot.data.docs[i]
+                                  ['name'],
+                                  foto: snapshot.data.docs[i]['photoURL'],
+                                  nomedeusuario: snapshot.data.docs[i]['username'],
+                                  uidUsuario: snapshot.data.docs[i].id,
+                                )));
+                      },
                     ),
                   );
               }

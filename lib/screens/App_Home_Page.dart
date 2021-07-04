@@ -459,7 +459,7 @@ class PostTile extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.white38,
                     fontSize:
-                        AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+                        AdaptiveTextSize().getadaptiveTextSize(context, 11)),
               ),
             ),
           ),

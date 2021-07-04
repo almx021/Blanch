@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/models/post_model.dart';
+import 'package:appteste/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
@@ -521,6 +522,8 @@ class _NewPostState extends State<NewPost> {
                         user: user.displayName,
                         onSuccess: onSuccess,
                         image: selectedImage,
+                        username: FireAuth.userData["username"],
+                        userImage: FireAuth.userData["photoURL"]
                       );
                     }
                   },

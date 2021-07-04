@@ -241,6 +241,9 @@ class _PerfilPageState extends State<PerfilPage> {
                             user: postSnapshot.docs[index]['user'],
                             descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
                             useruid: user.uid,
+                            username: postSnapshot.docs[index]['username'],
+                            userPhotoURL: postSnapshot.docs[index]['userImage'],
+                            currentPage: "perfilPage",
                           );
                         }
                         return Container();

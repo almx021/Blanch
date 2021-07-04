@@ -97,7 +97,7 @@ class FireAuth {
           "email": user.email,
           "photoURL": user.photoURL,
           "newUser": isNewUser,
-          "photoURL": 'https://firebasestorage.googleapis.com/v0/b/blanch-d9db7.appspot.com/o/UsersProfilePictures%2Fdlyd8oBRuEbhtHWMXeE9xL5XxrN2%2F1625331729814531?alt=media&token=678b005a-56a7-4fdc-936f-2409b01beaa3'  };
+        };
 
         print("user is new user 1$isNewUser");
         if (isNewUser) {
@@ -197,7 +197,7 @@ class FireAuth {
     };
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection("users").doc(user.uid).set(userData);
-    
+
   }*/
 
   static Future<Null> updateUsername(
@@ -299,7 +299,7 @@ class FireAuth {
     _preferences = await SharedPreferences.getInstance();
   }
 
-  /*Future<void> getUsername() async {
+/*Future<void> getUsername() async {
     Map<String, dynamic> data = await   getInfos();
     print("dadosss $data");
     final String username = await data['username'];

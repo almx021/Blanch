@@ -372,14 +372,17 @@ class Builders {
                 padding: EdgeInsets.all(8),
                 width: width * 0.19,
                 height: height * 0.095,
-                child: CircleAvatar(
-                  backgroundImage: selectedImage == null
-                      ? user.photoURL == null
-                          ? AssetImage(AppImages.perfilImage)
-                          : NetworkImage(
-                              user.photoURL,
-                            )
-                      : FileImage(selectedImage),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: CircleAvatar(
+                    backgroundImage: selectedImage == null
+                        ? user.photoURL == null
+                        ? AssetImage(AppImages.perfilImage)
+                        : NetworkImage(
+                      user.photoURL,
+                    )
+                        : FileImage(selectedImage),
+                  ),
                 ),
               ),
               onTap: () {

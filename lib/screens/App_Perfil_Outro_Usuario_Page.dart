@@ -1,23 +1,55 @@
+import 'dart:async';
+
+import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/core/App_Colors.dart';
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/core/App_Variables.dart';
+import 'package:appteste/models/post_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 import 'App_Account_Page.dart';
+import 'App_Home_Page.dart';
 
 class PerfilOutroUsuarioPage extends StatefulWidget {
-  const PerfilOutroUsuarioPage({Key key}) : super(key: key);
+
+  final String name;
+  final String foto;
+  final String nomedeusuario;
+  final String uidUsuario;
+
+  const PerfilOutroUsuarioPage({Key key, @required this.name, @required this.foto, @required this.nomedeusuario, @required this.uidUsuario}) : super(key: key);
 
   @override
   _PerfilOutroUsuarioPageState createState() => _PerfilOutroUsuarioPageState();
 }
 
 class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
-  User user = FirebaseAuth.instance.currentUser;
   bool pressGeoON = false;
   bool cmbscritta = false;
+  //botei isso aq so p apresentar no video mesmo ja q n vai colar fzr os seguidores
+  int followers = 0;
+  QuerySnapshot postSnapshot;
+  User user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirePost.getData().then((result) {
+      setState(() {
+        postSnapshot = result;
+      });
+    });
+  }
+
+  FutureOr onGoBack(dynamic value) {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +71,7 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
           icon: Image.asset(AppImages.leftArrow, width: 25),
         ),
         title: Text(
-          'PerfilOutroUsuario',
+          widget.name,
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -49,6 +81,7 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
             decoration: BoxDecoration(color: AppColors.backGroundApp),
           ),
           SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 100),
             child: Column(children: [
               Padding(
                 padding: EdgeInsets.only(top: 25),
@@ -66,12 +99,12 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                         CircleAvatar(
                           radius: 50,
                           backgroundImage: NetworkImage(
-                              "https://randomuser.me/api/portraits/women/49.jpg"),
+                              widget.foto),
                         ),
                       ])),
               Padding(padding: EdgeInsets.only(top: 12)),
               Text(
-                '@',
+                '@${widget.nomedeusuario}',
                 style: TextStyle(color: Colors.white),
               ),
               Padding(padding: EdgeInsets.only(top: 12)),
@@ -87,6 +120,7 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                       setState(() {
                         pressGeoON = !pressGeoON;
                         cmbscritta = !cmbscritta;
+                        followers = 1;
                       });
                     },
                     style: TextButton.styleFrom(
@@ -161,7 +195,7 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                       onPressed: () {},
                       child: Column(children: [
                         Text(
-                          '0', //'${model.userData["seguidores"]}',
+                          '$followers', //'${model.userData["seguidores"]}',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -206,157 +240,51 @@ class _PerfilOutroUsuarioPageState extends State<PerfilOutroUsuarioPage> {
                 endIndent: 20,
                 color: Colors.white38,
               ),
+              Container(
+                child: Column(
+                  children: [
+                    postSnapshot != null
+                        ? ListView.builder(
+                      reverse: true,
+                      itemCount: postSnapshot.docs.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        if(postSnapshot.docs[index]['uidUser'] == widget.uidUsuario){
+                          return PostTile(
+                            imageURL: postSnapshot.docs[index]['imageURL'],
+                            postID: postSnapshot.docs[index].id,
+                            user: postSnapshot.docs[index]['user'],
+                            descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                            useruid: postSnapshot.docs[index]['uidUser'],
+                            username: postSnapshot.docs[index]['username'],
+                            userPhotoURL: postSnapshot.docs[index]['userImage'],
+                            currentPage: "perfilPage",
+                          );
+                        }
+                        return Container();
+                      },
+                    )
+                        : Container(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  ],
+                ),
+              )
+
             ]),
           ),
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: SizedBox(
-                height: heightScreen * (60 / 843),
-                child: Container(
-                  width: size.width,
-                  height: size.height * .07,
-                  color: AppColors.backGroundApp,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                          padding:
-                              EdgeInsets.only(right: size.width * 0.034 / 2)),
-                      Container(
-                        width: size.width * (60 / 411),
-                        height: size.height * (60 / 843),
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  AppImages.homepage,
-                                  width: size.width * (30 / 411),
-                                  height: size.height * (30 / 843),
-                                  //width: size.width * .1,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 0),
-                                ),
-                                Text(
-                                  'Home',
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white38),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/home');
-                            }),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: widthScreen * (70 / 411),
-                        height: heightScreen * (60 / 843),
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  AppImages.searchIcon,
-                                  width: widthScreen * (30 / 411),
-                                  height: heightScreen * (30 / 843),
-                                  //width: size.width * .1,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 0),
-                                ),
-                                Text(
-                                  'Pesquisa',
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white38),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {}),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: size.width * 0.19,
-                        height: size.height * 0.095,
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(150)),
-                              child: Image.asset(
-                                AppImages.newPost,
-                                width: size.width * 0.097,
-                                height: size.height * 0.047,
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/newpost');
-                            }),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: size.width * (60 / 411),
-                        height: size.height * (60 / 843),
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  AppImages.emAlta,
-                                  width: size.width * (30 / 411),
-                                  height: size.height * (30 / 843),
-                                  //width: size.width * .1,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 0),
-                                ),
-                                Text(
-                                  'Em alta',
-                                  style: TextStyle(
-                                      fontSize: 11, color: Colors.white38),
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/emAlta');
-                            }),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: size.width * 0.034)),
-                      Container(
-                        width: size.width * 0.19,
-                        height: size.height * 0.095,
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: AppColors.backGroundApp,
-                            ),
-                            child: CircleAvatar(
-                              backgroundImage: user.photoURL == null
-                                  ? AssetImage(AppImages.perfilImage)
-                                  : NetworkImage(
-                                      user.photoURL,
-                                    ),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/perfil');
-                            }),
-                      ),
-                    ],
-                  ),
-                ),
-              ))
+
+          Builders.buildBottomNavBar(
+            context: context,
+            height: size.height,
+            width: size.width,
+            user: user,
+            selectedImage: selectedImage,
+            onGoBack: onGoBack,
+          ),
         ],
       ),
 

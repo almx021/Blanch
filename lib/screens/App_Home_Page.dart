@@ -58,23 +58,7 @@ class _HomePageState extends State<HomePage> {
                       }
                     }
 
-                    if (index == 0) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom : 100),
-                        child: PostTile(
-                          imageURL: postSnapshot.docs[index]['imageURL'],
-                          postID: postSnapshot.docs[index].id,
-                          user: postSnapshot.docs[index]['user'],
-                          descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
-                          useruid: user.uid,
-                          username: postSnapshot.docs[index]['username'],
-                          userPhotoURL: postSnapshot.docs[index]['userImage'],
-                          currentPage: "homePage",
-                        ),
-
-                      );
-                    } else {
-                      return PostTile(
+                    return PostTile(
                         imageURL: postSnapshot.docs[index]['imageURL'],
                         postID: postSnapshot.docs[index].id,
                         user: postSnapshot.docs[index]['user'],
@@ -86,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                  },
+
                 )
               : Container(
                   child: Center(
@@ -176,6 +160,7 @@ class _HomePageState extends State<HomePage> {
           ),
           RefreshIndicator(
               child: SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: 100),
                 child: Column(
                   children: [
                     SingleChildScrollView(
@@ -282,9 +267,9 @@ class PostTile extends StatelessWidget {
                               ),
                               Padding(
                                   padding:
-                                      EdgeInsets.only(left: size.width * 0.015),
+                                      EdgeInsets.only(left: size.width * 0.010),
                                   child: Text(
-                                    'nova receita!',
+                                    'tem nova receita!',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: AdaptiveTextSize()

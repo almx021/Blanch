@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/core/App_Gradients.dart';
+import 'package:appteste/screens/App_Perfil_Outro_Usuario_Page.dart';
 import 'package:gradient_text/gradient_text.dart';
 
 import 'App_Account_Page.dart';
@@ -96,8 +97,18 @@ class _SearchPageState extends State<SearchPage> {
                             child: TextButton(
                               style: TextButton.styleFrom(),
                               onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/PerfilOutroUsuario');
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PerfilOutroUsuarioPage(
+                                              name: snapshot.data.docs[i]
+                                                  ['name'],
+                                              foto: snapshot.data.docs[i]['photoURL'],
+                                              nomedeusuario: snapshot.data.docs[i]['username'],
+                                              uidUsuario: snapshot.data.docs[i].id,
+                                            )));
+                                print("UID ${snapshot.data.docs[i].id}");
                               },
                               child: Align(
                                   alignment: Alignment.centerLeft,

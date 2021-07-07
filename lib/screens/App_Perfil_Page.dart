@@ -19,6 +19,16 @@ class PerfilPage extends StatefulWidget {
 }
 
 class _PerfilPageState extends State<PerfilPage> {
+  Future<Null> _onRefresh () async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => super.widget));
+    });
+    return null;
+  }
   bool _isSendingVerification = false;
   bool _isSigningOut = false;
   FirePost firePost = FirePost();
@@ -93,184 +103,187 @@ class _PerfilPageState extends State<PerfilPage> {
                   }),
             ),
           ]),
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(color: AppColors.backGroundApp),
-          ),
-          SingleChildScrollView(
-            padding: EdgeInsets.only(bottom: 100),
-            child: Column(children: [
-              Padding(
-                padding: EdgeInsets.only(top: 25),
-              ),
-              Container(
-                  width: widthScreen,
-                  height: heightScreen / 8,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:
-                          EdgeInsets.only(right: widthScreen * 0.5 - 50),
-                        ),
-                        buildCircleAvatar(50),
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: widthScreen * 0.24,
+      body: RefreshIndicator(
+        child:
+        Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(color: AppColors.backGroundApp),
+            ),
+            SingleChildScrollView(
+              padding: EdgeInsets.only(bottom: 100),
+              child: Column(children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 25),
+                ),
+                Container(
+                    width: widthScreen,
+                    height: heightScreen / 8,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:
+                            EdgeInsets.only(right: widthScreen * 0.5 - 50),
                           ),
-                        ),
-                        TextButton(
-                            style: TextButton.styleFrom(
-                                backgroundColor: AppColors.backGroundApp,
-                                minimumSize: Size.fromWidth(0)),
-                            child: Image.asset(
-                              AppImages.editPerfil,
-                              width: widthScreen * 0.073,
+                          buildCircleAvatar(50),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: widthScreen * 0.24,
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/editarPerfil')
-                                  .then((value) => onGoBack(value));
-                            })
-                      ])),
-              Padding(padding: EdgeInsets.only(top: 12)),
-              Text(
-                FireAuth.userData != null
-                    ? '@${FireAuth.userData["username"]}'
-                    : '@null',
-                style: TextStyle(color: Colors.white),
-              ),
-              Padding(padding: EdgeInsets.only(top: 12)),
-              Text(
-                "bio",
-                style: TextStyle(color: Colors.white),
-              ),
-              Padding(padding: EdgeInsets.only(top: 6)),
-              IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Column(children: [
-                        Text(
-                          '0', //'${model.userData["postagens"]}',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'postagens',
-                          style: TextStyle(
-                              color: Colors.white38,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ]),
-                    ),
-                    VerticalDivider(
-                      color: Colors.white38,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/Seguidores');
-                      },
-                      child: Column(children: [
-                        Text(
-                          '0', //'${model.userData["seguidores"]}',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'seguidores',
-                          style: TextStyle(
-                              color: Colors.white38,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ]),
-                    ),
-                    VerticalDivider(
-                      color: Colors.white38,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/Seguindo');
-                      },
-                      child: Column(children: [
-                        Text(
-                          '0', //'${model.userData["seguindo"]}',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          'seguindo',
-                          style: TextStyle(
-                              color: Colors.white38,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ]),
-                    ),
-                  ],
+                          ),
+                          TextButton(
+                              style: TextButton.styleFrom(
+                                  backgroundColor: AppColors.backGroundApp,
+                                  minimumSize: Size.fromWidth(0)),
+                              child: Image.asset(
+                                AppImages.editPerfil,
+                                width: widthScreen * 0.073,
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/editarPerfil')
+                                    .then((value) => onGoBack(value));
+                              })
+                        ])),
+                Padding(padding: EdgeInsets.only(top: 12)),
+                Text(
+                  FireAuth.userData != null
+                      ? '@${FireAuth.userData["username"]}'
+                      : '@null',
+                  style: TextStyle(color: Colors.white),
                 ),
-              ),
-              Divider(
-                indent: 20,
-                endIndent: 20,
-                color: Colors.white38,
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    postSnapshot != null
-                        ? ListView.builder(
-                      reverse: true,
-                      itemCount: postSnapshot.docs.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        if(postSnapshot.docs[index]['uidUser'] == user.uid){
-                          return PostTile(
-                            imageURL: postSnapshot.docs[index]['imageURL'],
-                            postID: postSnapshot.docs[index].id,
-                            user: postSnapshot.docs[index]['user'],
-                            descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
-                            useruid: user.uid,
-                            username: postSnapshot.docs[index]['username'],
-                            userPhotoURL: postSnapshot.docs[index]['userImage'],
-                            currentPage: "perfilPage",
-                          );
-                        }
-                        return Container();
-                      },
-                    )
-                        : Container(
-                      child: Center(
-                        child: CircularProgressIndicator(),
+                Padding(padding: EdgeInsets.only(top: 12)),
+                Text(
+                  "bio",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Padding(padding: EdgeInsets.only(top: 6)),
+                IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        child: Column(children: [
+                          Text(
+                            '0', //'${model.userData["postagens"]}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            'postagens',
+                            style: TextStyle(
+                                color: Colors.white38,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                          )
+                        ]),
                       ),
-                    )
-                  ],
+                      VerticalDivider(
+                        color: Colors.white38,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/Seguidores');
+                        },
+                        child: Column(children: [
+                          Text(
+                            '0', //'${model.userData["seguidores"]}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            'seguidores',
+                            style: TextStyle(
+                                color: Colors.white38,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                          )
+                        ]),
+                      ),
+                      VerticalDivider(
+                        color: Colors.white38,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/Seguindo');
+                        },
+                        child: Column(children: [
+                          Text(
+                            '0', //'${model.userData["seguindo"]}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            'seguindo',
+                            style: TextStyle(
+                                color: Colors.white38,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400),
+                          )
+                        ]),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ]),
-          ),
-          Builders.buildBottomNavBar(
-            context: context,
-            type: "perfil",
-            height: size.height,
-            width: size.width,
-            user: user,
-            selectedImage: selectedImage,
-            onGoBack: onGoBack,
-          )
-        ],
-      ),
+                Divider(
+                  indent: 20,
+                  endIndent: 20,
+                  color: Colors.white38,
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      postSnapshot != null
+                          ? ListView.builder(
+                        reverse: true,
+                        itemCount: postSnapshot.docs.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          if(postSnapshot.docs[index]['uidUser'] == user.uid){
+                            return PostTile(
+                              imageURL: postSnapshot.docs[index]['imageURL'],
+                              postID: postSnapshot.docs[index].id,
+                              user: postSnapshot.docs[index]['user'],
+                              descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
+                              useruid: user.uid,
+                              username: postSnapshot.docs[index]['username'],
+                              userPhotoURL: postSnapshot.docs[index]['userImage'],
+                              currentPage: "perfilPage",
+                            );
+                          }
+                          return Container();
+                        },
+                      )
+                          : Container(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ]),
+            ),
+            Builders.buildBottomNavBar(
+              context: context,
+              type: "perfil",
+              height: size.height,
+              width: size.width,
+              user: user,
+              selectedImage: selectedImage,
+              onGoBack: onGoBack,
+            )
+          ],
+        ),
+          onRefresh: _onRefresh),
 
       // Barra Inferior:
     );

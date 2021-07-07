@@ -340,7 +340,10 @@ class PostTile extends StatelessWidget {
             ),
           ),
             onTap: (){
-              Navigator.pushNamed(context, '/DetalhesPost');
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
+                      name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
+                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes)));
             },
     ),
           Padding(
@@ -485,6 +488,7 @@ class PostTile extends StatelessWidget {
     if(choice == Constants.DeletarPost){
       if(useruid == currentUser.uid){
         await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+        await FirebaseFirestore.instance.collection('PostsSalvos').doc("$useruid-$postID").delete();
         for(int i = 0; i < _myDocCount.length; i++){
           if(_myDocCount[i]['postId'].contains(postID)){
             //Excluir item salvo do firebase

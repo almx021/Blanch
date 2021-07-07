@@ -5,6 +5,7 @@ import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/core/App_Variables.dart';
 import 'package:appteste/models/post_model.dart';
+import 'package:appteste/screens/App_Detalhes_do_Post_Page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -58,23 +59,7 @@ class _HomePageState extends State<HomePage> {
                       }
                     }
 
-                    if (index == 0) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom : 100),
-                        child: PostTile(
-                          imageURL: postSnapshot.docs[index]['imageURL'],
-                          postID: postSnapshot.docs[index].id,
-                          user: postSnapshot.docs[index]['user'],
-                          descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
-                          useruid: user.uid,
-                          username: postSnapshot.docs[index]['username'],
-                          userPhotoURL: postSnapshot.docs[index]['userImage'],
-                          currentPage: "homePage",
-                        ),
-
-                      );
-                    } else {
-                      return PostTile(
+                    return PostTile(
                         imageURL: postSnapshot.docs[index]['imageURL'],
                         postID: postSnapshot.docs[index].id,
                         user: postSnapshot.docs[index]['user'],
@@ -83,10 +68,14 @@ class _HomePageState extends State<HomePage> {
                         useruid: user.uid,
                         userPhotoURL: postSnapshot.docs[index]['userImage'],
                         currentPage: "homePage",
+                        porcoes: postSnapshot.docs[index]['porcoes'],
+                        modoDePreparo: postSnapshot.docs[index]['preparo'],
+                        tempoDePreparo: postSnapshot.docs[index]['tempoDePreparo'],
+                        ingredientes: postSnapshot.docs[index]['ingredientes'],
                       );
                     }
 
-                  },
+
                 )
               : Container(
                   child: Center(
@@ -176,6 +165,7 @@ class _HomePageState extends State<HomePage> {
           ),
           RefreshIndicator(
               child: SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: 100),
                 child: Column(
                   children: [
                     SingleChildScrollView(
@@ -228,10 +218,14 @@ class PostTile extends StatelessWidget {
   String username;
   String userPhotoURL;
   String currentPage;
+  String porcoes;
+  String tempoDePreparo;
+  String ingredientes;
+  String modoDePreparo;
   User currentUser = FirebaseAuth.instance.currentUser;
 
   PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid, this.username,
-    this.userPhotoURL, this. currentPage});
+    this.userPhotoURL, this. currentPage, this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo});
 
   int curtidas = 0;
 
@@ -282,9 +276,9 @@ class PostTile extends StatelessWidget {
                               ),
                               Padding(
                                   padding:
-                                      EdgeInsets.only(left: size.width * 0.015),
+                                      EdgeInsets.only(left: size.width * 0.010),
                                   child: Text(
-                                    'nova receita!',
+                                    'tem nova receita!',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: AdaptiveTextSize()
@@ -454,7 +448,10 @@ class PostTile extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/DetalhesPost');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
+                    name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
+                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes)));
                 },
                 child: Text(
                   'Ver mais',
@@ -474,7 +471,7 @@ class PostTile extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.white38,
                     fontSize:
-                        AdaptiveTextSize().getadaptiveTextSize(context, 15)),
+                        AdaptiveTextSize().getadaptiveTextSize(context, 11)),
               ),
             ),
           ),

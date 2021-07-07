@@ -99,6 +99,7 @@ class _PerfilPageState extends State<PerfilPage> {
             decoration: BoxDecoration(color: AppColors.backGroundApp),
           ),
           SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 100),
             child: Column(children: [
               Padding(
                 padding: EdgeInsets.only(top: 25),

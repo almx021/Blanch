@@ -114,7 +114,7 @@ class _MensagemPageState extends State<MensagemPage> {
                             reverse: true,
                             itemBuilder: (context, index) {
                               return MenssageTile(
-                                  mensagens: menssage[index]['text'], mine: true, data:menssage[index].data());
+                                 data:menssage[index].data());
                             });
                     }
                   }),
@@ -146,10 +146,10 @@ class _MensagemPageState extends State<MensagemPage> {
 }
 
 class MenssageTile extends StatelessWidget {
-  String mensagens;
-  bool mine;
 
-  MenssageTile({@required this.mensagens, this.mine, this.data});
+  User currentUser = FirebaseAuth.instance.currentUser;
+
+  MenssageTile({ this.data});
 
   final Map<String,dynamic> data;
 
@@ -158,7 +158,7 @@ class MenssageTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
       child: SingleChildScrollView(
-        child: !mine
+        child: data['uid'] != user.uid
             ? Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
@@ -171,7 +171,7 @@ class MenssageTile extends StatelessWidget {
                   data['imgUrl'] != null ?
                       Image.network(data['imgUrl'])
                   :Text(
-                    mensagens,
+                    data['text'],
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 15, color: Colors.white),
                   ),
@@ -189,7 +189,7 @@ class MenssageTile extends StatelessWidget {
                   data['imgUrl'] != null ?
                   Image.network(data['imgUrl'])
                   :Text(
-                    mensagens,
+                    data['text'],
                     textAlign: TextAlign.end,
                     style: TextStyle(fontSize: 15, color: Colors.white),
                   ),

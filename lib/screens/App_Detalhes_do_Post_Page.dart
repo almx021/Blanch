@@ -155,8 +155,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
             Padding(
               padding: EdgeInsets.only(top: size.height * 0.015),
               child: Container(
-                height: size.height * 0.3,
-                width: size.width,
+
                 child: Image.network(
                   imageURL,
                   fit: BoxFit.cover,

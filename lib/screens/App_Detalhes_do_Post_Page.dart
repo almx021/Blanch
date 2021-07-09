@@ -1,5 +1,10 @@
+
+
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/models/post_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
 import '../core/App_Colors.dart';
@@ -17,18 +22,21 @@ class DetalhesPostPage extends StatefulWidget {
   String tempoDePreparo;
   String ingredientes;
   String modoDePreparo;
+  bool isLiked;
+  String postId;
+  int curtidas;
   DetalhesPostPage({this.imageURL, this.descricaoDaReceita, this.name, this.username,
-    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo});
+    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.postId,this.isLiked,this.curtidas});
 
   @override
   _DetalhesPostPageState createState() => _DetalhesPostPageState(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
   name: name, username: username, userPhotoURL: userPhotoURL, porcoes: porcoes, tempoDePreparo: tempoDePreparo, ingredientes: ingredientes,
-    modoDePreparo: modoDePreparo
+    modoDePreparo: modoDePreparo, postId:postId, isLiked: isLiked,curtidas: curtidas
   );
 }
 
 class _DetalhesPostPageState extends State<DetalhesPostPage> {
-  bool pressed = false;
+  bool isLiked;
 
   String descricaoDaReceita;
   String name;
@@ -39,9 +47,17 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
   String tempoDePreparo;
   String ingredientes;
   String modoDePreparo;
-  _DetalhesPostPageState({this.imageURL, this.descricaoDaReceita, this.name,this.username,
-    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo});
+  String postId;
+  int curtidas;
 
+  @override
+
+
+  _DetalhesPostPageState({this.imageURL, this.descricaoDaReceita, this.name,this.username,
+    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.postId,this.isLiked,
+    this.curtidas});
+
+  User user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -169,10 +185,17 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          pressed = !pressed;
+                          if(isLiked){
+                            FirebaseFirestore.instance.collection("posts").
+                            doc(postId).update({'likes.${user.uid}':true});
+                          }else{
+                            FirebaseFirestore.instance.collection("posts").
+                            doc(postId).update({'likes.${user.uid}':FieldValue.delete()});
+                          }
+                         isLiked = !isLiked;
                         });
                       },
-                      icon: pressed
+                      icon: !isLiked
                           ? Icon(
                               Icons.favorite,
                               color: Colors.red,
@@ -199,7 +222,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
             Padding(
               padding: EdgeInsets.only(
                   left: size.width * 0.03, bottom: size.height * 0.01),
-              child: Text('Curtido por 5000 pessoas',
+              child: Text('Curtido por $curtidas pessoas',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize:

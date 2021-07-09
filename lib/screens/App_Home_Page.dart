@@ -72,6 +72,8 @@ class _HomePageState extends State<HomePage> {
                         modoDePreparo: postSnapshot.docs[index]['preparo'],
                         tempoDePreparo: postSnapshot.docs[index]['tempoDePreparo'],
                         ingredientes: postSnapshot.docs[index]['ingredientes'],
+                        curtidas: postSnapshot.docs[index]['likes'].length,
+                        isLiked: postSnapshot.docs[index]['likes'].containsKey(user.uid)?false:true,
                       );
                     }
 
@@ -222,12 +224,14 @@ class PostTile extends StatelessWidget {
   String tempoDePreparo;
   String ingredientes;
   String modoDePreparo;
+  int curtidas;
+  bool isLiked;
   User currentUser = FirebaseAuth.instance.currentUser;
 
   PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid, this.username,
-    this.userPhotoURL, this. currentPage, this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo});
+    this.userPhotoURL, this. currentPage, this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.curtidas,
+  this.isLiked});
 
-  int curtidas = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -343,7 +347,7 @@ class PostTile extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
                   DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
                       name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
-                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes)));
+                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes,isLiked: isLiked,)));
             },
     ),
           Padding(
@@ -454,7 +458,8 @@ class PostTile extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context) =>
                   DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
                     name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
-                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes)));
+                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes,postId:postID,isLiked: isLiked,
+                      curtidas: curtidas,)));
                 },
                 child: Text(
                   'Ver mais',

@@ -179,12 +179,6 @@ class _EditarPerfilPageState extends State<EditarPerfilPage> {
                       intro: _introController.text,
                       site: _siteController.text,
                         getInfos: FireAuth.getInfos);
-                    if(_nameController.text.trim() != '' || _introController.text.trim() != '' || _siteController.text.trim() != ''){
-                      _nameController.clear();
-                      _introController.clear();
-                      _siteController.clear();
-                      _onSucess();
-                    }
                     if(_usernameController.text.trim() != ''){
                     bool usernameValidated = await userValidate(
                         _usernameController.text);
@@ -194,12 +188,20 @@ class _EditarPerfilPageState extends State<EditarPerfilPage> {
                           username: _usernameController.text,
                           getInfos: FireAuth.getInfos);
                       _usernameController.clear();
-                      _onSucess();
+                      if(_nameController.text.trim() == '' && _introController.text.trim() == '' && _siteController.text.trim() == '') {
+                        _onSucess();
+                      }
                     }
                     setState(() {
                       usernameValidated = true;
                     });
-                    };
+                    }
+                    if(_nameController.text.trim() != '' || _introController.text.trim() != '' || _siteController.text.trim() != ''){
+                      _nameController.clear();
+                      _introController.clear();
+                      _siteController.clear();
+                      _onSucess();
+                    }
                   },
                   child: Text("Alterar",
                       style: TextStyle(

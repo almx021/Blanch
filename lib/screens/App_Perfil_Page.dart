@@ -154,18 +154,17 @@ class _PerfilPageState extends State<PerfilPage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 Padding(padding: EdgeInsets.only(top: 12, right: size.width * 0.07, left: size.width * 0.07),
-                  child:Flexible(
+                  child: FireAuth.userData["intro"] != null ? Flexible(
                     child:Text(
-                      FireAuth.userData["intro"] != null ?
-                      '${FireAuth.userData["intro"]}' : '',
+                      '${FireAuth.userData["intro"]}',
                       style: TextStyle(color: Colors.white),
-                    ),),),
-                Padding(padding: EdgeInsets.only(top: 12, right: size.width * 0.07, left: size.width * 0.07),
-                  child:RichText(
+                    ),) : Container()),
+                Padding(padding: EdgeInsets.only(top: 12, right: size.width * 0.07, left: size.width * 0.07, bottom: size.height * 0.02),
+                  child: FireAuth.userData["site"] != null ? RichText(
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: FireAuth.userData["site"] != null ? '${FireAuth.userData["site"]}' : '',
+                          text: '${FireAuth.userData["site"]}',
                           style: TextStyle(color: Colors.blue),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () { launch('https://docs.flutter.io/flutter/services/UrlLauncher-class.html');
@@ -173,7 +172,7 @@ class _PerfilPageState extends State<PerfilPage> {
                         ),
                       ],
                     ),
-                  ),),
+                  ) : Container()),
                 Padding(padding: EdgeInsets.only(top: 6)),
                 IntrinsicHeight(
                   child: Row(

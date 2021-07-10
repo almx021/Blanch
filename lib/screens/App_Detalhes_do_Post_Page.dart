@@ -1,19 +1,63 @@
+
+
 import 'package:appteste/core/App_Gradients.dart';
 import 'package:appteste/core/App_Images.dart';
+import 'package:appteste/models/post_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_text/gradient_text.dart';
 import '../core/App_Colors.dart';
 import 'App_Account_Page.dart';
 
 class DetalhesPostPage extends StatefulWidget {
-  const DetalhesPostPage({Key key}) : super(key: key);
+ // const DetalhesPostPage({Key key}) : super(key: key);
+
+  String descricaoDaReceita;
+  String name;
+  String imageURL;
+  String username;
+  String userPhotoURL;
+  String porcoes;
+  String tempoDePreparo;
+  String ingredientes;
+  String modoDePreparo;
+  bool isLiked;
+  String postId;
+  int curtidas;
+  DetalhesPostPage({this.imageURL, this.descricaoDaReceita, this.name, this.username,
+    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.postId,this.isLiked,this.curtidas});
 
   @override
-  _DetalhesPostPageState createState() => _DetalhesPostPageState();
+  _DetalhesPostPageState createState() => _DetalhesPostPageState(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
+  name: name, username: username, userPhotoURL: userPhotoURL, porcoes: porcoes, tempoDePreparo: tempoDePreparo, ingredientes: ingredientes,
+    modoDePreparo: modoDePreparo, postId:postId, isLiked: isLiked,curtidas: curtidas
+  );
 }
 
 class _DetalhesPostPageState extends State<DetalhesPostPage> {
-  bool pressed = false;
+  bool isLiked;
+
+  String descricaoDaReceita;
+  String name;
+  String imageURL;
+  String username;
+  String userPhotoURL;
+  String porcoes;
+  String tempoDePreparo;
+  String ingredientes;
+  String modoDePreparo;
+  String postId;
+  int curtidas;
+
+  @override
+
+
+  _DetalhesPostPageState({this.imageURL, this.descricaoDaReceita, this.name,this.username,
+    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.postId,this.isLiked,
+    this.curtidas});
+
+  User user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +106,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                       Align(
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
-                              "https://randomuser.me/api/portraits/women/23.jpg"
+                              userPhotoURL
                           ),
                         ),
                       ),
@@ -74,7 +118,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                             Row(
                               children: [
                                 Text(
-                                  'Alessandra Ribeiro',
+                                  name,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -97,7 +141,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: GradientText(
-                                '@usuário',
+                                '@$username',
                                 gradient: AppGradients.linear,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -127,10 +171,9 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
             Padding(
               padding: EdgeInsets.only(top: size.height * 0.015),
               child: Container(
-                height: size.height * 0.3,
-                width: size.width,
+
                 child: Image.network(
-                  'https://img.itdg.com.br/tdg/images/recipes/000/020/617/354276/354276_original.jpg?mode=crop&width=710&height=400',
+                  imageURL,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -142,10 +185,17 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          pressed = !pressed;
+                          if(isLiked){
+                            FirebaseFirestore.instance.collection("posts").
+                            doc(postId).update({'likes.${user.uid}':true});
+                          }else{
+                            FirebaseFirestore.instance.collection("posts").
+                            doc(postId).update({'likes.${user.uid}':FieldValue.delete()});
+                          }
+                         isLiked = !isLiked;
                         });
                       },
-                      icon: pressed
+                      icon: !isLiked
                           ? Icon(
                               Icons.favorite,
                               color: Colors.red,
@@ -172,7 +222,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
             Padding(
               padding: EdgeInsets.only(
                   left: size.width * 0.03, bottom: size.height * 0.01),
-              child: Text('Curtido por 5000 pessoas',
+              child: Text('Curtido por $curtidas pessoas',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize:
@@ -182,7 +232,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                 padding: EdgeInsets.only(
                     left: size.width * 0.03, right: size.width * 0.03),
                 child: Flexible(
-                    child: Text("Receita de pastel caseiro, fácil e prático",
+                    child: Text(descricaoDaReceita,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: AdaptiveTextSize()
@@ -222,7 +272,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                             height: size.height * 0.04,
                           ),
                         ),
-                        Text("30 minutos",
+                        Text("$tempoDePreparo minutos",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: AdaptiveTextSize()
@@ -251,7 +301,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                             height: size.height * 0.04,
                           ),
                         ),
-                        Text("15 porções",
+                        Text("$porcoes porções",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: AdaptiveTextSize()
@@ -280,12 +330,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                   left: size.width * 0.03, top: size.height * 0.01),
               child: Flexible(
                 child: Text(
-                    "3 xícaras de farinha de trigo \n"
-                    "1 xícara de água morna (ou um pouco mais) \n"
-                    "3 colheres (sopa) de óleo (de soja, milho, girassol ou algodão) \n"
-                    "1 colher (sopa) de aguardente \n"
-                    "1 colher (sopa) rasa de sal \n"
-                    "farinha de trigo para trabalhar a massa\n",
+                    ingredientes,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: AdaptiveTextSize()
@@ -310,13 +355,7 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                   left: size.width * 0.03, top: size.height * 0.01),
               child: Flexible(
                 child: Text(
-                    "1° Coloque a farinha misturada com o sal em uma vasilha ou uma mesa e abra um buraco no meio. \n"
-                    "2° Nesse buraco, coloque o óleo, a aguardente e um pouco de água. \n"
-                    "3° Misture a água e a farinha aos poucos, cada vez pegando um pouco mais de farinha da borda do buraco. \n"
-                    "4° Quando a massa estiver ficando dura, coloque mais água. \n"
-                    "5° A massa deve ficar macia. \n"
-                    "6° Use farinha de trigo para trabalhar a massa\n"
-                    "7 °Se estiver muito grudenta, coloque mais farinha.",
+                    modoDePreparo,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: AdaptiveTextSize()

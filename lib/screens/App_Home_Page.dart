@@ -5,6 +5,7 @@ import 'package:appteste/core/App_Images.dart';
 import 'package:appteste/core/App_Builders.dart';
 import 'package:appteste/core/App_Variables.dart';
 import 'package:appteste/models/post_model.dart';
+import 'package:appteste/screens/App_Detalhes_do_Post_Page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,12 @@ class _HomePageState extends State<HomePage> {
                         useruid: user.uid,
                         userPhotoURL: postSnapshot.docs[index]['userImage'],
                         currentPage: "homePage",
+                        porcoes: postSnapshot.docs[index]['porcoes'],
+                        modoDePreparo: postSnapshot.docs[index]['preparo'],
+                        tempoDePreparo: postSnapshot.docs[index]['tempoDePreparo'],
+                        ingredientes: postSnapshot.docs[index]['ingredientes'],
+                        curtidas: postSnapshot.docs[index]['likes'].length,
+                        isLiked: postSnapshot.docs[index]['likes'].containsKey(user.uid)?false:true,
                       );
                     }
 
@@ -212,12 +219,18 @@ class PostTile extends StatelessWidget {
   String username;
   String userPhotoURL;
   String currentPage;
+  String porcoes;
+  String tempoDePreparo;
+  String ingredientes;
+  String modoDePreparo;
+  int curtidas;
+  bool isLiked;
   User currentUser = FirebaseAuth.instance.currentUser;
 
   PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid, this.username,
-    this.userPhotoURL, this. currentPage});
+    this.userPhotoURL, this. currentPage, this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.curtidas,
+  this.isLiked});
 
-  int curtidas = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -330,7 +343,10 @@ class PostTile extends StatelessWidget {
             ),
           ),
             onTap: (){
-              Navigator.pushNamed(context, '/DetalhesPost');
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
+                      name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
+                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes,isLiked: isLiked,)));
             },
     ),
           Padding(
@@ -438,7 +454,11 @@ class PostTile extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/DetalhesPost');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
+                    name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
+                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes,postId:postID,isLiked: isLiked,
+                      curtidas: curtidas,)));
                 },
                 child: Text(
                   'Ver mais',
@@ -472,6 +492,7 @@ class PostTile extends StatelessWidget {
     if(choice == Constants.DeletarPost){
       if(useruid == currentUser.uid){
         await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+        await FirebaseFirestore.instance.collection('PostsSalvos').doc("$useruid-$postID").delete();
         for(int i = 0; i < _myDocCount.length; i++){
           if(_myDocCount[i]['postId'].contains(postID)){
             //Excluir item salvo do firebase

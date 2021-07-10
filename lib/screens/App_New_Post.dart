@@ -523,7 +523,8 @@ class _NewPostState extends State<NewPost> {
                         onSuccess: onSuccess,
                         image: selectedImage,
                         username: FireAuth.userData["username"],
-                        userImage: FireAuth.userData["photoURL"]
+                        userImage: FireAuth.userData["photoURL"],
+
                       );
                     }
                   },

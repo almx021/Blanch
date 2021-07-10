@@ -203,7 +203,6 @@ class Constants{
     DeletarPost,
   ];
 }
-
 class PostTile extends StatelessWidget {
   String descricaoDaReceita;
   String user;
@@ -258,7 +257,7 @@ class PostTile extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                user,
+                                '$user',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500,

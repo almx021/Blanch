@@ -208,7 +208,59 @@ class FireAuth {
       "username": username,
     };
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
+        .collection('posts')
+        .where('uidUser', isEqualTo: user.uid)
+        .get());
+    final List<DocumentSnapshot> documents = result.docs;
+    for(int i = 0; i < (documents.length); i++){
+      if(documents[i]['uidUser'].contains(user.uid)){
+        await FirebaseFirestore.instance.collection("posts")
+            .doc(documents[i].id)
+            .update(userData);
+      }
+    }
     await firestore.collection("users").doc(user.uid).update(userData);
+    getInfos();
+  }
+  static Future<Null> editInfos(
+      {String name, String site, String intro, @required VoidCallback getInfos}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user = auth.currentUser;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    Map<String, dynamic> nameData = {
+      "name": name,
+    };
+    Map<String, dynamic> postName = {
+      "user": name,
+    };
+    if(name.trim() != '') {
+      final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
+          .collection('posts')
+          .where('uidUser', isEqualTo: user.uid)
+          .get());
+      final List<DocumentSnapshot> documents = result.docs;
+      for(int i = 0; i < (documents.length); i++){
+        if(documents[i]['uidUser'].contains(user.uid)){
+          await FirebaseFirestore.instance.collection("posts")
+              .doc(documents[i].id)
+              .update(postName);
+        }
+      }
+      await firestore.collection("users").doc(user.uid).update(nameData);
+    }
+    Map<String, dynamic> siteData = {
+      "site": site,
+    };
+    if(site.trim() != '') {
+      await firestore.collection("users").doc(user.uid).update(siteData);
+    }
+    Map<String, dynamic> introData = {
+      "intro": intro,
+    };
+    if(intro.trim() != '') {
+      await firestore.collection("users").doc(user.uid).update(introData);
+    }
     getInfos();
   }
 
@@ -225,6 +277,19 @@ class FireAuth {
       TaskSnapshot taskSnapshot = await task;
       var url = await taskSnapshot.ref.getDownloadURL();
       Map<String, dynamic> userData = {"photoURL": url};
+      Map<String, dynamic> postData = {"userImage": url};
+      final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
+          .collection('posts')
+          .where('uidUser', isEqualTo: user.uid)
+          .get());
+      final List<DocumentSnapshot> documents = result.docs;
+      for(int i = 0; i < (documents.length); i++){
+        if(documents[i]['uidUser'].contains(user.uid)){
+          await FirebaseFirestore.instance.collection("posts")
+              .doc(documents[i].id)
+              .update(postData);
+        }
+      }
 
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       await firestore.collection("users").doc(user.uid).update(userData);
@@ -298,6 +363,7 @@ class FireAuth {
   static Future init() async {
     _preferences = await SharedPreferences.getInstance();
   }
+
 
 /*Future<void> getUsername() async {
     Map<String, dynamic> data = await   getInfos();

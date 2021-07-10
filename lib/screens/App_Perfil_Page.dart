@@ -9,8 +9,9 @@ import 'package:appteste/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'App_Home_Page.dart';
 
 class PerfilPage extends StatefulWidget {
@@ -73,7 +74,7 @@ class _PerfilPageState extends State<PerfilPage> {
             icon: Image.asset(AppImages.leftArrow, width: 25),
           ),
           title: Text(
-            '${user.displayName}',
+            '${FireAuth.userData["name"]}',
             style: TextStyle(color: Colors.white),
           ),
           actions: [
@@ -140,11 +141,27 @@ class _PerfilPageState extends State<PerfilPage> {
                     : '@null',
                 style: TextStyle(color: Colors.white),
               ),
-              Padding(padding: EdgeInsets.only(top: 12)),
-              Text(
-                "bio",
+              Padding(padding: EdgeInsets.only(top: 12, right: size.width * 0.07, left: size.width * 0.07),
+              child:Flexible(
+                child:Text(
+                  FireAuth.userData["intro"] != null ?
+                '${FireAuth.userData["intro"]}' : '',
                 style: TextStyle(color: Colors.white),
-              ),
+              ),),),
+              Padding(padding: EdgeInsets.only(top: 12, right: size.width * 0.07, left: size.width * 0.07),
+                child:RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: FireAuth.userData["site"] != null ? '${FireAuth.userData["site"]}' : '',
+                        style: TextStyle(color: Colors.blue),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () { launch('https://docs.flutter.io/flutter/services/UrlLauncher-class.html');
+                          },
+                      ),
+                    ],
+                  ),
+                ),),
               Padding(padding: EdgeInsets.only(top: 6)),
               IntrinsicHeight(
                 child: Row(

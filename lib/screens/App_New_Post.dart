@@ -519,7 +519,7 @@ class _NewPostState extends State<NewPost> {
                         preparo: _preparoController.text,
                         porcoes: _porcoesController.text,
                         uidUser: user.uid,
-                        user: user.displayName,
+                        user: FireAuth.userData["name"],
                         onSuccess: onSuccess,
                         image: selectedImage,
                         username: FireAuth.userData["username"],

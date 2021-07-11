@@ -27,7 +27,8 @@ class FireAuth {
       "name": name,
       "email": email,
       "newUser": isNewUser,
-      "photoURL":'https://firebasestorage.googleapis.com/v0/b/blanch-d9db7.appspot.com/o/UsersProfilePictures%2Fdlyd8oBRuEbhtHWMXeE9xL5XxrN2%2F1625331729814531?alt=media&token=678b005a-56a7-4fdc-936f-2409b01beaa3'
+      "photoURL":
+          'https://firebasestorage.googleapis.com/v0/b/blanch-d9db7.appspot.com/o/UsersProfilePictures%2Fdlyd8oBRuEbhtHWMXeE9xL5XxrN2%2F1625331729814531?alt=media&token=678b005a-56a7-4fdc-936f-2409b01beaa3'
     };
 
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -213,9 +214,10 @@ class FireAuth {
         .where('uidUser', isEqualTo: user.uid)
         .get());
     final List<DocumentSnapshot> documents = result.docs;
-    for(int i = 0; i < (documents.length); i++){
-      if(documents[i]['uidUser'].contains(user.uid)){
-        await FirebaseFirestore.instance.collection("posts")
+    for (int i = 0; i < (documents.length); i++) {
+      if (documents[i]['uidUser'].contains(user.uid)) {
+        await FirebaseFirestore.instance
+            .collection("posts")
             .doc(documents[i].id)
             .update(userData);
       }
@@ -223,8 +225,12 @@ class FireAuth {
     await firestore.collection("users").doc(user.uid).update(userData);
     getInfos();
   }
+
   static Future<Null> editInfos(
-      {String name, String site, String intro, @required VoidCallback getInfos}) async {
+      {String name,
+      String site,
+      String intro,
+      @required VoidCallback getInfos}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user = auth.currentUser;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -234,15 +240,16 @@ class FireAuth {
     Map<String, dynamic> postName = {
       "user": name,
     };
-    if(name.trim() != '') {
+    if (name.trim() != '') {
       final QuerySnapshot result = await Future.value(FirebaseFirestore.instance
           .collection('posts')
           .where('uidUser', isEqualTo: user.uid)
           .get());
       final List<DocumentSnapshot> documents = result.docs;
-      for(int i = 0; i < (documents.length); i++){
-        if(documents[i]['uidUser'].contains(user.uid)){
-          await FirebaseFirestore.instance.collection("posts")
+      for (int i = 0; i < (documents.length); i++) {
+        if (documents[i]['uidUser'].contains(user.uid)) {
+          await FirebaseFirestore.instance
+              .collection("posts")
               .doc(documents[i].id)
               .update(postName);
         }
@@ -252,13 +259,13 @@ class FireAuth {
     Map<String, dynamic> siteData = {
       "site": site,
     };
-    if(site.trim() != '') {
+    if (site.trim() != '') {
       await firestore.collection("users").doc(user.uid).update(siteData);
     }
     Map<String, dynamic> introData = {
       "intro": intro,
     };
-    if(intro.trim() != '') {
+    if (intro.trim() != '') {
       await firestore.collection("users").doc(user.uid).update(introData);
     }
     getInfos();
@@ -283,9 +290,10 @@ class FireAuth {
           .where('uidUser', isEqualTo: user.uid)
           .get());
       final List<DocumentSnapshot> documents = result.docs;
-      for(int i = 0; i < (documents.length); i++){
-        if(documents[i]['uidUser'].contains(user.uid)){
-          await FirebaseFirestore.instance.collection("posts")
+      for (int i = 0; i < (documents.length); i++) {
+        if (documents[i]['uidUser'].contains(user.uid)) {
+          await FirebaseFirestore.instance
+              .collection("posts")
               .doc(documents[i].id)
               .update(postData);
         }
@@ -316,34 +324,51 @@ class FireAuth {
     await FirebaseAuth.instance.signOut();
   }
 
-  static Future<void> deleteAccount(password) async {
+  static Future reauthenticateWithCredential(String password) async {
+    try {
+      User user = FirebaseAuth.instance.currentUser;
+      AuthCredential credentials =
+          EmailAuthProvider.credential(email: user.email, password: password);
+      try {
+        await user.reauthenticateWithCredential(credentials);
+      } on FirebaseAuthException catch (error) {
+        switch (error.code) {
+          case 'too-many-requests':
+            return 'Erro Interno!\nTente Novamente Mais Tarde!';
+          case 'wrong-password':
+            return 'Senha Incorreta!';
+          default:
+            return null;
+        }
+      }
+    } catch (e) {
+      print('ERRO: ${e.toString()}');
+    }
+  }
+
+  static Future deleteAccount(password) async {
     User user = FirebaseAuth.instance.currentUser;
-    AuthCredential credentials =
-        EmailAuthProvider.credential(email: user.email, password: password);
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     FirebaseStorage storage = FirebaseStorage.instance;
+
     try {
-      await user.reauthenticateWithCredential(credentials);
-      try {
-        await storage
-            .ref()
-            .child("UsersProfilePictures/${user.uid}/")
-            .list()
-            .then(
-                (element) => element.items.forEach((item) {
-                      item.delete();
-                    }), onError: (e) {
-          print('ERRO onError: $e');
-        });
-      } catch (e) {
-        print("ERRO try 2 $e");
-        if (e.toString() == "No object exists at the desired reference.")
-          print('OBJETO INEXISTENTE');
-      }
+      await storage
+          .ref()
+          .child("UsersProfilePictures/${user.uid}/")
+          .list()
+          .then(
+              (element) => element.items.forEach((item) {
+                    item.delete();
+                  }), onError: (e) {
+        print('ERRO onError: $e');
+      });
+    } catch (e) {
+      print("ERRO $e");
+      if (e.toString() == "No object exists at the desired reference.")
+        print('OBJETO INEXISTENTE');
+    } finally {
       await firestore.collection('users').doc(user.uid).delete();
       await user.delete();
-    } catch (e) {
-      print("ERRO try 1: $e");
     }
   }
 
@@ -363,7 +388,6 @@ class FireAuth {
   static Future init() async {
     _preferences = await SharedPreferences.getInstance();
   }
-
 
 /*Future<void> getUsername() async {
     Map<String, dynamic> data = await   getInfos();

@@ -22,10 +22,18 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final _passwordController = TextEditingController();
+    var _authValidator;
     var size = MediaQuery.of(context).size;
+
+/*
+
+
+*/
 
     return Scaffold(
       appBar: AppBar(
@@ -86,158 +94,202 @@ class _AccountPageState extends State<AccountPage> {
                       barrierDismissible: false,
                       context: context,
                       builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0))),
-                          backgroundColor: Color.fromRGBO(39, 39, 39, 1),
-                          title:
-                              Text('Tem certeza que deseja excluir sua conta?',
+                        return Form(
+                            key: _formKey,
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0))),
+                              backgroundColor: Color.fromRGBO(39, 39, 39, 1),
+                              title: Text(
+                                  'Tem certeza que deseja excluir sua conta?',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: AdaptiveTextSize()
                                         .getadaptiveTextSize(context, 15),
                                   )),
-                          content: Padding(
-                            padding: EdgeInsets.only(top: size.height * 0.02),
-                            child: Container(
-                              height: size.height * 0.05,
-                              child: TextField(
-                                controller: _passwordController,
-                                obscureText: true,
-                                style: TextStyle(
-                                    fontSize: AdaptiveTextSize()
-                                        .getadaptiveTextSize(context, 14),
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                                decoration: InputDecoration(
-                                    prefixIcon: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 9.0, right: 9.0),
-                                        child: Icon(
-                                          Icons.lock,
-                                          color: Colors.grey,
-                                        )),
-                                    prefixIconConstraints: BoxConstraints(
-                                      minHeight: size.height * 0.02,
-                                      minWidth: size.height * 0.02,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        width: 0,
-                                        style: BorderStyle.none,
-                                      ),
-                                    ),
-                                    contentPadding: EdgeInsets.all(8),
-                                    fillColor: Color(0xff444444),
-                                    filled: true,
-                                    hintStyle: TextStyle(
+                              content: Padding(
+                                padding:
+                                    EdgeInsets.only(top: size.height * 0.01),
+                                child: Container(
+                                  child: TextFormField(
+                                    controller: _passwordController,
+                                    obscureText: true,
+                                    style: TextStyle(
                                         fontSize: AdaptiveTextSize()
-                                            .getadaptiveTextSize(context, 13),
-                                        color: Colors.grey,
+                                            .getadaptiveTextSize(context, 14),
+                                        color: Colors.white,
                                         fontWeight: FontWeight.w500),
-                                    hintText: 'Informe sua senha'),
-                              ),
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context, 'Cancelar');
-                              },
-                              child: ShaderMask(
-                                shaderCallback: (Rect rect) {
-                                  return (AppGradients.orangelinear)
-                                      .createShader(rect);
-                                },
-                                child: Text(
-                                  'Cancelar',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .button
-                                      .copyWith(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                await FireAuth.deleteAccount(
-                                    _passwordController.text);
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20.0))),
-                                        backgroundColor:
-                                            Color.fromRGBO(39, 39, 39, 1),
-                                        title: Text('Sua conta foi excluída',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: AdaptiveTextSize()
-                                                  .getadaptiveTextSize(
-                                                      context, 17),
+                                    decoration: InputDecoration(
+                                        prefixIcon: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 9.0, right: 9.0),
+                                            child: Icon(
+                                              Icons.lock,
+                                              color: Colors.grey,
                                             )),
-                                        content: Row(children: [
-                                          Text("Sentiremos sua falta",
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                              )),
-                                          Text(" ☹",
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: AdaptiveTextSize()
-                                                    .getadaptiveTextSize(
-                                                        context, 20),
-                                              )),
-                                        ]),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-//                                              Navigator.pop(context, 'Cancelar');
-                                              Navigator.pushNamedAndRemoveUntil(
-                                                  context,
-                                                  '/',
-                                                  (route) => false);
-                                            },
-                                            child: ShaderMask(
-                                              shaderCallback: (Rect rect) {
-                                                return (AppGradients
-                                                        .orangelinear)
-                                                    .createShader(rect);
-                                              },
-                                              child: Text(
-                                                'Voltar ao inicio',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .button
-                                                    .copyWith(
-                                                        color: Colors.white),
-                                              ),
-                                            ),
+                                        prefixIconConstraints: BoxConstraints(
+                                          minHeight: size.height * 0.02,
+                                          minWidth: size.height * 0.02,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            width: 0,
+                                            style: BorderStyle.none,
                                           ),
-                                        ],
-                                      );
-                                    });
-                              },
-                              child: ShaderMask(
-                                shaderCallback: (Rect rect) {
-                                  return (AppGradients.orangelinear)
-                                      .createShader(rect);
-                                },
-                                child: Text(
-                                  'Excluir',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .button
-                                      .copyWith(color: Colors.white),
+                                        ),
+                                        contentPadding: EdgeInsets.all(8),
+                                        fillColor: Color(0xff444444),
+                                        filled: true,
+                                        hintStyle: TextStyle(
+                                            fontSize: AdaptiveTextSize()
+                                                .getadaptiveTextSize(
+                                                    context, 13),
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w500),
+                                        hintText: 'Informe sua senha'),
+                                    // ignore: missing_return
+                                    validator: (text) {
+                                      if (text.isEmpty || text == null) {
+                                        return 'Insira A Senha!';
+                                      }
+                                      return _authValidator;
+                                    },
+                                  ),
+                                  //   ),
                                 ),
                               ),
-                            )
-                          ],
-                        );
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Cancelar');
+                                  },
+                                  child: ShaderMask(
+                                    shaderCallback: (Rect rect) {
+                                      return (AppGradients.orangelinear)
+                                          .createShader(rect);
+                                    },
+                                    child: Text(
+                                      'Cancelar',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .button
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState.validate()) {
+                                      var response = await FireAuth
+                                          .reauthenticateWithCredential(
+                                              _passwordController.text);
+                                      setState(() {
+                                        _authValidator = response;
+                                      });
+                                      if (_formKey.currentState.validate()) {
+                                        await FireAuth.deleteAccount(
+                                            _passwordController.text);
+
+                                        showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              return WillPopScope(
+                                                  onWillPop: () async => false,
+                                                  child: AlertDialog(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20.0))),
+                                                    backgroundColor:
+                                                        Color.fromRGBO(
+                                                            39, 39, 39, 1),
+                                                    title: Text(
+                                                        'Sua conta foi excluída',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize:
+                                                              AdaptiveTextSize()
+                                                                  .getadaptiveTextSize(
+                                                                      context,
+                                                                      17),
+                                                        )),
+                                                    content: Row(children: [
+                                                      Text(
+                                                          "Sentiremos sua falta",
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                          )),
+                                                      Text(" ☹",
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize:
+                                                                AdaptiveTextSize()
+                                                                    .getadaptiveTextSize(
+                                                                        context,
+                                                                        20),
+                                                          )),
+                                                    ]),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator
+                                                              .pushNamedAndRemoveUntil(
+                                                                  context,
+                                                                  '/',
+                                                                  (route) =>
+                                                                      false);
+                                                        },
+                                                        child: ShaderMask(
+                                                          shaderCallback:
+                                                              (Rect rect) {
+                                                            return (AppGradients
+                                                                    .orangelinear)
+                                                                .createShader(
+                                                                    rect);
+                                                          },
+                                                          child: Text(
+                                                            'Voltar ao inicio',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .button
+                                                                .copyWith(
+                                                                    color: Colors
+                                                                        .white),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ));
+                                            }).then((value) {
+                                          if (FireAuth.userData["name"] == null)
+                                            Navigator.pushNamedAndRemoveUntil(
+                                                context, '/', (route) => false);
+                                        });
+                                      }
+                                    }
+                                  },
+                                  child: ShaderMask(
+                                    shaderCallback: (Rect rect) {
+                                      return (AppGradients.orangelinear)
+                                          .createShader(rect);
+                                    },
+                                    child: Text(
+                                      'Excluir',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .button
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ));
                       });
                 },
               ),

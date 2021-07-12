@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../core/App_Colors.dart';
 import '../core/App_Images.dart';
+import 'App_Detalhes_do_Post_Page.dart';
 
 class ItensSalvosPage extends StatefulWidget {
   const ItensSalvosPage({Key key}) : super(key: key);
@@ -60,13 +61,8 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                 }
                 List<DocumentSnapshot> itensSalvos =
                 snapshot.data.docs.reversed.toList();
-
-
-
                 return
-
                   ListView.builder(
-
                       itemCount: itensSalvos.length,
                       itemBuilder: (context, index) {
                         if (snapshot.data.docs[index]['userUid'].contains(user.uid)) {
@@ -74,7 +70,7 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 25,top: 20),
+                                  padding: EdgeInsets.only(left: 50,top: 20),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
@@ -89,11 +85,30 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                                       child: Image.network(
                                         snapshot.data.docs[index]['imageURL'],
                                         fit: BoxFit.cover,
-                                        width: 170,
-                                        height: 125,
+                                        width: 300 ,
+                                        height: 200,
                                       ),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                          DetalhesPostPage(
+                                            imageURL: snapshot.data.docs[index]['imageURL'],
+                                            postId: snapshot.data.docs[index].id,
+                                            name: snapshot.data.docs[index]['user'],
+                                            descricaoDaReceita: snapshot.data.docs[index]['descricaoDaReceita'],
+                                            username: snapshot.data.docs[index]['username'],
+                                            userPhotoURL: snapshot.data.docs[index]['userImage'],
+                                            porcoes: snapshot.data.docs[index]['porcoes'],
+                                            modoDePreparo: snapshot.data.docs[index]['preparo'],
+                                            tempoDePreparo: snapshot.data.docs[index]['tempoDePreparo'],
+                                            ingredientes: snapshot.data.docs[index]['ingredientes'],
+                                            curtidas: snapshot.data.docs[index]['likes'].length,
+                                            isLiked: snapshot.data.docs[index]['likes'].containsKey(user.uid)?false:true,
+                                            isSaved:  snapshot.data.docs[index]['saves'].containsKey(user.uid)?false:true,
+                                            userUID: user.uid,
+                                          )));
+
+                                    },
                                   ),
                                 ),
 

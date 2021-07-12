@@ -51,13 +51,6 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
 
-                    void deletar() async {
-                      if (postSnapshot.docs[index]['uidUser'].contains(user.uid)){
-                        await FirebaseFirestore.instance.collection('posts').doc(postSnapshot.docs[index].id).delete();
-                      } else {
-                        return null;
-                      }
-                    }
 
                     return PostTile(
                         imageURL: postSnapshot.docs[index]['imageURL'],
@@ -267,6 +260,16 @@ class _PostTileState extends State<PostTile> {
       "imageURL": imageURL,
       "userUid" : useruid,
       "postId" : postID,
+      'descricaoDaReceita': descricaoDaReceita,
+      'tempoDePreparo': tempoDePreparo,
+      'ingredientes': ingredientes,
+      'preparo': modoDePreparo,
+      'porcoes': porcoes,
+      'user': user,
+      'username': username,
+      'userImage':  userPhotoURL,
+      'likes': {},
+      'saves': {},
     };
 
     return Container(
@@ -452,9 +455,13 @@ class _PostTileState extends State<PostTile> {
                             FirebaseFirestore.instance.collection("posts").
                             doc(postID).update({'saves.${currentUser.uid}':true});
                             FirebaseFirestore.instance.collection("PostsSalvos").
+                            doc(postID).update({'saves.${currentUser.uid}':true});
+                            FirebaseFirestore.instance.collection("PostsSalvos").
                             doc("$useruid-$postID").set(postData);
                           }else{
                             FirebaseFirestore.instance.collection("posts").
+                            doc(postID).update({'saves.${currentUser.uid}':FieldValue.delete()});
+                            FirebaseFirestore.instance.collection("PostsSalvos").
                             doc(postID).update({'saves.${currentUser.uid}':FieldValue.delete()});
                             FirebaseFirestore.instance.collection("PostsSalvos").
                             doc("$useruid-$postID").delete();

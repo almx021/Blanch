@@ -192,8 +192,12 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                           if(isLiked){
                             FirebaseFirestore.instance.collection("posts").
                             doc(postId).update({'likes.${user.uid}':true});
+                            FirebaseFirestore.instance.collection("PostsSalvos").
+                            doc(postId).update({'likes.${user.uid}':true});
                           }else{
                             FirebaseFirestore.instance.collection("posts").
+                            doc(postId).update({'likes.${user.uid}':FieldValue.delete()});
+                            FirebaseFirestore.instance.collection("PostsSalvos").
                             doc(postId).update({'likes.${user.uid}':FieldValue.delete()});
                           }
                          isLiked = !isLiked;
@@ -222,16 +226,32 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                          FirebaseFirestore.instance.collection("posts").
                          doc(postId).update({'saves.${user.uid}':true});
                          FirebaseFirestore.instance.collection("PostsSalvos").
-                         doc("$userUID-$postId").set({
+                         doc(postId).update({'saves.${user.uid}':true});
+                         FirebaseFirestore.instance.collection("PostsSalvos").
+                         doc(postId).set({
                            "imageURL": imageURL,
-                           "userUid" : userUID,
+                           'userUID': user.uid,
                            "postId" : postId,
+                           'descricaoDaReceita': descricaoDaReceita,
+                           'tempoDePreparo': tempoDePreparo,
+                           'ingredientes': ingredientes,
+                           'preparo': modoDePreparo,
+                           'porcoes': porcoes,
+                           'user': user,
+                           'username': username,
+                           'userImage':  userPhotoURL,
+                           'likes': {},
+                           'saves': {},
                          });
                        }else{
+                         FirebaseFirestore.instance.collection("PostsSalvos").
+                         doc(postId).update({'userUid':'null'});
                          FirebaseFirestore.instance.collection("posts").
                          doc(postId).update({'saves.${user.uid}':FieldValue.delete()});
                          FirebaseFirestore.instance.collection("PostsSalvos").
-                         doc("$userUID-$postId").delete();
+                         doc(postId).update({'saves.${user.uid}':FieldValue.delete()});
+                         FirebaseFirestore.instance.collection("PostsSalvos").
+                         doc(postId).delete();
                        }
                        isSaved = !isSaved;
                      });

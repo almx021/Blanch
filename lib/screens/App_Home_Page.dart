@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
                         ingredientes: postSnapshot.docs[index]['ingredientes'],
                         curtidas: postSnapshot.docs[index]['likes'].length,
                         isLiked: postSnapshot.docs[index]['likes'].containsKey(user.uid)?false:true,
+                        isSaved:  postSnapshot.docs[index]['saves'].containsKey(user.uid)?true:false,
                       );
                     }
 
@@ -210,7 +211,8 @@ class Constants{
     DeletarPost,
   ];
 }
-class PostTile extends StatelessWidget {
+class PostTile extends StatefulWidget{
+  @override
   String descricaoDaReceita;
   String user;
   String imageURL;
@@ -225,11 +227,37 @@ class PostTile extends StatelessWidget {
   String modoDePreparo;
   int curtidas;
   bool isLiked;
-  User currentUser = FirebaseAuth.instance.currentUser;
-
+  bool isSaved;
   PostTile({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid, this.username,
     this.userPhotoURL, this. currentPage, this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.curtidas,
-  this.isLiked});
+    this.isLiked, this.isSaved});
+  _PostTileState createState() => _PostTileState(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
+       username: username, userPhotoURL: userPhotoURL, porcoes: porcoes, tempoDePreparo: tempoDePreparo, ingredientes: ingredientes,
+      modoDePreparo: modoDePreparo, isLiked: isLiked,curtidas: curtidas, user: user, currentPage: currentPage, postID: postID,
+      useruid: useruid, isSaved: isSaved);
+}
+
+class _PostTileState extends State<PostTile> {
+  String descricaoDaReceita;
+  String user;
+  String imageURL;
+  String postID;
+  String useruid;
+  String username;
+  String userPhotoURL;
+  String currentPage;
+  String porcoes;
+  String tempoDePreparo;
+  String ingredientes;
+  String modoDePreparo;
+  int curtidas;
+  bool isLiked;
+  bool isSaved;
+  User currentUser = FirebaseAuth.instance.currentUser;
+
+  _PostTileState({@required this.imageURL, this.descricaoDaReceita, this.user, this.postID, this.useruid, this.username,
+    this.userPhotoURL, this. currentPage, this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.curtidas,
+  this.isLiked, this.isSaved});
 
 
   @override
@@ -415,13 +443,30 @@ class PostTile extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                      child: Icon(
-                        Icons.bookmarks_outlined,
-                        color: Colors.white,),
+
                       onTap: () {
-                        FirebaseFirestore.instance.collection("PostsSalvos").
-                        doc("$useruid-$postID").set(postData);
-                      }),
+                        print('aaaa');
+                        setState(() {
+                          if(!isSaved){
+                            FirebaseFirestore.instance.collection("posts").
+                            doc(postID).update({'saves.${currentUser.uid}':true});
+                            FirebaseFirestore.instance.collection("PostsSalvos").
+                            doc("$useruid-$postID").set(postData);
+                          }else{
+                            FirebaseFirestore.instance.collection("posts").
+                            doc(postID).update({'saves.${currentUser.uid}':FieldValue.delete()});
+                            FirebaseFirestore.instance.collection("PostsSalvos").
+                            doc("$useruid-$postID").delete();
+                          }
+                          isSaved = !isSaved;
+                        });
+
+                      },
+                    child: !isSaved ? Icon(
+                      Icons.bookmarks_outlined,
+                      color: Colors.white,): Icon(
+                      Icons.bookmarks_rounded,
+                      color: Colors.white,),),
                 ),
               ),
             ],
@@ -458,7 +503,7 @@ class PostTile extends StatelessWidget {
                   DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
                     name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
                       ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes,postId:postID,isLiked: isLiked,
-                      curtidas: curtidas,)));
+                      curtidas: curtidas,isSaved: isSaved, userUID: useruid,)));
                 },
                 child: Text(
                   'Ver mais',
@@ -471,16 +516,7 @@ class PostTile extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
                 right: size.width * 0.02, bottom: size.height * 0.02),
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                'Publicado 15 minutos atrás',
-                style: TextStyle(
-                    color: Colors.white38,
-                    fontSize:
-                        AdaptiveTextSize().getadaptiveTextSize(context, 11)),
-              ),
-            ),
+
           ),
         ],
       ),
@@ -493,11 +529,6 @@ class PostTile extends StatelessWidget {
       if(useruid == currentUser.uid){
         await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
         await FirebaseFirestore.instance.collection('PostsSalvos').doc("$useruid-$postID").delete();
-        for(int i = 0; i < _myDocCount.length; i++){
-          if(_myDocCount[i]['postId'].contains(postID)){
-            //Excluir item salvo do firebase
-          }
-    }
       }
     }
   }

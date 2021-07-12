@@ -56,7 +56,8 @@ import 'package:flutter/cupertino.dart';
       "time": Timestamp.now(),
       "username": username,
       "userImage": userImage,
-      "likes":{}
+      "likes":{},
+      "saves":{}
     };
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;

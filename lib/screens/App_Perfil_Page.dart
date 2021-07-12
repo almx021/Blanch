@@ -269,10 +269,17 @@ class _PerfilPageState extends State<PerfilPage> {
                               postID: postSnapshot.docs[index].id,
                               user: postSnapshot.docs[index]['user'],
                               descricaoDaReceita: postSnapshot.docs[index]['descricaoDaReceita'],
-                              useruid: user.uid,
                               username: postSnapshot.docs[index]['username'],
+                              useruid: user.uid,
                               userPhotoURL: postSnapshot.docs[index]['userImage'],
                               currentPage: "perfilPage",
+                              porcoes: postSnapshot.docs[index]['porcoes'],
+                              modoDePreparo: postSnapshot.docs[index]['preparo'],
+                              tempoDePreparo: postSnapshot.docs[index]['tempoDePreparo'],
+                              ingredientes: postSnapshot.docs[index]['ingredientes'],
+                              curtidas: postSnapshot.docs[index]['likes'].length,
+                              isLiked: postSnapshot.docs[index]['likes'].containsKey(user.uid)?false:true,
+                              isSaved:  postSnapshot.docs[index]['saves'].containsKey(user.uid)?true:false,
                             );
                           }
                           return Container();

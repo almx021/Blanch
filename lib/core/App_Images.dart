@@ -15,7 +15,7 @@ class AppImages {
   static String get newPost => 'images/Novo_Post.png';
   static String get notification => 'images/vector.png';
   static String get emAlta => 'images/Em_alta.png';
-  static String get perfilImage => 'images/zeroTwo.jpg';
+  static String get perfilImage => 'images/fotoDePerfil.png';
   static String get settingsApp => 'images/settings.png';
   static String get chatApp => 'images/chat.png';
   static String get homepage => 'images/homepage.png';

@@ -13,6 +13,7 @@ import 'App_Account_Page.dart';
 class DetalhesPostPage extends StatefulWidget {
  // const DetalhesPostPage({Key key}) : super(key: key);
 
+  String userUID;
   String descricaoDaReceita;
   String name;
   String imageURL;
@@ -23,21 +24,23 @@ class DetalhesPostPage extends StatefulWidget {
   String ingredientes;
   String modoDePreparo;
   bool isLiked;
+  bool isSaved;
   String postId;
   int curtidas;
   DetalhesPostPage({this.imageURL, this.descricaoDaReceita, this.name, this.username,
-    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.postId,this.isLiked,this.curtidas});
+    this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.postId,this.isLiked,this.curtidas,
+  this.isSaved, this.userUID});
 
   @override
   _DetalhesPostPageState createState() => _DetalhesPostPageState(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
   name: name, username: username, userPhotoURL: userPhotoURL, porcoes: porcoes, tempoDePreparo: tempoDePreparo, ingredientes: ingredientes,
-    modoDePreparo: modoDePreparo, postId:postId, isLiked: isLiked,curtidas: curtidas
+    modoDePreparo: modoDePreparo, postId:postId, isLiked: isLiked,curtidas: curtidas, isSaved: isSaved, userUID: userUID
   );
 }
 
 class _DetalhesPostPageState extends State<DetalhesPostPage> {
   bool isLiked;
-
+  bool isSaved;
   String descricaoDaReceita;
   String name;
   String imageURL;
@@ -49,15 +52,16 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
   String modoDePreparo;
   String postId;
   int curtidas;
-
+  String userUID;
   @override
 
 
   _DetalhesPostPageState({this.imageURL, this.descricaoDaReceita, this.name,this.username,
     this.userPhotoURL,this.porcoes, this.tempoDePreparo, this.ingredientes, this.modoDePreparo,this.postId,this.isLiked,
-    this.curtidas});
+    this.curtidas, this.isSaved, this. userUID});
 
   User user = FirebaseAuth.instance.currentUser;
+
 
   @override
   Widget build(BuildContext context) {
@@ -212,11 +216,31 @@ class _DetalhesPostPageState extends State<DetalhesPostPage> {
                       )),
                 ]),
                 IconButton(
-                    onPressed: () {},
-                    icon: Icon(
+                    onPressed: () {
+                     setState(() {
+                       if(!isSaved){
+                         FirebaseFirestore.instance.collection("posts").
+                         doc(postId).update({'saves.${user.uid}':true});
+                         FirebaseFirestore.instance.collection("PostsSalvos").
+                         doc("$userUID-$postId").set({
+                           "imageURL": imageURL,
+                           "userUid" : userUID,
+                           "postId" : postId,
+                         });
+                       }else{
+                         FirebaseFirestore.instance.collection("posts").
+                         doc(postId).update({'saves.${user.uid}':FieldValue.delete()});
+                         FirebaseFirestore.instance.collection("PostsSalvos").
+                         doc("$userUID-$postId").delete();
+                       }
+                       isSaved = !isSaved;
+                     });
+                    },
+                    icon: !isSaved ? Icon(
                       Icons.bookmarks_outlined,
-                      color: Colors.white,
-                    ))
+                      color: Colors.white,): Icon(
+                      Icons.bookmarks_rounded,
+                      color: Colors.white,))
               ],
             ),
             Padding(

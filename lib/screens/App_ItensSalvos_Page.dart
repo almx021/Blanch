@@ -14,10 +14,15 @@ class ItensSalvosPage extends StatefulWidget {
 
 class _ItensSalvosPageState extends State<ItensSalvosPage> {
 
+
+
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     User user = FirebaseAuth.instance.currentUser;
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +60,13 @@ class _ItensSalvosPageState extends State<ItensSalvosPage> {
                 }
                 List<DocumentSnapshot> itensSalvos =
                 snapshot.data.docs.reversed.toList();
-                return ListView.builder(
+
+
+
+                return
+
+                  ListView.builder(
+
                       itemCount: itensSalvos.length,
                       itemBuilder: (context, index) {
                         if (snapshot.data.docs[index]['userUid'].contains(user.uid)) {

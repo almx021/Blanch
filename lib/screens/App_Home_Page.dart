@@ -373,8 +373,9 @@ class _PostTileState extends State<PostTile> {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
                   DetalhesPostPage(imageURL: imageURL, descricaoDaReceita: descricaoDaReceita,
-                      name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
-                      ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes,isLiked: isLiked,)));
+                    name: user, username: username, userPhotoURL: userPhotoURL, modoDePreparo: modoDePreparo,
+                    ingredientes: ingredientes, tempoDePreparo: tempoDePreparo, porcoes: porcoes,postId:postID,isLiked: isLiked,
+                    curtidas: curtidas,isSaved: isSaved, userUID: useruid,)));
             },
     ),
           Padding(
